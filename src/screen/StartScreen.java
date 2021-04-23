@@ -19,7 +19,6 @@ public class StartScreen {
 	private GraphicsContext gc;
 	public static MenuBar menu;
 	private HowToPlay howToPlay;
-	private PlayerNameBar playerNameBar;
 
 	public static StackPane root;
 
@@ -30,8 +29,7 @@ public class StartScreen {
 		gc = canvas.getGraphicsContext2D();
 		menu = new MenuBar();
 		howToPlay = new HowToPlay();
-		playerNameBar = new PlayerNameBar();
-		
+
 		setUp();
 	}
 
@@ -60,7 +58,7 @@ public class StartScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				root.getChildren().add(playerNameBar);
+				root.getChildren().add(new PlayerNameBar(primaryStage));
 				menu.setButtonDisable();
 			}
 		});
