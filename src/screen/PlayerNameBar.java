@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -28,6 +30,7 @@ import exception.InvalidNameException;
 public class PlayerNameBar extends VBox {
 	private String Player1Name;
 	private String Player2Name;
+	private Stage primaryStage;
 
 	private TextField Player1NameField;
 	private TextField Player2NameField;
@@ -36,21 +39,37 @@ public class PlayerNameBar extends VBox {
 
 	private Button confirmButton1;
 	private Button confirmButton2;
+	private Button editButton1;
+	private Button editButton2;
 	private Button startButton;
+	private Button backButton;
 
 	private boolean isCheckP1;
 	private boolean isCheckP2;
 
-	public PlayerNameBar() {
+	public PlayerNameBar(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		setAlignment(Pos.CENTER);
-		setPrefSize(700, 300);
-		setMaxSize(700, 300);
-		setPadding(new Insets(200, 150, 200, 150));
+		setPrefSize(720, 300);
+		setMaxSize(720, 300);
+		setPadding(new Insets(100, 50, 100, 50));
 		setSpacing(20);
 		setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
 		setUpButtons();
 		setUpNameConfirm();
-		getChildren().addAll(nameConfirm1, nameConfirm2, startButton);
+		HBox buttonBox = new HBox(15);
+		buttonBox.getChildren().addAll(startButton, backButton);
+		Text description = new Text("Put your name in TextFeild\n" + "1) It must be contained with 1 - 6 characters.\n"
+				+ "2) It must be cantained only English alphabet.\n"
+				+ "3) Player 1 and Player 2 should not use the same name.");
+		description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 28));
+
+		Text p1 = new Text("Player 1");
+		p1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 28));
+		Text p2 = new Text("Player 2");
+		p2.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 28));
+
+		getChildren().addAll(description, p1, nameConfirm1, p2, nameConfirm2, buttonBox);
 	}
 
 	public void setUpTextFields() {
@@ -58,8 +77,10 @@ public class PlayerNameBar extends VBox {
 		Player2NameField = new TextField();
 		Player1NameField.setPrefSize(300, 75);
 		Player1NameField.setMinSize(300, 75);
+		Player1NameField.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		Player2NameField.setPrefSize(300, 75);
 		Player2NameField.setMinSize(300, 75);
+		Player2NameField.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 	}
 
 	public void setUpNameConfirm() {
@@ -68,22 +89,25 @@ public class PlayerNameBar extends VBox {
 		nameConfirm2 = new HBox();
 		nameConfirm1.setSpacing(15);
 		nameConfirm2.setSpacing(15);
-		nameConfirm1.getChildren().addAll(new Text("Player 1 Name: "), Player1NameField, confirmButton1);
-		nameConfirm2.getChildren().addAll(new Text("Player 2 Name: "), Player2NameField, confirmButton2);
+		nameConfirm1.getChildren().addAll(Player1NameField, confirmButton1);
+		nameConfirm2.getChildren().addAll(Player2NameField, confirmButton2);
 	}
 
 	public void confirmName(String name) throws InvalidNameException { // found return false, not found return true
 		if (name.isBlank()) {
-			throw new InvalidNameException("Player's name can not be blank");
+			throw new InvalidNameException("Player's name can not be blank.");
 		}
 		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
 		Matcher m = p.matcher(name);
 		boolean b = m.find();
 		if (b) {
-			throw new InvalidNameException("Player's name must not have special characters");
+			throw new InvalidNameException("Player's name must not have special characters.");
 		}
 		if (name.length() > 6) {
-			throw new InvalidNameException("Player's name must not exceed 6 characters");
+			throw new InvalidNameException("Player's name must not exceed 6 characters.");
+		}
+		if (name.equals(Player1Name) | name.equals(Player2Name)) {
+			throw new InvalidNameException("Player's name must not be the same.");
 		}
 	}
 
@@ -96,13 +120,17 @@ public class PlayerNameBar extends VBox {
 			public void handle(ActionEvent event) {
 				Thread checker = new Thread(() -> {
 					try {
-						confirmName(Player1NameField.getText());
-						Player1Name = Player1NameField.getText();
+						confirmName(Player1NameField.getText().strip());
+						Player1Name = Player1NameField.getText().strip();
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
 								if (!isCheckP1) {
+									Player1NameField.setDisable(true);
+									int numOfChild = nameConfirm1.getChildren().size();
+									nameConfirm1.getChildren().remove(numOfChild - 1);
+									nameConfirm1.getChildren().add(editButton1);
 									nameConfirm1.getChildren().add(imageViewCheck());
 									isCheckP1 = true;
 								}
@@ -110,12 +138,27 @@ public class PlayerNameBar extends VBox {
 							}
 						});
 					} catch (InvalidNameException e) {
+						Platform.runLater(new Runnable() {
 
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								Alert alert = new Alert(AlertType.INFORMATION);
+								alert.setTitle("Please fill again!");
+								alert.setContentText(e.getType());
+								alert.setHeaderText(null);
+								alert.showAndWait();
+								Player1NameField.setText("");
+
+							}
+
+						});
 					}
 				});
 				checker.start();
 			}
 		});
+
 		confirmButton2 = new ActionButton("CONFIRM");
 		confirmButton2.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		confirmButton2.setPrefSize(200, 50);
@@ -124,26 +167,92 @@ public class PlayerNameBar extends VBox {
 			public void handle(ActionEvent event) {
 				Thread checker = new Thread(() -> {
 					try {
-						confirmName(Player2NameField.getText());
-						Player2Name = Player2NameField.getText();
+						confirmName(Player2NameField.getText().strip());
+						Player2Name = Player2NameField.getText().strip();
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
 								if (!isCheckP2) {
+									Player2NameField.setDisable(true);
+									int numOfChild = nameConfirm2.getChildren().size();
+									nameConfirm2.getChildren().remove(numOfChild - 1);
+									nameConfirm2.getChildren().add(editButton2);
 									nameConfirm2.getChildren().add(imageViewCheck());
 									isCheckP2 = true;
 								}
 							}
 						});
 					} catch (InvalidNameException e) {
+						Platform.runLater(new Runnable() {
 
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								Alert alert = new Alert(AlertType.INFORMATION);
+								alert.setTitle("Please fill again!");
+								alert.setContentText(e.getType());
+								alert.setHeaderText(null);
+								alert.showAndWait();
+								Player2NameField.setText("");
+
+							}
+
+						});
 					}
 				});
 				checker.start();
 			}
 		});
+
 		startButton = new ActionButton("START GAME!");
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				if (isCheckP1 & isCheckP2) {
+					GameScreen gameScreen = new GameScreen(primaryStage, Player1Name, Player2Name);
+				}
+			}
+		});
+
+		backButton = new ActionButton("Back");
+		backButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				StartScreen.removeChildFromRoot();
+			}
+		});
+
+		editButton1 = new ActionButton("Edit");
+		editButton1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		editButton1.setPrefSize(200, 50);
+		editButton1.setMinSize(200, 50);
+		editButton1.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				Player1NameField.setDisable(false);
+				int numOfChild = nameConfirm1.getChildren().size();
+				nameConfirm1.getChildren().remove(numOfChild - 1);
+				nameConfirm1.getChildren().remove(numOfChild - 2);
+				nameConfirm1.getChildren().add(confirmButton1);
+				isCheckP1 = false;
+			}
+		});
+
+		editButton2 = new ActionButton("Edit");
+		editButton2.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		editButton2.setPrefSize(200, 50);
+		editButton2.setMinSize(200, 50);
+		editButton2.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				Player2NameField.setDisable(false);
+				int numOfChild = nameConfirm2.getChildren().size();
+				nameConfirm2.getChildren().remove(numOfChild - 1);
+				nameConfirm2.getChildren().remove(numOfChild - 2);
+				nameConfirm2.getChildren().add(confirmButton2);
+				isCheckP2 = false;
+			}
+		});
 
 	}
 
