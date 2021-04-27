@@ -15,12 +15,21 @@ public class DuckFighter extends Fighter {
 		setDodgeChance();
 	}
 
-	public String getSymbol() {
-		if (type.equals("melee")) {
-			return Sprites.DUCKMELEE;
-		} else {
-			return Sprites.DUCKRANGE;
+	public int getSymbol() {
+		if (team == 1) {
+			if (type.equals("melee")) {
+				return Sprites.P1_DUCKMELEE;
+			} else {
+				return Sprites.P1_DUCKRANGE;
+			}
+		} else if (team == 2) {
+			if (type.equals("melee")) {
+				return Sprites.P2_DUCKMELEE;
+			} else {
+				return Sprites.P2_DUCKRANGE;
+			}
 		}
+		return 0;
 	}
 
 	public double getDodgeChance() {

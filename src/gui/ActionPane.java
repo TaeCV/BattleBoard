@@ -17,7 +17,7 @@ import logic.GameController;
 public class ActionPane extends VBox {
 	private int addition;
 
-	public ActionPane(String symbol, int moveCount, int attackCount, int healCount) {
+	public ActionPane(int symbol, int moveCount, int attackCount, int healCount) {
 		setMaxSize(300, 200);
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.TAN, null, getInsets())));
@@ -41,7 +41,7 @@ public class ActionPane extends VBox {
 		if (attackCount != 0) {
 			getChildren().add(attackText);
 		}
-		if ((symbol.equals("HR") || symbol.equals("HM")) && healCount != 0) {
+		if ((symbol == 2 || symbol == 7 || symbol == 12 || symbol == 17) && healCount != 0) {
 			getChildren().add(healText);
 		}
 

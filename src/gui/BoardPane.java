@@ -36,7 +36,7 @@ public class BoardPane extends Canvas implements Updatable {
 		clear();
 		gc.drawImage(RenderableHolder.board_bg_Image, 0, 0, getWidth(), getHeight());
 	}
-	
+
 	public void clear() {
 		gc.clearRect(0, 0, 600, 700);
 	}
@@ -97,8 +97,8 @@ public class BoardPane extends Canvas implements Updatable {
 					GameController.setChoose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT3)
-						&& (gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HM")
-								|| gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HR"))
+						&& (gameBoard.map[coordinate1.getI()][coordinate1.getJ()] == 2
+								|| gameBoard.map[coordinate1.getI()][coordinate1.getJ()] == 7)
 						&& gameBoard.getAllPossibleAlliesToHeal(coordinate1).size() != 0) {
 					System.out.println("Heal!");
 					System.out.println(gameBoard.getAllPossibleAlliesToHeal(coordinate1).size());
@@ -207,8 +207,8 @@ public class BoardPane extends Canvas implements Updatable {
 					GameController.setChoose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT9)
-						&& (gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HM")
-								|| gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HR"))
+						&& (gameBoard.map[coordinate1.getI()][coordinate1.getJ()] == 12
+								|| gameBoard.map[coordinate1.getI()][coordinate1.getJ()] == 17)
 						&& gameBoard.getAllPossibleAlliesToHeal(coordinate1).size() != 0) {
 					System.out.println("Heal!");
 					System.out.println(gameBoard.getAllPossibleAlliesToHeal(coordinate1).size());

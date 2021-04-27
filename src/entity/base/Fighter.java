@@ -126,7 +126,7 @@ public abstract class Fighter implements Updatable {
 		this.isVisible = isVisible;
 	}
 
-	public abstract String getSymbol();
+	public abstract int getSymbol();
 
 	public int getAttackRange() {
 		return attackRange;

@@ -16,12 +16,21 @@ public class WildFighter extends Fighter {
 		attack += attack * bonusAttack / 100;
 	}
 
-	public String getSymbol() {
-		if (type.equals("melee")) {
-			return Sprites.WILDMELEE;
-		} else {
-			return Sprites.WILDRANGE;
+	public int getSymbol() {
+		if (team == 1) {
+			if (type.equals("melee")) {
+				return Sprites.P1_WILDMELEE;
+			} else {
+				return Sprites.P1_WILDRANGE;
+			}
+		} else if (team == 2) {
+			if (type.equals("melee")) {
+				return Sprites.P2_WILDMELEE;
+			} else {
+				return Sprites.P2_WILDRANGE;
+			}
 		}
+		return 0;
 	}
 
 	public double getBonusAttack() {

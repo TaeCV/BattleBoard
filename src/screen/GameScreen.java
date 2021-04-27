@@ -81,8 +81,8 @@ public class GameScreen {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < GameController.N_ROWS; i++) {
 			for (int j = 0; j < GameController.N_COLS; j++) {
-				if (!gameBoard.map[i][j].equals("R") & !gameBoard.map[i][j].equals("G")) {
-					gameGC.drawImage(getImage(gameBoard.map[i][j]),
+				if (gameBoard.map[i][j] <= 20) {
+					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
 							GameController.originX + (j * GameController.PIXEL_X) + 10,
 							GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
 				}
@@ -144,33 +144,6 @@ public class GameScreen {
 		scene.setOnKeyReleased((KeyEvent e) -> {
 			InputUtility.setKeyPressed(e.getCode(), false);
 		});
-	}
-
-	public Image getImage(String symbol) {
-		Image image;
-//		if (symbol.equals("DM")) {
-//			image = RenderableHolder.duck_melee_head.png;
-//		} else if (symbol.equals("DR")) {
-//			image = RenderableHolder.duck_range_head.png;
-//		} else if (symbol.equals("HM")) {
-//			image = RenderableHolder.healer_melee_head.png;
-//		} else if (symbol.equals("HR")) {
-//			image = RenderableHolder.healer_range_head.png;
-//		} else if (symbol.equals("SM")) {
-//			image = RenderableHolder.speedy_head.png;
-//		} else if (symbol.equals("SR")) {
-//			image = RenderableHolder.speedy_range_head.png;
-//		} else if (symbol.equals("TM")) {
-//			image = RenderableHolder.tough_melee_head.png;
-//		} else if (symbol.equals("TR")) {
-//			image = RenderableHolder.tough_range_head.png;
-//		} else if (symbol.equals("WM")) {
-//			image = RenderableHolder.wild_melee_head.png;
-//		} else if (symbol.equals("WR")) {
-//			image = RenderableHolder.wild_range_head.png;
-//		}
-		image = RenderableHolder.example_Image;
-		return image;
 	}
 
 	public void setScene() {

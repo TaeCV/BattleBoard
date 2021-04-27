@@ -16,12 +16,21 @@ public class ToughFighter extends Fighter {
 		setStats();
 	}
 
-	public String getSymbol() {
-		if (type.equals("melee")) {
-			return Sprites.TOUGHMELEE;
-		} else {
-			return Sprites.TOUGHRANGE;
+	public int getSymbol() {
+		if (team == 1) {
+			if (type.equals("melee")) {
+				return Sprites.P1_TOUGHMELEE;
+			} else {
+				return Sprites.P1_TOUGHRANGE;
+			}
+		} else if (team == 2) {
+			if (type.equals("melee")) {
+				return Sprites.P2_TOUGHMELEE;
+			} else {
+				return Sprites.P2_TOUGHRANGE;
+			}
 		}
+		return 0;
 	}
 
 	public void setStats() {

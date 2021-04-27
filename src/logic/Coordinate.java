@@ -2,7 +2,7 @@ package logic;
 
 import entity.base.Fighter;
 
-public class Coordinate {
+public class Coordinate implements Comparable<Coordinate> {
 	private int i;
 	private int j;
 
@@ -42,20 +42,9 @@ public class Coordinate {
 		setEmpty(false);
 	}
 
-	public String toString() {
-		return "(" + i + "," + j + ")";
-	}
-
-	public boolean equals(Coordinate other) {
-		if ((other.getI() == i) && (other.getJ() == j)) {
-			return true;
-		}
-		return false;
-	}
-
-	public String getSymbol() {
+	public int getSymbol() {
 		if (myFighter == null) {
-			if (!isEmpty) {
+			if (!isEmpty()) {
 				return Sprites.RIVER;
 			}
 			return Sprites.GROUND;
@@ -81,5 +70,20 @@ public class Coordinate {
 		int[] pixel = { GameController.originX + (j * GameController.PIXEL_X),
 				GameController.originY + (i * GameController.PIXEL_Y) };
 		return pixel;
+	}
+
+	public String toString() {
+		return "(" + i + "," + j + ")";
+	}
+
+	public boolean equals(Coordinate other) {
+		if ((other.getI() == i) && (other.getJ() == j)) {
+			return true;
+		}
+		return false;
+	}
+
+	public int compareTo(Coordinate other) {
+		return this.toString().compareTo(other.toString());
 	}
 }

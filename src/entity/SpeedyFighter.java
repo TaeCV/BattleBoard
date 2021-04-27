@@ -13,11 +13,20 @@ public class SpeedyFighter extends Fighter {
 		totalMoves = 2;
 	}
 
-	public String getSymbol() {
-		if (type.equals("melee")) {
-			return Sprites.SPEEDYMELEE;
-		} else {
-			return Sprites.SPEEDYRANGE;
+	public int getSymbol() {
+		if (team == 1) {
+			if (type.equals("melee")) {
+				return Sprites.P1_SPEEDYMELEE;
+			} else {
+				return Sprites.P1_SPEEDYRANGE;
+			}
+		} else if (team == 2) {
+			if (type.equals("melee")) {
+				return Sprites.P2_SPEEDYMELEE;
+			} else {
+				return Sprites.P2_SPEEDYRANGE;
+			}
 		}
+		return 0;
 	}
 }

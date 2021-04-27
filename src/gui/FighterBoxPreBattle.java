@@ -10,7 +10,7 @@ import sharedObject.RenderableHolder;
 
 public class FighterBoxPreBattle extends FighterBox implements Updatable{
 
-	public FighterBoxPreBattle(Fighter fighter, String symbol) {
+	public FighterBoxPreBattle(Fighter fighter, int symbol) {
 		super(fighter, symbol);
 		setWidth(150);
 		setHeight(600 / 8);
@@ -24,14 +24,14 @@ public class FighterBoxPreBattle extends FighterBox implements Updatable{
 		gc.fillRect(0, 0, 150, 600 / 8);
 		gc.drawImage(image, 5, 5, 70, 70);
 		gc.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
-		gc.strokeText(fighter.getSymbol(), 90, 45);
+		gc.strokeText(Integer.toString(fighter.getSymbol()), 90, 45);
 		gc.strokeRect(0, 0, 150, 600 / 8);
 	}
 
 	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
-		image = RenderableHolder.sword_Image;		
+		image = RenderableHolder.getHeadImage(symbol);	
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class FighterBoxPreBattle extends FighterBox implements Updatable{
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(1);
 		gc.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
-		gc.strokeText(fighter.getSymbol(), 90, 45);
+		gc.strokeText(Integer.toString(fighter.getSymbol()), 90, 45);
 		gc.strokeRect(0, 0, 150, 600 / 8);
 	}
 

@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import entity.*;
@@ -9,7 +10,7 @@ import entity.base.Fighter;
 public class GameBoard {
 	// private Cell[][] cellBoard;
 	private Coordinate[][] board;
-	public String[][] map;
+	public int[][] map;
 
 	private int rows;
 	private int cols;
@@ -30,7 +31,7 @@ public class GameBoard {
 		rows = GameController.N_ROWS;
 		cols = GameController.N_COLS;
 		board = new Coordinate[rows][cols];
-		map = new String[rows][cols];
+		map = new int[rows][cols];
 
 		setWidth(rows);
 		setHeight(cols);
@@ -162,9 +163,14 @@ public class GameBoard {
 		possibleCoordinate.addAll(firstTime);
 		if (currentCoordinate.getFighter() instanceof SpeedyFighter) {
 			for (Coordinate current : firstTime) {
-				possibleCoordinate.addAll(getAllPossibleToMoveDistance1(current));
+				for (Coordinate possible : getAllPossibleToMoveDistance1(current)) {
+					if ((!possibleCoordinate.contains(possible)) && isPossibleToMove(current, possible)) {
+						possibleCoordinate.add(possible);
+					}
+				}
 			}
 		}
+		Collections.sort(possibleCoordinate);
 		return possibleCoordinate;
 	}
 
@@ -380,7 +386,7 @@ public class GameBoard {
 		return allFighters;
 	}
 
-	public String[][] getMap() {
+	public int[][] getMap() {
 		return map;
 	}
 

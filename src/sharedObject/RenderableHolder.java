@@ -47,12 +47,52 @@ public class RenderableHolder implements IRenderable {
 
 	// Sword
 	public static Image sword_Image;
-	
+
 	// Fighter
 	public static Image example_Image;
-	
+
+	// Duck
+	public static Image duckmelee1_Image;
+	public static Image duckmelee2_Image;
+	public static Image duckrange1_Image;
+	public static Image duckrange2_Image;
+	public static Image duckmeleehead_Image;
+	public static Image duckrangehead_Image;
+
+	// Healer
+	public static Image healermelee1_Image;
+	public static Image healermelee2_Image;
+	public static Image healerrange1_Image;
+	public static Image healerrange2_Image;
+	public static Image healermeleehead_Image;
+	public static Image healerrangehead_Image;
+
+	// Speedy
+	public static Image speedymelee1_Image;
+	public static Image speedymelee2_Image;
+	public static Image speedyrange1_Image;
+	public static Image speedyrange2_Image;
+	public static Image speedymeleehead_Image;
+	public static Image speedyrangehead_Image;
+
+	// Tough
+	public static Image toughmelee1_Image;
+	public static Image toughmelee2_Image;
+	public static Image toughrange1_Image;
+	public static Image toughrange2_Image;
+	public static Image toughmeleehead_Image;
+	public static Image toughrangehead_Image;
+
+	// Wild
+	public static Image wildmelee1_Image;
+	public static Image wildmelee2_Image;
+	public static Image wildrange1_Image;
+	public static Image wildrange2_Image;
+	public static Image wildmeleehead_Image;
+	public static Image wildrangehead_Image;
+
 	// =============================EndScreen====================================
-	//Background Images
+	// Background Images
 	public static Image end_bg_Image;
 	public static Image tie_end_bg_Image;
 
@@ -123,6 +163,113 @@ public class RenderableHolder implements IRenderable {
 		}
 	}
 
+	public static Image getHeadImage(int symbol) {
+		if (symbol > 10) {
+			symbol -= 10;
+		}
+		Image image = null;
+		switch (symbol) {
+		case 1:
+			image = RenderableHolder.duckmeleehead_Image;
+			break;
+		case 2:
+			image = RenderableHolder.healermeleehead_Image;
+			break;
+		case 3:
+			image = RenderableHolder.speedymeleehead_Image;
+			break;
+		case 4:
+			image = RenderableHolder.toughmeleehead_Image;
+			break;
+		case 5:
+			image = RenderableHolder.wildmeleehead_Image;
+			break;
+		case 6:
+			image = RenderableHolder.duckrangehead_Image;
+			break;
+		case 7:
+			image = RenderableHolder.healerrangehead_Image;
+			break;
+		case 8:
+			image = RenderableHolder.speedyrangehead_Image;
+			break;
+		case 9:
+			image = RenderableHolder.toughrangehead_Image;
+			break;
+		case 10:
+			image = RenderableHolder.wildrangehead_Image;
+			break;
+		}
+		return image;
+	}
+
+	public static Image getFullBodyImage(int symbol) {
+		Image image = null;
+		switch (symbol) {
+		case 1:
+			image = RenderableHolder.duckmelee1_Image;
+			break;
+		case 2:
+			image = RenderableHolder.healermelee1_Image;
+			break;
+		case 3:
+			image = RenderableHolder.speedymelee1_Image;
+			break;
+		case 4:
+			image = RenderableHolder.toughmelee1_Image;
+			break;
+		case 5:
+			image = RenderableHolder.wildmelee1_Image;
+			break;
+		case 6:
+			image = RenderableHolder.duckrange1_Image;
+			break;
+		case 7:
+			image = RenderableHolder.healerrange1_Image;
+			break;
+		case 8:
+			image = RenderableHolder.speedyrange1_Image;
+			break;
+		case 9:
+			image = RenderableHolder.toughrange1_Image;
+			break;
+		case 10:
+			image = RenderableHolder.wildrange1_Image;
+			break;
+		case 11:
+			image = RenderableHolder.duckmelee2_Image;
+			break;
+		case 12:
+			image = RenderableHolder.healermelee2_Image;
+			break;
+		case 13:
+			image = RenderableHolder.speedymelee2_Image;
+			break;
+		case 14:
+			image = RenderableHolder.toughmelee2_Image;
+			break;
+		case 15:
+			image = RenderableHolder.wildmelee2_Image;
+			break;
+		case 16:
+			image = RenderableHolder.duckrange2_Image;
+			break;
+		case 17:
+			image = RenderableHolder.healerrange2_Image;
+			break;
+		case 18:
+			image = RenderableHolder.speedyrange2_Image;
+			break;
+		case 19:
+			image = RenderableHolder.toughrange2_Image;
+			break;
+		case 20:
+			image = RenderableHolder.wildrange2_Image;
+			break;
+		}
+		return image;
+	}
+
 	public static void loadResource() {
 		String img = "image/";
 
@@ -132,7 +279,7 @@ public class RenderableHolder implements IRenderable {
 		board_bg_Image = new Image(ClassLoader.getSystemResource(img + "image0.jpg").toString());
 		end_bg_Image = new Image(ClassLoader.getSystemResource(img + "end_bg.jpg").toString());
 		tie_end_bg_Image = new Image(ClassLoader.getSystemResource(img + "tie_end_bg.jpg").toString());
-		
+
 		howToPlay_bg_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_bg.jpg").toString());
 		howToPlay_p1_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_p1.jpg").toString());
 
@@ -146,6 +293,42 @@ public class RenderableHolder implements IRenderable {
 		check_Image = new Image(ClassLoader.getSystemResource(img + "check.png").toString());
 		sword_Image = new Image(ClassLoader.getSystemResource(img + "sword.png").toString());
 		example_Image = new Image(ClassLoader.getSystemResource(img + "example.png").toString());
+
+		duckmelee1_Image = new Image(ClassLoader.getSystemResource(img + "duckmelee1.png").toString());
+		duckmelee2_Image = new Image(ClassLoader.getSystemResource(img + "duckmelee2.png").toString());
+		duckrange1_Image = new Image(ClassLoader.getSystemResource(img + "duckrange1.png").toString());
+		duckrange2_Image = new Image(ClassLoader.getSystemResource(img + "duckrange1.png").toString());
+		duckmeleehead_Image = new Image(ClassLoader.getSystemResource(img + "duckmeleehead.png").toString());
+		duckrangehead_Image = new Image(ClassLoader.getSystemResource(img + "duckrangehead.png").toString());
+
+		healermelee1_Image = new Image(ClassLoader.getSystemResource(img + "healermelee1.png").toString());
+		healermelee2_Image = new Image(ClassLoader.getSystemResource(img + "healerrange1.png").toString());
+		healerrange1_Image = new Image(ClassLoader.getSystemResource(img + "healermelee2.png").toString());
+		healerrange2_Image = new Image(ClassLoader.getSystemResource(img + "healerrange2.png").toString());
+		healermeleehead_Image = new Image(ClassLoader.getSystemResource(img + "healermeleehead.png").toString());
+		healerrangehead_Image = new Image(ClassLoader.getSystemResource(img + "healerrangehead.png").toString());
+
+		speedymelee1_Image = new Image(ClassLoader.getSystemResource(img + "speedymelee1.png").toString());
+		speedymelee2_Image = new Image(ClassLoader.getSystemResource(img + "speedyrange1.png").toString());
+		speedyrange1_Image = new Image(ClassLoader.getSystemResource(img + "speedymelee2.png").toString());
+		speedyrange2_Image = new Image(ClassLoader.getSystemResource(img + "speedyrange2.png").toString());
+		speedymeleehead_Image = new Image(ClassLoader.getSystemResource(img + "speedymeleehead.png").toString());
+		speedyrangehead_Image = new Image(ClassLoader.getSystemResource(img + "speedyrangehead.png").toString());
+
+		toughmelee1_Image = new Image(ClassLoader.getSystemResource(img + "toughmelee1.png").toString());
+		toughmelee2_Image = new Image(ClassLoader.getSystemResource(img + "toughrange1.png").toString());
+		toughrange1_Image = new Image(ClassLoader.getSystemResource(img + "toughmelee2.png").toString());
+		toughrange2_Image = new Image(ClassLoader.getSystemResource(img + "toughrange2.png").toString());
+		toughmeleehead_Image = new Image(ClassLoader.getSystemResource(img + "toughmeleehead.png").toString());
+		toughrangehead_Image = new Image(ClassLoader.getSystemResource(img + "toughrangehead.png").toString());
+
+		wildmelee1_Image = new Image(ClassLoader.getSystemResource(img + "wildmelee1.png").toString());
+		wildmelee2_Image = new Image(ClassLoader.getSystemResource(img + "wildmelee2.png").toString());
+		wildrange1_Image = new Image(ClassLoader.getSystemResource(img + "wildrange1.png").toString());
+		wildrange2_Image = new Image(ClassLoader.getSystemResource(img + "wildrange2.png").toString());
+		wildmeleehead_Image = new Image(ClassLoader.getSystemResource(img + "wildmeleehead.png").toString());
+		wildrangehead_Image = new Image(ClassLoader.getSystemResource(img + "wildrangehead.png").toString());
+
 	}
 
 	public static RenderableHolder getInstance() {

@@ -10,12 +10,12 @@ import javafx.scene.text.FontWeight;
 import sharedObject.RenderableHolder;
 
 public abstract class FighterBox extends Canvas {
-	protected String symbol;
+	protected int symbol;
 	protected GraphicsContext gc;
 	protected Image image;
 	protected Fighter fighter;
 
-	public FighterBox(Fighter fighter, String symbol) {
+	public FighterBox(Fighter fighter, int symbol) {
 		this.symbol = symbol;
 		this.fighter = fighter;
 		gc = getGraphicsContext2D();

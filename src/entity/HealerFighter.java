@@ -26,12 +26,21 @@ public class HealerFighter extends Fighter {
 		setHealingPoint();
 	}
 
-	public String getSymbol() {
-		if (type.equals("melee")) {
-			return Sprites.HEALERMELEE;
-		} else {
-			return Sprites.HEALERRANGE;
+	public int getSymbol() {
+		if (team == 1) {
+			if (type.equals("melee")) {
+				return Sprites.P1_HEALERMELEE;
+			} else {
+				return Sprites.P1_HEALERRANGE;
+			}
+		} else if (team == 2) {
+			if (type.equals("melee")) {
+				return Sprites.P2_HEALERMELEE;
+			} else {
+				return Sprites.P2_HEALERRANGE;
+			}
 		}
+		return 0;
 	}
 
 	public double getHealingPoint() {
