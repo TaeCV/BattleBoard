@@ -10,7 +10,7 @@ public class GameController {
 	public static final int N_ROWS = 5;
 	public static final int N_COLS = 7;
 	public static final int PRE_BATTLE_PHASE_TIME = 60;
-	public static final int BATTLE_PHASE_TIME = 30;
+	public static final int BATTLE_PHASE_TIME = 3;
 	public static final int MAX_TURN_PER_PLAYER = 7;
 	public static final int MAX_ROUND = 3;
 
@@ -192,9 +192,8 @@ public class GameController {
 		setP1(!isP1());
 		gameBoard.resetReady();
 		if (GameController.getTurnCount() > GameController.MAX_TURN_PER_PLAYER * 2) {
+			setP1(!isP1());
 			checkWinnerOfTheRound();
-			gameBoard = new GameBoard();
-			gameBoard.printMap();
 			GameController.setEndBattle(false);
 			GameController.setEndPreBattle(false);
 			GameController.addRoundCount();
@@ -223,14 +222,16 @@ public class GameController {
 		}
 	}
 
-	public static void checkWinnerOfTheRound() {
+	public static void checkWinnerOfTheRound() { // fix win round logic
 		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
 			P2Score++;
-		} else if (gameBoard.calculateSumOfHitPointRemain(1) > gameBoard.calculateSumOfHitPointRemain(2)) {
+		} else if (gameBoard.calculatePercentSumOfHitPointRemain(1) > gameBoard
+				.calculatePercentSumOfHitPointRemain(2)) {
 			P1Score++;
-		} else if (gameBoard.calculateSumOfHitPointRemain(2) > gameBoard.calculateSumOfHitPointRemain(1)) {
+		} else if (gameBoard.calculatePercentSumOfHitPointRemain(2) > gameBoard
+				.calculatePercentSumOfHitPointRemain(1)) {
 			P2Score++;
 		}
 	}
