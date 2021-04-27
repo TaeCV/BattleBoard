@@ -11,8 +11,8 @@ public class Coordinate {
 	private Fighter myFighter;
 
 	public Coordinate(int i, int j) {
-		this.i = i;
-		this.j = j;
+		setI(i);
+		setJ(j);
 		isEmpty = true;
 		myFighter = null;
 	}
@@ -55,10 +55,10 @@ public class Coordinate {
 
 	public String getSymbol() {
 		if (myFighter == null) {
+			if (!isEmpty) {
+				return Sprites.RIVER;
+			}
 			return Sprites.GROUND;
-		}
-		if ((myFighter == null) & (!isEmpty)) {
-			return Sprites.RIVER;
 		}
 		return myFighter.getSymbol();
 	}
