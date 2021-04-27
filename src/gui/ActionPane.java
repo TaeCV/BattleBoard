@@ -17,7 +17,7 @@ import logic.GameController;
 public class ActionPane extends VBox {
 	private int addition;
 
-	public ActionPane(String symbol) {
+	public ActionPane(String symbol, int moveCount, int attackCount, int healCount) {
 		setMaxSize(300, 200);
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.TAN, null, getInsets())));
@@ -35,8 +35,13 @@ public class ActionPane extends VBox {
 		Text healText = new Text(Integer.toString(3 + addition) + ") HEAL	");
 		healText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
 
-		getChildren().addAll(moveText, attackText);
-		if (symbol.equals("HR") || symbol.equals("HM")) {
+		if (moveCount != 0) {
+			getChildren().add(moveText);
+		}
+		if (attackCount != 0) {
+			getChildren().add(attackText);
+		}
+		if ((symbol.equals("HR") || symbol.equals("HM")) && healCount != 0) {
 			getChildren().add(healText);
 		}
 
