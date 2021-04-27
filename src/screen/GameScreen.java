@@ -224,7 +224,7 @@ public class GameScreen {
 		drawStatusPane(); // Set default statusPane without time and round
 		P1Pane = SimulationManager.getP1PanePreBattle();
 		P2Pane = SimulationManager.getP2PanePreBattle();
-		((BoardPane) gameCanvas).draw();
+		gameBoard.setDefault();
 
 		final long startNanoTime = System.nanoTime();
 		AnimationTimer timerPreBattle = new AnimationTimer() {
@@ -257,6 +257,7 @@ public class GameScreen {
 	}
 
 	public void initializeBattle() {
+		gameBoard.printMap();
 		P1Pane = SimulationManager.getP1PaneBattle();
 		P2Pane = SimulationManager.getP2PaneBattle();
 		final long startNanoTime = System.nanoTime();
