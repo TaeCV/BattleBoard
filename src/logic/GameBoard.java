@@ -29,7 +29,7 @@ public class GameBoard {
 		allFighters = new ArrayList<Fighter>();
 		rows = GameController.N_ROWS;
 		cols = GameController.N_COLS;
-
+		board = new Coordinate[rows][cols];
 		map = new String[rows][cols];
 
 		setWidth(rows);
@@ -39,17 +39,8 @@ public class GameBoard {
 //			for (int j = 0; j < cols; j++) {
 //				cellBoard[i][j] = new Cell(new Coordinate(i, j));
 //			}
-//		}
-
-		board = new Coordinate[rows][cols];
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				board[i][j] = new Coordinate(i, j);
-			}
-		}
-
-		setRiver();
-		setMap();
+//		}	
+		setDefault();
 	}
 
 	// --------------------------------------initializer
@@ -110,6 +101,20 @@ public class GameBoard {
 			Player2Fighters.add(f);
 			addFighter(f, new Coordinate(i, 6));
 			i++;
+		}
+	}
+
+	public void setDefault() {
+		setBoard();
+		setRiver();
+		setMap();
+	}
+
+	public void setBoard() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				board[i][j] = new Coordinate(i, j);
+			}
 		}
 	}
 
@@ -338,18 +343,21 @@ public class GameBoard {
 		return distance;
 	}
 
-	public double calculateSumOfHitPointRemain(int team) {
-		double s = 0;
+	public double calculatePercentSumOfHitPointRemain(int team) {
+		double hitPointSum = 0;
+		double maxHitPointSum = 0;
 		if (team == 1) {
 			for (Fighter f : Player1Fighters) {
-				s += f.getHitPoint();
+				hitPointSum += f.getHitPoint();
+				maxHitPointSum += f.getMaxHitPoint();
 			}
 		} else {
 			for (Fighter f : Player2Fighters) {
-				s += f.getHitPoint();
+				hitPointSum += f.getHitPoint();
+				maxHitPointSum += f.getMaxHitPoint();
 			}
 		}
-		return s;
+		return hitPointSum / maxHitPointSum;
 	}
 
 	public int getWidth() {
@@ -378,9 +386,11 @@ public class GameBoard {
 
 	public void printMap() {
 		for (int i = 0; i < rows; i++) {
+			String eachRow = "";
 			for (int j = 0; j < cols; j++) {
-				System.out.println(map[i][j]);
+				eachRow += map[i][j] + " ";
 			}
+			System.out.println(eachRow);
 		}
 	}
 
