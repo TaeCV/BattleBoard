@@ -3,12 +3,12 @@ package screen;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import entity.base.ActionButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -16,16 +16,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.GameController;
 import sharedObject.RenderableHolder;
 import exception.InvalidNameException;
+import gui.base.ActionButton;
 
 public class PlayerNameBar extends VBox {
 	private String Player1Name;
@@ -48,38 +56,45 @@ public class PlayerNameBar extends VBox {
 	private boolean isCheckP2;
 
 	public PlayerNameBar(Stage primaryStage) {
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 		this.primaryStage = primaryStage;
 		setAlignment(Pos.CENTER);
 		setPrefSize(720, 300);
 		setMaxSize(720, 300);
 		setPadding(new Insets(100, 50, 100, 50));
-		setSpacing(20);
-		setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
+		setSpacing(25);
+		setBackground(new Background(new BackgroundFill(Color.TAN, CornerRadii.EMPTY, Insets.EMPTY)));
 		setUpButtons();
 		setUpNameConfirm();
-		HBox buttonBox = new HBox(15);
+		HBox buttonBox = new HBox(40);
+		buttonBox.setPadding(new Insets(25));
 		buttonBox.getChildren().addAll(startButton, backButton);
+
 		Text description = new Text("Put your name in TextFeild\n" + "1) It must be contained with 1 - 6 characters.\n"
-				+ "2) It must be cantained only English alphabet.\n"
+				+ "2) It must be cantained only English alphabet and number.\n"
 				+ "3) Player 1 and Player 2 should not use the same name.");
-		description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 28));
+		description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 14));
+		description.setX(0);
+		description.setY(0);
+		StackPane groupText = new StackPane(description);
+		groupText.setAlignment(Pos.CENTER_LEFT);
 
 		Text p1 = new Text("Player 1");
-		p1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 28));
+		p1.setFont(Font.font("Palatino Linotype", FontWeight.BOLD, 28));
 		Text p2 = new Text("Player 2");
-		p2.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 28));
+		p2.setFont(Font.font("Palatino Linotype", FontWeight.BOLD, 28));
 
-		getChildren().addAll(description, p1, nameConfirm1, p2, nameConfirm2, buttonBox);
+		getChildren().addAll(p1, nameConfirm1, p2, nameConfirm2, buttonBox, groupText);
 	}
 
 	public void setUpTextFields() {
 		Player1NameField = new TextField();
 		Player2NameField = new TextField();
-		Player1NameField.setPrefSize(300, 75);
-		Player1NameField.setMinSize(300, 75);
+		Player1NameField.setPrefSize(200, 50);
+		Player1NameField.setMinSize(200, 50);
 		Player1NameField.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
-		Player2NameField.setPrefSize(300, 75);
-		Player2NameField.setMinSize(300, 75);
+		Player2NameField.setPrefSize(200, 50);
+		Player2NameField.setMinSize(200, 50);
 		Player2NameField.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 	}
 
@@ -87,8 +102,8 @@ public class PlayerNameBar extends VBox {
 		setUpTextFields();
 		nameConfirm1 = new HBox();
 		nameConfirm2 = new HBox();
-		nameConfirm1.setSpacing(15);
-		nameConfirm2.setSpacing(15);
+		nameConfirm1.setSpacing(30);
+		nameConfirm2.setSpacing(30);
 		nameConfirm1.getChildren().addAll(Player1NameField, confirmButton1);
 		nameConfirm2.getChildren().addAll(Player2NameField, confirmButton2);
 	}
@@ -106,7 +121,7 @@ public class PlayerNameBar extends VBox {
 		if (name.length() > 6) {
 			throw new InvalidNameException("Player's name must not exceed 6 characters.");
 		}
-		if (name.equals(Player1Name) | name.equals(Player2Name)) {
+		if ((isCheckP1 && name.equals(Player1Name)) || (isCheckP2 && name.equals(Player2Name))) {
 			throw new InvalidNameException("Player's name must not be the same.");
 		}
 	}
@@ -149,7 +164,7 @@ public class PlayerNameBar extends VBox {
 								alert.setHeaderText(null);
 								alert.showAndWait();
 								Player1NameField.setText("");
-
+								Player1Name = "";
 							}
 
 						});
@@ -208,8 +223,9 @@ public class PlayerNameBar extends VBox {
 		startButton = new ActionButton("START GAME!");
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				if (isCheckP1 & isCheckP2) {
-					GameScreen gameScreen = new GameScreen(primaryStage, Player1Name, Player2Name);
+				if (isCheckP1 && isCheckP2) {
+					GameController.setDefault(Player1Name, Player2Name);
+					new GameScreen(primaryStage, Player1Name, Player2Name);
 				}
 			}
 		});
@@ -259,7 +275,7 @@ public class PlayerNameBar extends VBox {
 	public ImageView imageViewCheck() {
 		ImageView checkImageView = new ImageView(RenderableHolder.check_Image);
 		checkImageView.setPreserveRatio(true);
-		checkImageView.setFitHeight(75);
+		checkImageView.setFitHeight(50);
 		return checkImageView;
 	}
 }

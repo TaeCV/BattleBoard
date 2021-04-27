@@ -1,6 +1,6 @@
 package screen;
 
-import entity.base.ActionButton;
+import gui.base.ActionButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

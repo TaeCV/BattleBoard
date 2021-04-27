@@ -1,30 +1,66 @@
 package gui;
 
+import java.util.ArrayList;
+
+import entity.base.Fighter;
+import logic.GameController;
+import screen.GameScreen;
+
 public class SimulationManager {
-	private static Player1Pane p1Pane;
-	private static Player2Pane p2Pane;
+	private static PlayerPaneBattle P1PaneBattle;
+	private static PlayerPaneBattle P2PaneBattle;
+	private static PlayerPanePreBattle P1PanePreBattle;
+	private static PlayerPanePreBattle P2PanePreBattle;
 	private static BoardPane board;
-	
+
 	public static void initializeAllPane() {
-		p1Pane = new Player1Pane();
-		p2Pane = new Player2Pane();
+		P1PaneBattle = new PlayerPaneBattle(1);
+		P2PaneBattle = new PlayerPaneBattle(2);
+		P1PanePreBattle = new PlayerPanePreBattle(1);
+		P2PanePreBattle = new PlayerPanePreBattle(2);
 		board = new BoardPane();
 	}
-	
-	public static void updatePane() {
-		//p1Pane.update();
-		//p2Pane.update();
+
+	public static void updatePaneBattle() {
+		board.update();
+		P1PaneBattle.update();
+		P2PaneBattle.update();
 	}
 
-	public static Player1Pane getP1Pane() {
-		return p1Pane;
+	public static void updatePanePreBattle() {
+		P1PanePreBattle.update();
+		P2PanePreBattle.update();
 	}
 
-	public static Player2Pane getP2Pane() {
-		return p2Pane;
+	public static PlayerPaneBattle getP1PaneBattle() {
+		return P1PaneBattle;
 	}
-	
+
+	public static PlayerPaneBattle getP2PaneBattle() {
+		return P2PaneBattle;
+	}
+
+	public static PlayerPanePreBattle getP1PanePreBattle() {
+		FighterBoxPreBattle selectedPreFighterP1 = (FighterBoxPreBattle) P1PanePreBattle.getChildren()
+				.get(GameScreen.positionToSelectP1);
+		selectedPreFighterP1.update();
+		return P1PanePreBattle;
+	}
+
+	public static PlayerPanePreBattle getP2PanePreBattle() {
+		FighterBoxPreBattle selectedPreFighterP2 = (FighterBoxPreBattle) P2PanePreBattle.getChildren()
+				.get(GameScreen.positionToSelectP2);
+		selectedPreFighterP2.update();
+		return P2PanePreBattle;
+	}
+
 	public static BoardPane getBoard() {
 		return board;
+	}
+
+	public static void fillUpPaneBattle() {
+		P1PaneBattle.fillUp(P1PanePreBattle);
+		P2PaneBattle.fillUp(P2PanePreBattle);
+		GameController.getGameBoard().setPlayerFighters(P1PaneBattle.getFighters(), P2PaneBattle.getFighters());
 	}
 }

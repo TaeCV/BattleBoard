@@ -1,16 +1,34 @@
 package screen;
 
+import java.util.ArrayList;
+
 import gui.BoardPane;
+import gui.FighterBoxPreBattle;
+import gui.PlayerPaneBattle;
+import gui.PlayerPanePreBattle;
 import gui.SimulationManager;
+import gui.base.PlayerPane;
+import input.InputUtility;
+import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,26 +36,62 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.Coordinate;
+import logic.GameBoard;
+import logic.GameController;
+import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
 public class GameScreen {
-	private String p1Name;
-	private String p2Name;
+	private String P1Name;
+	private String P2Name;
 
 	private Stage primaryStage;
-	private Canvas gameCanvas;
-	private GraphicsContext gameGC;
+	private Scene scene;
 	private BorderPane root;
+
+	private Canvas gameCanvas;
+	private Canvas statusCanvas;
+
+	private HBox statusPane;
 	private StackPane namePane;
-	private Canvas gameStatusCanvas;
+	private PlayerPane P1Pane;
+	private PlayerPane P2Pane;
 
-	public GameScreen(Stage primaryStage, String p1Name, String p2Name) {
+	private GameBoard gameBoard;
+
+	public static GraphicsContext gameGC;
+	public static GraphicsContext statusGC;
+	public static int gameTime;
+	public static int positionToSelectP1 = 0;
+	public static int positionToSelectP2 = 0;
+
+	public static StackPane board;
+
+	public GameScreen(Stage primaryStage, String P1Name, String P2Name) {
 		this.primaryStage = primaryStage;
-		this.p1Name = p1Name;
-		this.p2Name = p2Name;
-		gameCanvas = new Canvas(700, 800);
-		gameGC = gameCanvas.getGraphicsContext2D();
+		this.P1Name = P1Name;
+		this.P2Name = P2Name;
+		gameBoard = GameController.getGameBoard();
+		board = new StackPane();
+		initializeGame();
+	}
 
+	private void paintGameScreenComponent() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < GameController.N_ROWS; i++) {
+			for (int j = 0; j < GameController.N_COLS; j++) {
+				if (!gameBoard.map[i][j].equals("R") & !gameBoard.map[i][j].equals("G")) {
+					gameGC.drawImage(getImage(gameBoard.map[i][j]),
+							GameController.originX + (j * GameController.PIXEL_X) + 10,
+							GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+				}
+
+			}
+		}
+	}
+
+	public void drawNamePane() {
 		Text gameName = new Text("BATTLE BOARD");
 		gameName.setFont(Font.font("Times New Roman", FontWeight.BOLD, 36));
 		gameName.setStroke(Color.SILVER);
@@ -48,47 +102,202 @@ public class GameScreen {
 		namePane.getChildren().add(gameName);
 		namePane.setBackground(new Background(new BackgroundImage(RenderableHolder.gameNameBar_bg_Image, null, null,
 				null, new BackgroundSize(1000, 100, false, false, false, false))));
-
-		
-		gameStatusCanvas = new Canvas(1000, 100);
-		GraphicsContext gameStatusGC = gameStatusCanvas.getGraphicsContext2D();
-		drawStatusBar(gameStatusGC);
-		
-		setUp();
 	}
 
-	public void draw(GraphicsContext gc) {
-		gc.drawImage(null, 0, 0);
-	}
-	
-	public void drawStatusBar(GraphicsContext gc) {
-		gc.setFill(Color.BEIGE);
-		gc.fillRect(0, 0, 1000, 100);
+	public void drawStatusPane() {
+		statusPane = new HBox();
+		statusPane.setMaxSize(1000, 100);
+		// Including player 1 tag, time and round , player 2 tag
 
-		gc.setFill(Color.BLACK);
-		gc.setStroke(Color.DARKGRAY);
-		gc.strokeLine(150, 0, 150, 100);
-		gc.strokeLine(850, 0, 850, 100);
-		Font font = Font.font("Palatino Linotype", FontWeight.BOLD, 16);
-		gc.setFont(font);
-		gc.fillText("Player 1: " + p1Name, 20, 55);
-		gc.fillText("Player 2: " + p2Name, 870, 55);
+		StackPane P1Tag = new StackPane();
+		P1Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		P1Tag.setMinSize(100, 100);
+		P1Tag.setMaxSize(100, 100);
+		P1Tag.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+		Text P1NameText = new Text("Player 1:\n" + P1Name);
+		P1NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+		P1NameText.setFill(Color.WHITE);
+		P1Tag.getChildren().add(P1NameText);
+
+		statusCanvas = new Canvas(800, 100);
+		statusGC = statusCanvas.getGraphicsContext2D();
+
+		StackPane P2Tag = new StackPane();
+		P2Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		P2Tag.setMinSize(100, 100);
+		P2Tag.setMaxSize(100, 100);
+		P2Tag.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+		Text P2NameText = new Text("Player 2:\n" + P2Name);
+		P2NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+		P2NameText.setFill(Color.WHITE);
+		P2Tag.getChildren().add(P2NameText);
+
+		statusPane.getChildren().addAll(P1Tag, statusCanvas, P2Tag);
+
+	}
+
+	private void addListener(Scene scene) {
+		scene.setOnKeyPressed((KeyEvent e) -> {
+			InputUtility.setKeyPressed(e.getCode(), true);
+		});
+
+		scene.setOnKeyReleased((KeyEvent e) -> {
+			InputUtility.setKeyPressed(e.getCode(), false);
+		});
+	}
+
+	public Image getImage(String symbol) {
+		Image image;
+//		if (symbol.equals("DM")) {
+//			image = RenderableHolder.duck_melee_head.png;
+//		} else if (symbol.equals("DR")) {
+//			image = RenderableHolder.duck_range_head.png;
+//		} else if (symbol.equals("HM")) {
+//			image = RenderableHolder.healer_melee_head.png;
+//		} else if (symbol.equals("HR")) {
+//			image = RenderableHolder.healer_range_head.png;
+//		} else if (symbol.equals("SM")) {
+//			image = RenderableHolder.speedy_head.png;
+//		} else if (symbol.equals("SR")) {
+//			image = RenderableHolder.speedy_range_head.png;
+//		} else if (symbol.equals("TM")) {
+//			image = RenderableHolder.tough_melee_head.png;
+//		} else if (symbol.equals("TR")) {
+//			image = RenderableHolder.tough_range_head.png;
+//		} else if (symbol.equals("WM")) {
+//			image = RenderableHolder.wild_melee_head.png;
+//		} else if (symbol.equals("WR")) {
+//			image = RenderableHolder.wild_range_head.png;
+//		}
+		image = RenderableHolder.example_Image;
+		return image;
 	}
 
 	public void setScene() {
 		root = new BorderPane();
-		root.setTop(gameStatusCanvas); // Status Bar
-		root.setCenter(SimulationManager.getBoard());
-		root.setBottom(namePane); // Name Bar
-		
-		Scene scene = new Scene(root, 1000, 800);
+		root.setTop(statusPane); // Status Pane
+		root.setLeft(P1Pane);
+		root.setCenter(board); // Set Board Bar
+		root.setRight(P2Pane);
+		root.setBottom(namePane); // Name Pane
+
+		scene = new Scene(root, 1000, 800);
+		addListener(scene);
 		primaryStage.setTitle("Battle Board");
 		primaryStage.setScene(scene);
 	}
 
-	public void setUp() {
+	public void drawTimeAndRound() {
+		statusGC.clearRect(0, 0, 800, 100);
+		statusGC.setFill(Color.LIGHTGREY);
+		statusGC.fillRect(0, 0, 800, 100);
+
+		statusGC.drawImage(RenderableHolder.sword_Image, 50, 15, 65, 65);
+		statusGC.drawImage(RenderableHolder.sword_Image, 680, 15, 65, 65);
+		statusGC.setFill(Color.BLUE);
+		Font font1 = Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 40);
+		statusGC.setFont(font1);
+		statusGC.fillText(Integer.toString(GameController.getP1Score()), 10, 65);
+		statusGC.setFill(Color.RED);
+		statusGC.fillText(Integer.toString(GameController.getP2Score()), 770, 65);
+		Font font2 = Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 48);
+		statusGC.setFont(font2);
+		statusGC.setFill(Color.BLACK);
+		statusGC.fillText("ROUND  " + GameController.getRoundCount(), 150, 65);
+		statusGC.fillText("TIME ", 420, 65);
+
+		if (10 <= gameTime) {
+			statusGC.fillText(Integer.toString(gameTime), 570, 65);
+		} else {
+			statusGC.setFill(Color.RED);
+			statusGC.fillText(Integer.toString(gameTime), 585, 65);
+		}
+
+	}
+
+	public void initializeGame() {
 		SimulationManager.initializeAllPane();
-		draw(gameGC);
+		gameCanvas = SimulationManager.getBoard();
+		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
+		board.getChildren().add(gameCanvas);
+		drawNamePane(); // Set namePane
+		drawStatusPane(); // Set default statusPane without time and round
+		P1Pane = SimulationManager.getP1PanePreBattle();
+		P2Pane = SimulationManager.getP2PanePreBattle();
+		((BoardPane) gameCanvas).draw();
+
+		final long startNanoTime = System.nanoTime();
+		AnimationTimer timerPreBattle = new AnimationTimer() {
+			public void handle(long currentNanoTime) {
+				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
+				gameTime = (int) (GameController.PRE_BATTLE_PHASE_TIME - t + 1);
+				drawTimeAndRound();
+				if (gameTime <= 0 || (P1Pane.getChildren().size() == 3 && P2Pane.getChildren().size() == 3)) {
+					GameController.setEndPreBattle(true);
+					SimulationManager.fillUpPaneBattle();
+					this.stop();
+					initializeBattle();
+				}
+			}
+		};
+
+		AnimationTimer animationTimer = new AnimationTimer() {
+			public void handle(long now) {
+				SimulationManager.updatePanePreBattle();
+				InputUtility.removeKeyPressed();
+				if (GameController.isEndPreBattle()) {
+					this.stop();
+				}
+			}
+		};
+
+		timerPreBattle.start();
+		animationTimer.start();
+		setScene();
+	}
+
+	public void initializeBattle() {
+		P1Pane = SimulationManager.getP1PaneBattle();
+		P2Pane = SimulationManager.getP2PaneBattle();
+		final long startNanoTime = System.nanoTime();
+		AnimationTimer timerPerTurn = new AnimationTimer() {
+			public void handle(long currentNanoTime) {
+				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
+				gameTime = (int) (GameController.BATTLE_PHASE_TIME - t + 1);
+				drawTimeAndRound();
+//				System.out.println("1 ) " + gameBoard.getAllReadyPlayerFightersCoordinate(1).size());
+//				System.out.println("2 ) " + gameBoard.getAllReadyPlayerFightersCoordinate(2).size());
+				if (gameTime <= 0
+						|| (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() == 0)
+						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)) {
+					this.stop();
+					GameController.update();
+					if (!GameController.isRoundDone()) {
+						initializeBattle();
+					} else if (GameController.isRoundDone() && !GameController.isGame()) {
+						GameController.setEndBattle(true);
+						GameController.setRoundDone(false);
+						initializeGame();
+					} else {
+						new EndScreen(primaryStage);
+					}
+				}
+			}
+		};
+
+		AnimationTimer animationTimer = new AnimationTimer() {
+			public void handle(long now) {
+				SimulationManager.updatePaneBattle();
+				paintGameScreenComponent();
+				InputUtility.removeKeyPressed();
+				if (GameController.isEndBattle()) {
+					this.stop();
+				}
+			}
+		};
+
+		timerPerTurn.start();
+		animationTimer.start();
 		setScene();
 	}
 }

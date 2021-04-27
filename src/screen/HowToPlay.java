@@ -1,6 +1,6 @@
 package screen;
 
-import entity.base.ActionButton;
+import gui.base.ActionButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -33,25 +33,23 @@ public class HowToPlay extends VBox {
 		title.setFont(Font.font("Palatino Linotype", FontWeight.BOLD, 48));
 		title.setStroke(Color.SILVER);
 
-		// Describe the player button and character's ability		
-		
+		// Describe the player button and character's ability
+
 		GridPane description = new GridPane();
 		description.setHgap(10);
 		description.setVgap(10);
 		description.setPadding(new Insets(15));
 		ImageView howToPlay_p1_Image = new ImageView(RenderableHolder.howToPlay_p1_Image);
-		Text howToPlay_p1_Text = new Text("Player 1:\n"
-				+ "1) Use 'A','W','S','D' to move the cursor\n"
+		Text howToPlay_p1_Text = new Text("Player 1:\n" + "1) Use 'A','W','S','D' to move the cursor\n"
 				+ "2) Click ctrl button to choose the selected box");
 		howToPlay_p1_Text.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 24));
 		howToPlay_p1_Text.setWrappingWidth(230);
-		
+
 		description.addRow(0, howToPlay_p1_Image, howToPlay_p1_Text);
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setContent(description);
 		scrollPane.setPrefHeight(400);
-		scrollPane.setMaxWidth(450);
-		scrollPane.setMaxHeight(500);
+		scrollPane.setMaxSize(450, 500);
 
 		// Back Button
 		ActionButton backButton = new ActionButton("Back");

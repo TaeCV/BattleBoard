@@ -37,7 +37,9 @@ public class StartScreen {
 		gc.drawImage(RenderableHolder.start_bg_Image, 0, 0, 1000, 800);
 		gc.setFill(Color.BLACK);
 		gc.setStroke(Color.LIGHTGRAY);
-		gc.setLineWidth(1);
+		gc.setLineWidth(1.5);
+
+		gc.drawImage(RenderableHolder.title_bg_Image, 130, 25, 765, 175);
 		Font font = Font.font("Palatino Linotype", FontWeight.BOLD, 100);
 		gc.setFont(font);
 		gc.fillText("Battle Board!", 220, 150);

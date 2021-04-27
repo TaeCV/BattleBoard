@@ -1,42 +1,251 @@
 package gui;
 
+import java.util.ArrayList;
+
+import entity.base.Updatable;
+import input.InputUtility;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import logic.Coordinate;
+import logic.GameBoard;
+import logic.GameController;
+import screen.GameScreen;
 import sharedObject.RenderableHolder;
 
-public class BoardPane extends Canvas {
+public class BoardPane extends Canvas implements Updatable {
 	private GraphicsContext gc;
-	public final static int originX = 50;
-	public final static int originY = 0;
-	public final static int PIXEL = 100;
+	private int fighterNo = 0;
+	private int pixelNo = 0;
+	private int[] pixel;
+	private int key;
+	private ArrayList<Coordinate> coordinates;
+	private Coordinate coordinate1;
+	private GameBoard gameBoard;
 
 	public BoardPane() {
 		setWidth(700);
 		setHeight(600);
 		gc = getGraphicsContext2D();
+		gameBoard = GameController.getGameBoard();
+		draw();
+	}
 
-		gc.drawImage(RenderableHolder.wall_Image, 0, 0, getWidth(), 50);
-		gc.drawImage(RenderableHolder.waterfall_Image, 300, 0, PIXEL, 50);
+	public void draw() {
+		gc.drawImage(RenderableHolder.board_bg_Image, 0, 0, getWidth(), getHeight());
+	}
 
-		for (int i = 0; i < getHeight() - PIXEL; i += PIXEL) {
-			for (int j = 0; j < getWidth(); j += PIXEL) {
-				// Draw a floor
-				if (j / PIXEL != 3) {
-					gc.drawImage(RenderableHolder.floor_Image, originY + j, originX + i, PIXEL, PIXEL);
-				} else {
-					gc.drawImage(RenderableHolder.river_Image, originY + j, originX + i, PIXEL, PIXEL);
-					if (i / PIXEL == 1 | i / 100 == 3) {
-						// Draw bridge in row 1 and row 3
-						gc.drawImage(RenderableHolder.bridge_Image, originY + j - 5, originX + i - 10, PIXEL + 10,
-								PIXEL + 20);
+	public void update() {
+		if (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() != 0) {
+			if (!GameController.isSelect()) {
+				draw();
+				coordinates = gameBoard.getAllReadyPlayerFightersCoordinate(1);
+				pixel = coordinates.get(fighterNo).coordinate2Pixel();
+				gc.setStroke(Color.RED);
+				gc.setLineWidth(3);
+				gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				// use W,S to selcet fighter to do action
+				if (InputUtility.getKeyPressed(KeyCode.W) && fighterNo != 0) {
+					draw();
+					fighterNo--;
+					pixel = coordinates.get(fighterNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.S) && fighterNo != coordinates.size() - 1) {
+					draw();
+					fighterNo++;
+					pixel = coordinates.get(fighterNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.F)) {
+					draw();
+					coordinate1 = coordinates.get(fighterNo);
+					System.out.println("Action!");
+					System.out.println(coordinate1.toString());
+					fighterNo = 0;
+					GameScreen.board.getChildren()
+							.add(new ActionPane(gameBoard.map[coordinate1.getI()][coordinate1.getJ()]));
+					GameController.setSelect(true);
+					System.out.println(GameController.isSelect());
+					System.out.println(GameController.isChoose());
+				}
+
+			} else if (GameController.isSelect() && !GameController.isChoose()) {
+				// use 1,2,3 to select action
+				// 1) move, 2) attack, 3) heal (only healer can do this action)
+				if (InputUtility.getKeyPressed(KeyCode.DIGIT1)
+						&& gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size() != 0) {
+					System.out.println("Move!");
+					key = 1;
+					coordinates = gameBoard.getAllPossibleToMoveCoordinate(coordinate1);
+					GameController.setChoose(true);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT2)
+						&& gameBoard.getAllPossibleTargetsToAttack(coordinate1).size() != 0) {
+					System.out.println("Attack!");
+					key = 2;
+					coordinates = gameBoard.getAllPossibleTargetsToAttack(coordinates.get(fighterNo));
+					GameController.setChoose(true);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT3)
+						&& (gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HM")
+								|| gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HR"))
+						&& gameBoard.getAllPossibleAlliesToHeal(coordinate1).size() != 0) {
+					System.out.println("Heal!");
+					key = 3;
+					coordinates = gameBoard.getAllPossibleAlliesToHeal(coordinate1);
+					GameController.setChoose(true);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
+					GameController.setSelect(false);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				}
+
+			} else if (coordinates.size() != 0) {
+				for (Coordinate coordinate : coordinates) {
+					gc.setStroke(Color.LIGHTYELLOW);
+					gc.strokeRect(coordinate.coordinate2Pixel()[0], coordinate.coordinate2Pixel()[1],
+							GameController.PIXEL_X, GameController.PIXEL_Y);
+				}
+				pixel = coordinates.get(pixelNo).coordinate2Pixel();
+				gc.setStroke(Color.RED);
+				gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				if (InputUtility.getKeyPressed(KeyCode.W) && pixelNo != 0) {
+					draw();
+					pixelNo--;
+					pixel = coordinates.get(pixelNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.S) && pixelNo != coordinates.size() - 1) {
+					draw();
+					pixelNo++;
+					pixel = coordinates.get(pixelNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.F)) {
+					draw();
+					System.out.println("Done!");
+					System.out.println(coordinates.get(pixelNo).toString());
+					if (key == 1) {
+						gameBoard.takeMove(coordinate1, coordinates.get(pixelNo));
+					} else if (key == 2) {
+						gameBoard.takeAttack(coordinate1, coordinates.get(pixelNo));
+					} else if (key == 3) {
+						gameBoard.takeHeal(coordinate1, coordinates.get(pixelNo));
 					}
+					GameController.setSelect(false);
+					GameController.setChoose(false);
+					pixelNo = 0;
+				} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
+					GameController.setSelect(false);
+					GameController.setChoose(false);
+					pixelNo = 0;
 				}
 
 			}
+
+		} else if (gameBoard.getAllReadyPlayerFightersCoordinate(2).size() != 0) {
+			if (!GameController.isSelect()) {
+				draw();
+				coordinates = gameBoard.getAllReadyPlayerFightersCoordinate(2);
+				pixel = coordinates.get(fighterNo).coordinate2Pixel();
+				gc.setStroke(Color.BLUE);
+				gc.setLineWidth(3);
+				gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				// use I,K to selcet fighter to do action
+				if (InputUtility.getKeyPressed(KeyCode.I) && fighterNo != 0) {
+					draw();
+					fighterNo--;
+					pixel = coordinates.get(fighterNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.K) && fighterNo != coordinates.size() - 1) {
+					draw();
+					fighterNo++;
+					pixel = coordinates.get(fighterNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
+					draw();
+					coordinate1 = coordinates.get(fighterNo);
+					System.out.println("Action!");
+					System.out.println(coordinate1.toString());
+					fighterNo = 0;
+					GameScreen.board.getChildren()
+							.add(new ActionPane(gameBoard.map[coordinate1.getI()][coordinate1.getJ()]));
+					GameController.setSelect(true);
+					System.out.println(GameController.isSelect());
+					System.out.println(GameController.isChoose());
+				}
+
+			} else if (GameController.isSelect() && !GameController.isChoose()) {
+				// use 7,8,9 to select action
+				// 1) move, 2) attack, 3) heal (only healer can do this action)
+				if (InputUtility.getKeyPressed(KeyCode.DIGIT7)
+						&& gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size() != 0) {
+					System.out.println("Move!");
+					key = 1;
+					coordinates = gameBoard.getAllPossibleToMoveCoordinate(coordinate1);
+					GameController.setChoose(true);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT8)
+						&& gameBoard.getAllPossibleTargetsToAttack(coordinate1).size() != 0) {
+					System.out.println("Attack!");
+					System.out.println(gameBoard.getAllPossibleTargetsToAttack(coordinate1).size());
+					key = 2;
+					coordinates = gameBoard.getAllPossibleTargetsToAttack(coordinate1);
+					GameController.setChoose(true);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT9)
+						&& (gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HM")
+								|| gameBoard.map[coordinate1.getI()][coordinate1.getJ()].equals("HR"))
+						&& gameBoard.getAllPossibleAlliesToHeal(coordinate1).size() != 0) {
+					System.out.println("Heal!");
+					key = 3;
+					coordinates = gameBoard.getAllPossibleAlliesToHeal(coordinate1);
+					GameController.setChoose(true);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
+					GameController.setSelect(false);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				}
+
+			} else if (coordinates.size() != 0) {
+				for (Coordinate coordinate : coordinates) {
+					gc.setStroke(Color.LIGHTYELLOW);
+					gc.strokeRect(coordinate.coordinate2Pixel()[0], coordinate.coordinate2Pixel()[1],
+							GameController.PIXEL_X, GameController.PIXEL_Y);
+				}
+				pixel = coordinates.get(pixelNo).coordinate2Pixel();
+				gc.setStroke(Color.BLUE);
+				gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				if (InputUtility.getKeyPressed(KeyCode.I) && pixelNo != 0) {
+					draw();
+					pixelNo--;
+					pixel = coordinates.get(pixelNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.K) && pixelNo != coordinates.size() - 1) {
+					draw();
+					pixelNo++;
+					pixel = coordinates.get(pixelNo).coordinate2Pixel();
+					gc.strokeRect(pixel[0], pixel[1], GameController.PIXEL_X, GameController.PIXEL_Y);
+				} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
+					draw();
+					System.out.println("Done!");
+					System.out.println(coordinates.get(pixelNo).toString());
+					if (key == 1) {
+						gameBoard.takeMove(coordinate1, coordinates.get(pixelNo));
+					} else if (key == 2) {
+						gameBoard.takeAttack(coordinate1, coordinates.get(pixelNo));
+					} else if (key == 3) {
+						gameBoard.takeHeal(coordinate1, coordinates.get(pixelNo));
+					}
+					GameController.setSelect(false);
+					GameController.setChoose(false);
+					pixelNo = 0;
+				} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
+					GameController.setSelect(false);
+					GameController.setChoose(false);
+					pixelNo = 0;
+				}
+			}
 		}
-		gc.drawImage(RenderableHolder.stone_wall_Image, 0, getHeight() - 50, getWidth(), PIXEL);
-		gc.drawImage(RenderableHolder.waterfall_Image,  295, getHeight() - 50, PIXEL + 10, PIXEL);
+
 	}
 
 }
