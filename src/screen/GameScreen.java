@@ -263,6 +263,10 @@ public class GameScreen {
 				InputUtility.removeKeyPressed();
 				if (GameController.isTurnDone()) {
 					System.out.println("====================================");
+					printMap();
+					System.out.println("====================================");
+					gameBoard.printMap();
+					System.out.println("====================================");
 					this.stop();
 					if (!GameController.isRoundDone()) {
 						initializeBattle();
@@ -278,5 +282,15 @@ public class GameScreen {
 		timerPerTurn.start();
 		animationTimer.start();
 		setScene();
+	}
+	
+	public void printMap() {
+		for (int i = 0; i < 5; i++) {
+			String eachRow = "";
+			for (int j = 0; j < 7; j++) {
+				eachRow += gameBoard.map[i][j] + " ";
+			}
+			System.out.println(eachRow);
+		}
 	}
 }

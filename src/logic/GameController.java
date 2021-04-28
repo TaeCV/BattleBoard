@@ -190,9 +190,11 @@ public class GameController {
 		GameController.setSelect(false);
 		GameController.setChoose(false);
 		GameController.setTurnDone(true);
+		GameController.setRoundDone(false);
 		setP1(!isP1());
 		gameBoard.resetReady();
 		if (GameController.getTurnCount() > GameController.MAX_TURN_PER_PLAYER * 2) {
+			GameController.getGameBoard().setDefault();
 			setP1(!isP1());
 			checkWinnerOfTheRound();
 			GameController.addRoundCount();

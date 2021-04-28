@@ -24,9 +24,6 @@ public class GameBoard {
 	private int height;
 
 	public GameBoard() {
-		Player1Fighters = new ArrayList<>();
-		Player2Fighters = new ArrayList<>();
-
 		allFighters = new ArrayList<Fighter>();
 		rows = GameController.N_ROWS;
 		cols = GameController.N_COLS;
@@ -89,7 +86,6 @@ public class GameBoard {
 	}
 
 	public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
-		System.out.println("I'm coming here" + GameController.getRoundCount());
 		int i = 0;
 		for (Fighter f : fighters1) {
 			Player1Fighters.add(f);
@@ -105,7 +101,9 @@ public class GameBoard {
 	}
 
 	public void setDefault() {
-		System.out.println("I'm coming" + GameController.getRoundCount());
+		System.out.println("Set Default :" + GameController.getRoundCount());
+		Player1Fighters = new ArrayList<>();
+		Player2Fighters = new ArrayList<>();
 		setBoard();
 		setRiver();
 		setMap();
