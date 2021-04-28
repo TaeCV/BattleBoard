@@ -7,8 +7,8 @@ public class HealerFighter extends Fighter {
 	// can choose to attack or heal any team mates including itself
 	private double healingPoint;
 
-	public HealerFighter(String type) {
-		super(type);
+	public HealerFighter(String type, int team) {
+		super(type, team);
 	}
 
 	public double heal(Fighter f) {

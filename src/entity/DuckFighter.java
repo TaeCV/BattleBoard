@@ -7,8 +7,8 @@ public class DuckFighter extends Fighter {
 	// when this is attacked there is chance to dodge the attack
 	private double dodgeChance; // percent to dodge
 
-	public DuckFighter(String type) {
-		super(type);
+	public DuckFighter(String type,int team) {
+		super(type,team);
 	}
 
 	public void setSpecialAbility() {

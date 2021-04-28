@@ -22,8 +22,9 @@ public abstract class Fighter implements Updatable {
 
 	protected Coordinate coordinate;
 
-	public Fighter(String type) {
-		this.type = type;
+	public Fighter(String type, int team) {
+		setType(type);
+		setTeam(team);
 		setCoordinate(null);
 		setBaseStats();
 		setSpecialAbility();

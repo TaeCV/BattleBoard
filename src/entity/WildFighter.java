@@ -7,8 +7,8 @@ public class WildFighter extends Fighter {
 	// attack boost
 	private double bonusAttack; // bonusAttack is percent attack increased
 
-	public WildFighter(String type) {
-		super(type);
+	public WildFighter(String type, int team) {
+		super(type, team);
 	}
 
 	public void setSpecialAbility() {
