@@ -302,22 +302,22 @@ public class RenderableHolder implements IRenderable {
 		duckrangehead_Image = new Image(ClassLoader.getSystemResource(img + "duckrangehead.png").toString());
 
 		healermelee1_Image = new Image(ClassLoader.getSystemResource(img + "healermelee1.png").toString());
-		healermelee2_Image = new Image(ClassLoader.getSystemResource(img + "healerrange1.png").toString());
-		healerrange1_Image = new Image(ClassLoader.getSystemResource(img + "healermelee2.png").toString());
+		healermelee2_Image = new Image(ClassLoader.getSystemResource(img + "healermelee2.png").toString());
+		healerrange1_Image = new Image(ClassLoader.getSystemResource(img + "healerrange1.png").toString());
 		healerrange2_Image = new Image(ClassLoader.getSystemResource(img + "healerrange2.png").toString());
 		healermeleehead_Image = new Image(ClassLoader.getSystemResource(img + "healermeleehead.png").toString());
 		healerrangehead_Image = new Image(ClassLoader.getSystemResource(img + "healerrangehead.png").toString());
 
 		speedymelee1_Image = new Image(ClassLoader.getSystemResource(img + "speedymelee1.png").toString());
-		speedymelee2_Image = new Image(ClassLoader.getSystemResource(img + "speedyrange1.png").toString());
-		speedyrange1_Image = new Image(ClassLoader.getSystemResource(img + "speedymelee2.png").toString());
+		speedymelee2_Image = new Image(ClassLoader.getSystemResource(img + "speedymelee2.png").toString());
+		speedyrange1_Image = new Image(ClassLoader.getSystemResource(img + "speedyrange1.png").toString());
 		speedyrange2_Image = new Image(ClassLoader.getSystemResource(img + "speedyrange2.png").toString());
 		speedymeleehead_Image = new Image(ClassLoader.getSystemResource(img + "speedymeleehead.png").toString());
 		speedyrangehead_Image = new Image(ClassLoader.getSystemResource(img + "speedyrangehead.png").toString());
 
 		toughmelee1_Image = new Image(ClassLoader.getSystemResource(img + "toughmelee1.png").toString());
-		toughmelee2_Image = new Image(ClassLoader.getSystemResource(img + "toughrange1.png").toString());
-		toughrange1_Image = new Image(ClassLoader.getSystemResource(img + "toughmelee2.png").toString());
+		toughmelee2_Image = new Image(ClassLoader.getSystemResource(img + "toughmelee2.png").toString());
+		toughrange1_Image = new Image(ClassLoader.getSystemResource(img + "toughrange1.png").toString());
 		toughrange2_Image = new Image(ClassLoader.getSystemResource(img + "toughrange2.png").toString());
 		toughmeleehead_Image = new Image(ClassLoader.getSystemResource(img + "toughmeleehead.png").toString());
 		toughrangehead_Image = new Image(ClassLoader.getSystemResource(img + "toughrangehead.png").toString());
