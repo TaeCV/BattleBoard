@@ -8,8 +8,8 @@ public class ToughFighter extends Fighter {
 	private double bonusDefense;
 	private double bonusHitPoint;
 
-	public ToughFighter(String type, int team) {
-		super(type, team);
+	public ToughFighter(String type, int team, String name) {
+		super(type, team, name);
 	}
 
 	public void setSpecialAbility() {

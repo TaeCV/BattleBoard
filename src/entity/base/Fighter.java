@@ -6,6 +6,7 @@ import logic.GameController;
 
 public abstract class Fighter implements Updatable {
 	protected String type; // melee or range
+	protected String name;
 
 	protected double attack;
 	protected double defense; // reduce damage income by defense percent
@@ -22,9 +23,10 @@ public abstract class Fighter implements Updatable {
 
 	protected Coordinate coordinate;
 
-	public Fighter(String type, int team) {
+	public Fighter(String type, int team, String name) {
 		setType(type);
 		setTeam(team);
+		setName(name);
 		setCoordinate(null);
 		setBaseStats();
 		setSpecialAbility();
@@ -171,6 +173,17 @@ public abstract class Fighter implements Updatable {
 
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
+	}
+
+	public void setName(String name) {
+		if (name.isBlank()) {
+			name = "anonymous";
+		}
+		this.name = name;
+	}
+
+	public String getName() {
+		return this.name;
 	}
 
 	public void update() {

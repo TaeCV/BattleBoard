@@ -21,11 +21,11 @@ public class FighterBoxBattle extends FighterBox implements Updatable {
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
-		gc.setFill(Color.CORNSILK);
+		gc.setFill(Color.LIGHTGREY);
 		gc.fillRect(0, 0, 150, 120);
 		gc.drawImage(image, 5, 5, 70, 70);
 		gc.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
-		gc.strokeText(Integer.toString(fighter.getSymbol()), 90, 45);
+		gc.strokeText(fighter.getName(), 80, 45);
 		gc.setFill(Color.GREEN);
 		gc.fillRect(25, 90, 100, 20);
 		gc.strokeRect(0, 0, 150, 120);
@@ -40,10 +40,10 @@ public class FighterBoxBattle extends FighterBox implements Updatable {
 	public void update() {
 		// TODO Auto-generated method stub
 		gc.clearRect(0, 0, 150, 120);
-		gc.setFill(Color.CORNSILK);
+		gc.setFill(Color.LIGHTGREY);
 		gc.fillRect(0, 0, 150, 120);
 		gc.drawImage(image, 5, 5, 70, 70);
-		gc.strokeText(Integer.toString(fighter.getSymbol()), 90, 45);
+		gc.strokeText(fighter.getName(), 80, 45);
 		gc.setFill(Color.GREEN);
 		gc.fillRect(25, 90, (fighter.getHitPoint() / fighter.getMaxHitPoint()) * 100, 20);
 		gc.setFill(Color.BLACK);

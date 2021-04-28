@@ -54,34 +54,34 @@ public class GameBoard {
 			int x = r.nextInt(10);
 			switch (x) {
 			case 0:
-				randomFighters[i] = new DuckFighter("melee", team);
+				randomFighters[i] = new DuckFighter("melee", team, "Duck");
 				break;
 			case 1:
-				randomFighters[i] = new HealerFighter("melee", team);
+				randomFighters[i] = new HealerFighter("melee", team, "Healer");
 				break;
 			case 2:
-				randomFighters[i] = new SpeedyFighter("melee", team);
+				randomFighters[i] = new SpeedyFighter("melee", team, "Speedy");
 				break;
 			case 3:
-				randomFighters[i] = new ToughFighter("melee", team);
+				randomFighters[i] = new ToughFighter("melee", team, "Tough");
 				break;
 			case 4:
-				randomFighters[i] = new WildFighter("melee", team);
+				randomFighters[i] = new WildFighter("melee", team, "Wild");
 				break;
 			case 5:
-				randomFighters[i] = new DuckFighter("range", team);
+				randomFighters[i] = new DuckFighter("range", team, "Duck");
 				break;
 			case 6:
-				randomFighters[i] = new HealerFighter("range", team);
+				randomFighters[i] = new HealerFighter("range", team, "Healer");
 				break;
 			case 7:
-				randomFighters[i] = new SpeedyFighter("range", team);
+				randomFighters[i] = new SpeedyFighter("range", team, "Speedy");
 				break;
 			case 8:
-				randomFighters[i] = new ToughFighter("range", team);
+				randomFighters[i] = new ToughFighter("range", team, "Tough");
 				break;
 			case 9:
-				randomFighters[i] = new WildFighter("range", team);
+				randomFighters[i] = new WildFighter("range", team, "Wild");
 				break;
 			}
 		}
@@ -96,7 +96,7 @@ public class GameBoard {
 			i++;
 		}
 		i = 0;
-		for (Fighter f : fighters2) {	
+		for (Fighter f : fighters2) {
 			Player2Fighters.add(f);
 			addFighter(f, new Coordinate(i, 6));
 			i++;
