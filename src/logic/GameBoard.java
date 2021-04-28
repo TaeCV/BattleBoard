@@ -47,41 +47,41 @@ public class GameBoard {
 	// --------------------------------------initializer
 	// methods-------------------------------------------
 	// method random fighters return Fighter[8]
-	public Fighter[] getRandomFighters() {
+	public Fighter[] getRandomFighters(int team) {
 		Fighter[] randomFighters = new Fighter[8];
 		Random r = new Random();
 		for (int i = 0; i < 8; i++) {
 			int x = r.nextInt(10);
 			switch (x) {
 			case 0:
-				randomFighters[i] = new DuckFighter("melee");
+				randomFighters[i] = new DuckFighter("melee", team);
 				break;
 			case 1:
-				randomFighters[i] = new HealerFighter("melee");
+				randomFighters[i] = new HealerFighter("melee", team);
 				break;
 			case 2:
-				randomFighters[i] = new SpeedyFighter("melee");
+				randomFighters[i] = new SpeedyFighter("melee", team);
 				break;
 			case 3:
-				randomFighters[i] = new ToughFighter("melee");
+				randomFighters[i] = new ToughFighter("melee", team);
 				break;
 			case 4:
-				randomFighters[i] = new WildFighter("melee");
+				randomFighters[i] = new WildFighter("melee", team);
 				break;
 			case 5:
-				randomFighters[i] = new DuckFighter("range");
+				randomFighters[i] = new DuckFighter("range", team);
 				break;
 			case 6:
-				randomFighters[i] = new HealerFighter("range");
+				randomFighters[i] = new HealerFighter("range", team);
 				break;
 			case 7:
-				randomFighters[i] = new SpeedyFighter("range");
+				randomFighters[i] = new SpeedyFighter("range", team);
 				break;
 			case 8:
-				randomFighters[i] = new ToughFighter("range");
+				randomFighters[i] = new ToughFighter("range", team);
 				break;
 			case 9:
-				randomFighters[i] = new WildFighter("range");
+				randomFighters[i] = new WildFighter("range", team);
 				break;
 			}
 		}
@@ -91,14 +91,12 @@ public class GameBoard {
 	public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
 		int i = 0;
 		for (Fighter f : fighters1) {
-			f.setTeam(1);
 			Player1Fighters.add(f);
 			addFighter(f, new Coordinate(i, 0));
 			i++;
 		}
 		i = 0;
-		for (Fighter f : fighters2) {
-			f.setTeam(2);
+		for (Fighter f : fighters2) {	
 			Player2Fighters.add(f);
 			addFighter(f, new Coordinate(i, 6));
 			i++;
