@@ -61,6 +61,6 @@ public class SimulationManager {
 	public static void fillUpPaneBattle() {
 		P1PaneBattle.fillUp(P1PanePreBattle);
 		P2PaneBattle.fillUp(P2PanePreBattle);
-		GameController.getGameBoard().setPlayerFighters(P1PaneBattle.getFighters(), P2PaneBattle.getFighters());
+		GameController.getGameBoard().setPlayerFighters(P1PaneBattle.getFighters(), P2PaneBattle.getFighters());		
 	}
 }

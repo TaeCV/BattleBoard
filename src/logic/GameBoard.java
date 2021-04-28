@@ -89,6 +89,7 @@ public class GameBoard {
 	}
 
 	public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
+		System.out.println("I'm coming here" + GameController.getRoundCount());
 		int i = 0;
 		for (Fighter f : fighters1) {
 			Player1Fighters.add(f);
@@ -104,6 +105,7 @@ public class GameBoard {
 	}
 
 	public void setDefault() {
+		System.out.println("I'm coming" + GameController.getRoundCount());
 		setBoard();
 		setRiver();
 		setMap();

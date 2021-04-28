@@ -204,7 +204,7 @@ public class GameScreen {
 		drawStatusPane(); // Set default statusPane without time and round
 		P1Pane = SimulationManager.getP1PanePreBattle();
 		P2Pane = SimulationManager.getP2PanePreBattle();
-		gameBoard.setDefault();
+		GameController.setEndPreBattle(false);
 
 		final long startNanoTime = System.nanoTime();
 		AnimationTimer timerPreBattle = new AnimationTimer() {
@@ -226,6 +226,7 @@ public class GameScreen {
 				SimulationManager.updatePanePreBattle();
 				InputUtility.removeKeyPressed();
 				if (GameController.isEndPreBattle()) {
+					System.out.println("==================================");
 					this.stop();
 				}
 			}
@@ -237,7 +238,7 @@ public class GameScreen {
 	}
 
 	public void initializeBattle() {
-		gameBoard.printMap();
+		GameController.setTurnDone(false);
 		P1Pane = SimulationManager.getP1PaneBattle();
 		P2Pane = SimulationManager.getP2PaneBattle();
 		final long startNanoTime = System.nanoTime();
@@ -246,22 +247,11 @@ public class GameScreen {
 				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
 				gameTime = (int) (GameController.BATTLE_PHASE_TIME - t + 1);
 				drawTimeAndRound();
-//				System.out.println("1 ) " + gameBoard.getAllReadyPlayerFightersCoordinate(1).size());
-//				System.out.println("2 ) " + gameBoard.getAllReadyPlayerFightersCoordinate(2).size());
 				if (gameTime <= 0
 						|| (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() == 0)
 						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)) {
 					this.stop();
 					GameController.update();
-					if (!GameController.isRoundDone()) {
-						initializeBattle();
-					} else if (GameController.isRoundDone() && !GameController.isGame()) {
-						GameController.setEndBattle(true);
-						GameController.setRoundDone(false);
-						initializeGame();
-					} else {
-						new EndScreen(primaryStage);
-					}
 				}
 			}
 		};
@@ -271,8 +261,16 @@ public class GameScreen {
 				SimulationManager.updatePaneBattle();
 				paintGameScreenComponent();
 				InputUtility.removeKeyPressed();
-				if (GameController.isEndBattle()) {
+				if (GameController.isTurnDone()) {
+					System.out.println("====================================");
 					this.stop();
+					if (!GameController.isRoundDone()) {
+						initializeBattle();
+					} else if (GameController.isRoundDone() && !GameController.isGame()) {
+						initializeGame();
+					} else {
+						new EndScreen(primaryStage);
+					}
 				}
 			}
 		};

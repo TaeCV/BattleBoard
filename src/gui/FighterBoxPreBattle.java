@@ -46,7 +46,7 @@ public class FighterBoxPreBattle extends FighterBox implements Updatable {
 		gc.clearRect(0, 0, 150, 600 / 8);
 		gc.setFill(Color.CORNSILK);
 		gc.fillRect(0, 0, 150, 600 / 8);
-		gc.drawImage(image, 5, 5, 70, 70);
+		gc.drawImage(image, 10, 5, 60, 60);
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(1);
 		gc.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));

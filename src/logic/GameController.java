@@ -11,7 +11,7 @@ public class GameController {
 	public static final int N_COLS = 7;
 	public static final int PRE_BATTLE_PHASE_TIME = 60;
 	public static final int BATTLE_PHASE_TIME = 60;
-	public static final int MAX_TURN_PER_PLAYER = 10;
+	public static final int MAX_TURN_PER_PLAYER = 2;
 	public static final int MAX_ROUND = 3;
 
 	private static GameBoard gameBoard;
@@ -25,7 +25,7 @@ public class GameController {
 	private static boolean isWin;
 	private static boolean isP1;
 	private static boolean isEndPreBattle;
-	private static boolean isEndBattle;
+	private static boolean isTurnDone;
 	private static boolean isSelect;
 	private static boolean isChoose;
 	private static String winner;
@@ -33,7 +33,7 @@ public class GameController {
 	private static String P2Name;
 
 	public static void setDefault(String P1Name, String P2Name) {
-		gameBoard = new GameBoard();
+		setGameBoard(new GameBoard());
 		setP1Score(0);
 		setP2Score(0);
 		setRoundCount(1);
@@ -138,16 +138,16 @@ public class GameController {
 		return isEndPreBattle;
 	}
 
-	public static boolean isEndBattle() {
-		return isEndBattle;
+	public static boolean isTurnDone() {
+		return isTurnDone;
 	}
 
 	public static void setEndPreBattle(boolean isEndPreBattle) {
 		GameController.isEndPreBattle = isEndPreBattle;
 	}
 
-	public static void setEndBattle(boolean isEndBattle) {
-		GameController.isEndBattle = isEndBattle;
+	public static void setTurnDone(boolean isTurnDone) {
+		GameController.isTurnDone = isTurnDone;
 	}
 
 	public static boolean isSelect() {
@@ -189,13 +189,12 @@ public class GameController {
 		GameController.addTurnCount();
 		GameController.setSelect(false);
 		GameController.setChoose(false);
+		GameController.setTurnDone(true);
 		setP1(!isP1());
 		gameBoard.resetReady();
 		if (GameController.getTurnCount() > GameController.MAX_TURN_PER_PLAYER * 2) {
 			setP1(!isP1());
 			checkWinnerOfTheRound();
-			GameController.setEndBattle(false);
-			GameController.setEndPreBattle(false);
 			GameController.addRoundCount();
 			GameController.setTurnCount(1);
 			GameController.setRoundDone(true);
@@ -222,7 +221,7 @@ public class GameController {
 		}
 	}
 
-	public static void checkWinnerOfTheRound() { // fix win round logic
+	public static void checkWinnerOfTheRound() { 
 		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {

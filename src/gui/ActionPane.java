@@ -16,23 +16,34 @@ import logic.GameController;
 
 public class ActionPane extends VBox {
 	private int addition;
+	private Text moveText;
+	private Text attackText;
+	private Text healText;
+	private Text blankActionText;
+	private Text cancelText;
+	private boolean isBlankAction;
 
 	public ActionPane(int symbol, int moveCount, int attackCount, int healCount) {
-		setMaxSize(300, 200);
+		setBlankAction(false);
+		setMaxSize(400, 200);
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.TAN, null, getInsets())));
 		setSpacing(15);
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 		if (GameController.isP1()) {
+			cancelText = new Text("ESC) Cancel select!");
+			cancelText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
 			addition = 0;
 		} else {
+			cancelText = new Text("BACKSPACE) Cancel select!");
+			cancelText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
 			addition = 6;
 		}
-		Text moveText = new Text(Integer.toString(1 + addition) + ") MOVE");
+		moveText = new Text(Integer.toString(1 + addition) + ") MOVE");
 		moveText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
-		Text attackText = new Text(Integer.toString(2 + addition) + ") ATTACK");
+		attackText = new Text(Integer.toString(2 + addition) + ") ATTACK");
 		attackText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
-		Text healText = new Text(Integer.toString(3 + addition) + ") HEAL	");
+		healText = new Text(Integer.toString(3 + addition) + ") HEAL	");
 		healText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
 
 		if (moveCount != 0) {
@@ -45,5 +56,21 @@ public class ActionPane extends VBox {
 			getChildren().add(healText);
 		}
 
+		if (getChildren().size() == 0) {
+			setBlankAction(true);
+			blankActionText = new Text("SPACE) This fighter can't do anything now.");
+			blankActionText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
+			getChildren().add(blankActionText);
+		}
+
+		getChildren().add(cancelText);
+	}
+
+	public boolean isBlankAction() {
+		return isBlankAction;
+	}
+
+	public void setBlankAction(boolean isBlankAction) {
+		this.isBlankAction = isBlankAction;
 	}
 }

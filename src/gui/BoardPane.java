@@ -23,6 +23,7 @@ public class BoardPane extends Canvas implements Updatable {
 	private ArrayList<Coordinate> coordinates;
 	private Coordinate coordinate1;
 	private GameBoard gameBoard;
+	private ActionPane actionPane;
 
 	public BoardPane() {
 		setWidth(700);
@@ -67,19 +68,20 @@ public class BoardPane extends Canvas implements Updatable {
 					System.out.println("Action!");
 					System.out.println(coordinate1.toString());
 					fighterNo = 0;
-					GameScreen.board.getChildren()
-							.add(new ActionPane(gameBoard.map[coordinate1.getI()][coordinate1.getJ()],
-									gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size(),
-									gameBoard.getAllPossibleTargetsToAttack(coordinate1).size(),
-									gameBoard.getAllPossibleAlliesToHeal(coordinate1).size()));
+					actionPane = new ActionPane(gameBoard.map[coordinate1.getI()][coordinate1.getJ()],
+							gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size(),
+							gameBoard.getAllPossibleTargetsToAttack(coordinate1).size(),
+							gameBoard.getAllPossibleAlliesToHeal(coordinate1).size());
+					GameScreen.board.getChildren().add(actionPane);
 					GameController.setSelect(true);
 					System.out.println(GameController.isSelect());
 					System.out.println(GameController.isChoose());
 				}
 
 			} else if (GameController.isSelect() && !GameController.isChoose()) {
-				// use 1,2,3 to select action
-				// 1) move, 2) attack, 3) heal (only healer can do this action)
+				// use 1,2,3 to select action or space to skip
+				// 1) move, 2) attack, 3) heal (only healer can do this action), and
+				// 4) can't do anything action
 				if (InputUtility.getKeyPressed(KeyCode.DIGIT1)
 						&& gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size() != 0) {
 					System.out.println("Move!");
@@ -93,7 +95,7 @@ public class BoardPane extends Canvas implements Updatable {
 					System.out.println("Attack!");
 					System.out.println(gameBoard.getAllPossibleTargetsToAttack(coordinate1).size());
 					key = 2;
-					coordinates = gameBoard.getAllPossibleTargetsToAttack(coordinates.get(fighterNo));
+					coordinates = gameBoard.getAllPossibleTargetsToAttack(coordinate1);
 					GameController.setChoose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT3)
@@ -108,6 +110,10 @@ public class BoardPane extends Canvas implements Updatable {
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
 					GameController.setSelect(false);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.SPACE) && actionPane.isBlankAction()) {
+					GameController.setSelect(false);
+					coordinate1.getFighter().setReady(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				}
 
@@ -177,18 +183,18 @@ public class BoardPane extends Canvas implements Updatable {
 					System.out.println("Action!");
 					System.out.println(coordinate1.toString());
 					fighterNo = 0;
-					GameScreen.board.getChildren()
-							.add(new ActionPane(gameBoard.map[coordinate1.getI()][coordinate1.getJ()],
-									gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size(),
-									gameBoard.getAllPossibleTargetsToAttack(coordinate1).size(),
-									gameBoard.getAllPossibleAlliesToHeal(coordinate1).size()));
+					actionPane = new ActionPane(gameBoard.map[coordinate1.getI()][coordinate1.getJ()],
+							gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size(),
+							gameBoard.getAllPossibleTargetsToAttack(coordinate1).size(),
+							gameBoard.getAllPossibleAlliesToHeal(coordinate1).size());
+					GameScreen.board.getChildren().add(actionPane);
 					GameController.setSelect(true);
 					System.out.println(GameController.isSelect());
 					System.out.println(GameController.isChoose());
 				}
 
 			} else if (GameController.isSelect() && !GameController.isChoose()) {
-				// use 7,8,9 to select action
+				// use 7,8,9 to select action or space to skip
 				// 1) move, 2) attack, 3) heal (only healer can do this action)
 				if (InputUtility.getKeyPressed(KeyCode.DIGIT7)
 						&& gameBoard.getAllPossibleToMoveCoordinate(coordinate1).size() != 0) {
@@ -218,6 +224,10 @@ public class BoardPane extends Canvas implements Updatable {
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
 					GameController.setSelect(false);
+					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+				} else if (InputUtility.getKeyPressed(KeyCode.SPACE) && actionPane.isBlankAction()) {
+					GameController.setSelect(false);
+					coordinate1.getFighter().setReady(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				}
 
@@ -262,6 +272,14 @@ public class BoardPane extends Canvas implements Updatable {
 			}
 		}
 
+	}
+
+	public void setDefault() {
+		draw();
+		GameController.setSelect(false);
+		GameController.setChoose(false);
+		pixelNo = 0;
+		fighterNo = 0;
 	}
 
 }
