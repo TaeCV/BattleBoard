@@ -15,7 +15,7 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 
 	public PlayerPanePreBattle(int player) {
 		super(player);
-		this.fighters = GameController.getGameBoard().getRandomFighters();
+		this.fighters = GameController.getGameBoard().getRandomFighters(player);
 		for (Fighter fighter : fighters) {
 			addFighterBox(fighter);
 		}
