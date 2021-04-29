@@ -209,11 +209,10 @@ public class GameController {
 		}
 		if (isRoundOver()) {
 			GameController.addRoundCount();
-			setP1(!isP1());
+			setP1(GameController.getRoundCount() % 2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
-			System.out.println(1 + ": " + GameController.gameBoard.Player1Fighters.size());
-			System.out.println(2 + ": " + GameController.gameBoard.Player2Fighters.size());
+
 			GameController.setRoundDone(true); // finished round
 		}
 

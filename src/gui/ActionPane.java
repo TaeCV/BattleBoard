@@ -21,10 +21,8 @@ public class ActionPane extends VBox {
 	private Text healText;
 	private Text blankActionText;
 	private Text cancelText;
-	private boolean isBlankAction;
 
 	public ActionPane(int symbol, int moveCount, int attackCount, int healCount) {
-		setBlankAction(false);
 		setMaxSize(400, 200);
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.TAN, null, getInsets())));
@@ -56,21 +54,9 @@ public class ActionPane extends VBox {
 			getChildren().add(healText);
 		}
 
-		if (getChildren().size() == 0) {
-			setBlankAction(true);
-			blankActionText = new Text("SPACE) This fighter can't do anything now.");
-			blankActionText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
-			getChildren().add(blankActionText);
-		}
-
+		blankActionText = new Text("SPACE) Do nothing, skip!");
+		blankActionText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
+		getChildren().add(blankActionText);
 		getChildren().add(cancelText);
-	}
-
-	public boolean isBlankAction() {
-		return isBlankAction;
-	}
-
-	public void setBlankAction(boolean isBlankAction) {
-		this.isBlankAction = isBlankAction;
 	}
 }

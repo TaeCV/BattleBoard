@@ -82,16 +82,10 @@ public class GameScreen {
 		for (int i = 0; i < GameController.N_ROWS; i++) {
 			for (int j = 0; j < GameController.N_COLS; j++) {
 				if (gameBoard.map[i][j] <= 20) {
-					if ((6 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 10)
-							|| (16 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 20)) {
-						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-								GameController.originX + (j * GameController.PIXEL_X) + 10,
-								GameController.originY + (i * GameController.PIXEL_Y) - 56, 90, 100);
-					} else {
-						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-								GameController.originX + (j * GameController.PIXEL_X) + 5,
-								GameController.originY + (i * GameController.PIXEL_Y) - 56, 95, 100);
-					}
+					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
+					GameController.originX + (j * GameController.PIXEL_X),
+					GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+					
 				}
 
 			}

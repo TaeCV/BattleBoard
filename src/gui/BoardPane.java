@@ -111,7 +111,7 @@ public class BoardPane extends Canvas implements Updatable {
 				} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
 					GameController.setSelect(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
-				} else if (InputUtility.getKeyPressed(KeyCode.SPACE) && actionPane.isBlankAction()) {
+				} else if (InputUtility.getKeyPressed(KeyCode.SPACE)) {
 					GameController.setSelect(false);
 					coordinate1.getFighter().setReady(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
@@ -225,7 +225,7 @@ public class BoardPane extends Canvas implements Updatable {
 				} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
 					GameController.setSelect(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
-				} else if (InputUtility.getKeyPressed(KeyCode.SPACE) && actionPane.isBlankAction()) {
+				} else if (InputUtility.getKeyPressed(KeyCode.SPACE)) {
 					GameController.setSelect(false);
 					coordinate1.getFighter().setReady(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);

@@ -48,6 +48,6 @@ public class HealerFighter extends Fighter {
 	}
 
 	public void setHealingPoint() {
-		healingPoint = Math.random() * 15 + 10; // healingPoint is between 10,25
+		healingPoint = Math.random() * 10 + 5; // healingPoint is between 5,20
 	}
 }
