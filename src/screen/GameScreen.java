@@ -231,7 +231,6 @@ public class GameScreen {
 				SimulationManager.updatePanePreBattle();
 				InputUtility.removeKeyPressed();
 				if (GameController.isEndPreBattle()) {
-					System.out.println("==================================");
 					this.stop();
 				}
 			}
@@ -268,12 +267,11 @@ public class GameScreen {
 				paintGameScreenComponent();
 				InputUtility.removeKeyPressed();
 				if (GameController.isTurnDone()) {
-					System.out.println("====================================");
 					this.stop();
-					gameBoard.printMap();
 					if (!GameController.isRoundDone()) {
 						initializeBattle();
 					} else if (GameController.isRoundDone() && !GameController.isGame()) {
+						board.getChildren().clear();
 						initializeGame();
 					} else {
 						new EndScreen(primaryStage);
