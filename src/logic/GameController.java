@@ -22,7 +22,7 @@ public class GameController {
 	private static int roundCount;
 	private static int turnCount;
 	private static boolean isRoundDone;
-	private static boolean isRoundOver; //got a winner of the round
+	private static boolean isRoundOver; // got a winner of the round
 	private static boolean isGame;
 	private static boolean isWin;
 	private static boolean isP1;
@@ -127,11 +127,11 @@ public class GameController {
 	public static void setRoundDone(boolean isRoundDone) {
 		GameController.isRoundDone = isRoundDone;
 	}
-	
+
 	public static boolean isRoundOver() {
 		return isRoundOver;
 	}
-	
+
 	public static void setRoundOver(boolean isRoundOver) {
 		GameController.isRoundOver = isRoundOver;
 	}
@@ -208,10 +208,10 @@ public class GameController {
 		}
 		if (isRoundOver()) {
 			GameController.addRoundCount();
-			setP1(GameController.getRoundCount()%2 == 1);
+			setP1(GameController.getRoundCount() % 2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
-			GameController.setRoundDone(true); //finished round
+			GameController.setRoundDone(true); // finished round
 		}
 		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1
 				|| GameController.getP2Score() > 1) {
@@ -220,12 +220,12 @@ public class GameController {
 		}
 	}
 
-	public static boolean checkRoundOver() { //is called when there is an attack action
+	public static boolean checkRoundOver() { // is called when there is an attack action
 		if (GameController.getGameBoard().Player1Fighters.size() == 0) {
 			P2Score++;
 			setRoundOver(true);
 			return true;
-		} else if(GameController.getGameBoard().Player2Fighters.size() == 0) {
+		} else if (GameController.getGameBoard().Player2Fighters.size() == 0) {
 			P1Score++;
 			setRoundOver(true);
 			return true;
@@ -233,7 +233,7 @@ public class GameController {
 		return false;
 	}
 
-	public static void checkWinnerAtTheEnd() { 
+	public static void checkWinnerAtTheEnd() {
 		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {

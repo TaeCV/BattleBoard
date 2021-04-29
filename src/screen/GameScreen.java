@@ -83,9 +83,9 @@ public class GameScreen {
 			for (int j = 0; j < GameController.N_COLS; j++) {
 				if (gameBoard.map[i][j] <= 20) {
 					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-					GameController.originX + (j * GameController.PIXEL_X),
-					GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
-					
+							GameController.originX + (j * GameController.PIXEL_X),
+							GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+
 				}
 
 			}

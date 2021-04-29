@@ -111,13 +111,13 @@ public class GameBoard {
 		// return coordinate for all Fighter from team 1 or 2
 		ArrayList<Coordinate> allReadyFightersCoordinate = new ArrayList<>();
 		if (team == 1) {
-			for (Fighter fighter: Player1Fighters) {
+			for (Fighter fighter : Player1Fighters) {
 				if (fighter.isReady()) {
 					allReadyFightersCoordinate.add(fighter.getCoordinate());
 				}
 			}
 		} else {
-			for (Fighter fighter: Player2Fighters) {
+			for (Fighter fighter : Player2Fighters) {
 				if (fighter.isReady()) {
 					allReadyFightersCoordinate.add(fighter.getCoordinate());
 				}
