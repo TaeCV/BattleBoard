@@ -82,16 +82,10 @@ public class GameScreen {
 		for (int i = 0; i < GameController.N_ROWS; i++) {
 			for (int j = 0; j < GameController.N_COLS; j++) {
 				if (gameBoard.map[i][j] <= 20) {
-					if ((6 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 10)
-							|| (16 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 20)) {
-						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-								GameController.originX + (j * GameController.PIXEL_X) + 10,
-								GameController.originY + (i * GameController.PIXEL_Y) - 56, 90, 100);
-					} else {
-						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-								GameController.originX + (j * GameController.PIXEL_X) + 5,
-								GameController.originY + (i * GameController.PIXEL_Y) - 56, 95, 100);
-					}
+					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
+					GameController.originX + (j * GameController.PIXEL_X),
+					GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+					
 				}
 
 			}
@@ -243,9 +237,6 @@ public class GameScreen {
 		GameController.setTurnDone(false);
 		P1Pane = SimulationManager.getP1PaneBattle();
 		P2Pane = SimulationManager.getP2PaneBattle();
-		gameCanvas = SimulationManager.getBoard();
-		gameGC = gameCanvas.getGraphicsContext2D();
-		paintGameScreenComponent();
 		final long startNanoTime = System.nanoTime();
 		AnimationTimer timerPerTurn = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
@@ -274,6 +265,7 @@ public class GameScreen {
 					if (!GameController.isRoundDone()) {
 						initializeBattle();
 					} else if (GameController.isRoundDone() && !GameController.isGame()) {
+						board.getChildren().clear();
 						initializeGame();
 					} else {
 						new EndScreen(primaryStage);

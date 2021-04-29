@@ -13,8 +13,7 @@ public class Coordinate implements Comparable<Coordinate> {
 	public Coordinate(int i, int j) {
 		setI(i);
 		setJ(j);
-		isEmpty = true;
-		myFighter = null;
+		setFighter(null);
 	}
 
 	public int getI() {
@@ -37,9 +36,13 @@ public class Coordinate implements Comparable<Coordinate> {
 		return myFighter;
 	}
 
-	public void setFighter(Fighter f) {
-		this.myFighter = f;
-		setEmpty(false);
+	public void setFighter(Fighter fighter) {
+		this.myFighter = fighter;
+		if (fighter == null) {
+			setEmpty(true);
+		} else {
+			setEmpty(false);
+		}
 	}
 
 	public int getSymbol() {
@@ -57,6 +60,9 @@ public class Coordinate implements Comparable<Coordinate> {
 	}
 
 	public void setEmpty(boolean isEmpty) {
+		if (j == 3 && i % 2 == 0) {
+			isEmpty = false;
+		}
 		this.isEmpty = isEmpty;
 	}
 

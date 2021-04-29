@@ -18,13 +18,10 @@ public class GameBoard {
 	public ArrayList<Fighter> Player1Fighters;
 	public ArrayList<Fighter> Player2Fighters;
 
-	private ArrayList<Fighter> allFighters;
-
 	private int width;
 	private int height;
 
 	public GameBoard() {
-		allFighters = new ArrayList<Fighter>();
 		rows = GameController.N_ROWS;
 		cols = GameController.N_COLS;
 		board = new Coordinate[rows][cols];
@@ -79,49 +76,31 @@ public class GameBoard {
 		return randomFighters;
 	}
 
-	 public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
-		 for (int i = 0; i < 5; i++) {
-			 Fighter f = fighters1.get(i);
-			 Player1Fighters.add(f);
-			 addFighter(f, board[i][0]);
-		 }
-		 for (int i = 0; i < 5; i++) {
-			 Fighter f = fighters2.get(i);
-			 Player2Fighters.add(f);
-			 addFighter(f, board[i][6]);
-		 }
+	public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
+		for (int i = 0; i < 5; i++) {
+			Fighter fighter = fighters1.get(i);
+			Player1Fighters.add(fighter);
+			addFighter(fighter, board[i][0]);
+		}
+		for (int i = 0; i < 5; i++) {
+			Fighter fighter = fighters2.get(i);
+			Player2Fighters.add(fighter);
+			addFighter(fighter, board[i][6]);
+		}
 	}
 
 	public void setDefault() {
 		System.out.println("Set Default :" + GameController.getRoundCount());
 		Player1Fighters = new ArrayList<>();
 		Player2Fighters = new ArrayList<>();
-		setBoard();
-		setRiver();
-		setMap();
+		setBoardAndMap();
 	}
 
-	public void setBoard() {
+	public void setBoardAndMap() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				board[i][j] = new Coordinate(i, j);
-			}
-		}
-	}
-
-	public void setRiver() {
-		board[0][3].setEmpty(false);
-		updateMap(board[0][3]);
-		board[2][3].setEmpty(false);
-		updateMap(board[2][3]);
-		board[4][3].setEmpty(false);
-		updateMap(board[4][3]);
-	}
-
-	public void setMap() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				map[i][j] = Sprites.GROUND;
+				map[i][j] = board[i][j].getSymbol();
 			}
 		}
 	}
@@ -132,15 +111,15 @@ public class GameBoard {
 		// return coordinate for all Fighter from team 1 or 2
 		ArrayList<Coordinate> allReadyFightersCoordinate = new ArrayList<>();
 		if (team == 1) {
-			for (Fighter f : Player1Fighters) {
-				if (f.isReady()) {
-					allReadyFightersCoordinate.add(f.getCoordinate());
+			for (Fighter fighter: Player1Fighters) {
+				if (fighter.isReady()) {
+					allReadyFightersCoordinate.add(fighter.getCoordinate());
 				}
 			}
 		} else {
-			for (Fighter f : Player2Fighters) {
-				if (f.isReady()) {
-					allReadyFightersCoordinate.add(f.getCoordinate());
+			for (Fighter fighter: Player2Fighters) {
+				if (fighter.isReady()) {
+					allReadyFightersCoordinate.add(fighter.getCoordinate());
 				}
 			}
 		}
@@ -239,30 +218,24 @@ public class GameBoard {
 
 	// -----------------------------------------data managing
 	// methods----------------------------------------
-	public void addFighter(Fighter f, Coordinate c) {
-		allFighters.add(f);
-		c.setFighter(f);
-		f.setCoordinate(c);
-		update(c);
+	public void addFighter(Fighter fighter, Coordinate coordinate) {
+		coordinate.setFighter(fighter);
+		fighter.setCoordinate(coordinate);
+		update(coordinate);
 	}
 
-	public Fighter getFighter(Coordinate c) {
-		return c.getFighter();
-	}
-
-	public void removeFighter(Coordinate c) {
-		Fighter removing = c.getFighter();
+	public void removeFighter(Coordinate coordinate) {
+		Fighter removing = coordinate.getFighter();
 		if (removing.getTeam() == 1) {
 			Player1Fighters.remove(removing);
 		} else {
 			Player2Fighters.remove(removing);
 		}
-		System.out.println(Player1Fighters.size());
-		System.out.println(Player2Fighters.size());
-		allFighters.remove(removing);
-		c.setFighter(null);
-		
-		update(c);
+		System.out.println(1 + ": " + Player1Fighters.size());
+		System.out.println(2 + ": " + Player2Fighters.size());
+		coordinate.setFighter(null);
+
+		update(coordinate);
 	}
 
 	// -----------------------------------------check possibilities
@@ -270,13 +243,7 @@ public class GameBoard {
 	public ArrayList<Coordinate> getAllPossibleToMoveDistance1(Coordinate currentCoordinate) {
 		// return all Coordinate that can move to by only 1 distance far
 		ArrayList<Coordinate> allPossibleCoordinate = new ArrayList<>();
-//		for (Coordinate[] row: board) {
-//			for (Coordinate targetc: row) {
-//				if (isPossibleToMove(currentCoordinate, targetc)) {
-//					allPossibleCoordinate.add(targetc);
-//				}
-//			}
-//		}
+
 		int currenti = currentCoordinate.getI();
 		int currentj = currentCoordinate.getJ();
 		int[] possiblei = new int[] { currenti - 1, currenti + 1 };
@@ -306,10 +273,6 @@ public class GameBoard {
 	}
 
 	public boolean isPossibleToAttack(Fighter attacker, Fighter target) {
-		if (attacker.getTeam() == target.getTeam()) {
-			return false;
-		}
-
 		int attackRange = attacker.getAttackRange();
 		Coordinate c1 = attacker.getCoordinate();
 		Coordinate c2 = target.getCoordinate();
@@ -322,9 +285,6 @@ public class GameBoard {
 	}
 
 	public boolean isPossibleToHeal(Fighter healer, Fighter target) {
-		if (!(healer.getTeam() == target.getTeam())) {
-			return false;
-		}
 		if (target.getHitPoint() == target.getMaxHitPoint()) {
 			return false;
 		}
@@ -349,14 +309,14 @@ public class GameBoard {
 		double hitPointSum = 0;
 		double maxHitPointSum = 0;
 		if (team == 1) {
-			for (Fighter f : Player1Fighters) {
-				hitPointSum += f.getHitPoint();
-				maxHitPointSum += f.getMaxHitPoint();
+			for (Fighter fighter : Player1Fighters) {
+				hitPointSum += fighter.getHitPoint();
+				maxHitPointSum += fighter.getMaxHitPoint();
 			}
 		} else {
-			for (Fighter f : Player2Fighters) {
-				hitPointSum += f.getHitPoint();
-				maxHitPointSum += f.getMaxHitPoint();
+			for (Fighter fighter : Player2Fighters) {
+				hitPointSum += fighter.getHitPoint();
+				maxHitPointSum += fighter.getMaxHitPoint();
 			}
 		}
 		return hitPointSum / maxHitPointSum;
@@ -376,10 +336,6 @@ public class GameBoard {
 
 	public void setHeight(int height) {
 		this.height = height;
-	}
-
-	public ArrayList<Fighter> getAllFighters() {
-		return allFighters;
 	}
 
 	public int[][] getMap() {
@@ -411,7 +367,7 @@ public class GameBoard {
 		updateBoard(c1);
 		updateBoard(c2);
 	}
-	
+
 	public void updateMap(Coordinate c) {
 		int i = c.getI();
 		int j = c.getJ();
@@ -435,8 +391,11 @@ public class GameBoard {
 	}
 
 	public void resetReady() {
-		for (Fighter f : allFighters) {
-			f.setReady(true);
+		for (Fighter fighter : Player1Fighters) {
+			fighter.setReady(true);
+		}
+		for (Fighter fighter : Player2Fighters) {
+			fighter.setReady(true);
 		}
 	}
 }

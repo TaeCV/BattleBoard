@@ -12,7 +12,7 @@ public class GameController {
 	public static final int N_COLS = 7;
 	public static final int PRE_BATTLE_PHASE_TIME = 60;
 	public static final int BATTLE_PHASE_TIME = 60;
-	public static final int MAX_TURN_PER_PLAYER = 1;
+	public static final int MAX_TURN_PER_PLAYER = 7;
 	public static final int MAX_ROUND = 3;
 
 	private static GameBoard gameBoard;
@@ -207,25 +207,12 @@ public class GameController {
 			GameController.setRoundOver(true);
 		}
 		if (isRoundOver()) {
-			setP1(!isP1());
 			GameController.addRoundCount();
+			setP1(GameController.getRoundCount()%2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
-			System.out.println(1 + ": " + GameController.gameBoard.Player1Fighters.size());
-			System.out.println(2 + ": " + GameController.gameBoard.Player2Fighters.size());
 			GameController.setRoundDone(true); //finished round
 		}
-//		} else if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1) {
-//			setP1(!isP1());
-//			checkWinnerAtTheEnd();
-//			GameController.addRoundCount(); 
-//			GameController.setTurnCount(1);
-//			GameController.setRoundDone(true);
-//			setGameBoard(new GameBoard());
-//			//SimulationManager.getBoard().setDefault();
-//			System.out.println(1 + ": " + GameController.getGameBoard().Player1Fighters);
-//			System.out.println(2 + ": " +GameController.getGameBoard().Player2Fighters);
-//		}
 		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1
 				|| GameController.getP2Score() > 1) {
 			GameController.setGame(true);
