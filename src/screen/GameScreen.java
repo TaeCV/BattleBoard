@@ -77,124 +77,6 @@ public class GameScreen {
 		initializeGame();
 	}
 
-	private void paintGameScreenComponent() {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < GameController.N_ROWS; i++) {
-			for (int j = 0; j < GameController.N_COLS; j++) {
-				if (gameBoard.map[i][j] <= 20) {
-					if ((6 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 10)
-							|| (16 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 20)) {
-						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-								GameController.originX + (j * GameController.PIXEL_X) + 10,
-								GameController.originY + (i * GameController.PIXEL_Y) - 56, 90, 100);
-					} else {
-						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-								GameController.originX + (j * GameController.PIXEL_X) + 5,
-								GameController.originY + (i * GameController.PIXEL_Y) - 56, 95, 100);
-					}
-				}
-
-			}
-		}
-	}
-
-	public void drawNamePane() {
-		Text gameName = new Text("BATTLE BOARD");
-		gameName.setFont(Font.font("Times New Roman", FontWeight.BOLD, 36));
-		gameName.setStroke(Color.SILVER);
-		namePane = new StackPane();
-		namePane.setAlignment(Pos.CENTER);
-		namePane.setPrefSize(1000, 100);
-		namePane.setMaxSize(1000, 100);
-		namePane.getChildren().add(gameName);
-		namePane.setBackground(new Background(new BackgroundImage(RenderableHolder.gameNameBar_bg_Image, null, null,
-				null, new BackgroundSize(1000, 100, false, false, false, false))));
-	}
-
-	public void drawStatusPane() {
-		statusPane = new HBox();
-		statusPane.setMaxSize(1000, 100);
-		// Including player 1 tag, time and round , player 2 tag
-
-		StackPane P1Tag = new StackPane();
-		P1Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-		P1Tag.setMinSize(100, 100);
-		P1Tag.setMaxSize(100, 100);
-		P1Tag.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-		Text P1NameText = new Text("Player 1:\n" + P1Name);
-		P1NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-		P1NameText.setFill(Color.WHITE);
-		P1Tag.getChildren().add(P1NameText);
-
-		statusCanvas = new Canvas(800, 100);
-		statusGC = statusCanvas.getGraphicsContext2D();
-
-		StackPane P2Tag = new StackPane();
-		P2Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-		P2Tag.setMinSize(100, 100);
-		P2Tag.setMaxSize(100, 100);
-		P2Tag.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-		Text P2NameText = new Text("Player 2:\n" + P2Name);
-		P2NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
-		P2NameText.setFill(Color.WHITE);
-		P2Tag.getChildren().add(P2NameText);
-
-		statusPane.getChildren().addAll(P1Tag, statusCanvas, P2Tag);
-
-	}
-
-	private void addListener(Scene scene) {
-		scene.setOnKeyPressed((KeyEvent e) -> {
-			InputUtility.setKeyPressed(e.getCode(), true);
-		});
-
-		scene.setOnKeyReleased((KeyEvent e) -> {
-			InputUtility.setKeyPressed(e.getCode(), false);
-		});
-	}
-
-	public void setScene() {
-		root = new BorderPane();
-		root.setTop(statusPane); // Status Pane
-		root.setLeft(P1Pane);
-		root.setCenter(board); // Set Board Bar
-		root.setRight(P2Pane);
-		root.setBottom(namePane); // Name Pane
-
-		scene = new Scene(root, 1000, 800);
-		addListener(scene);
-		primaryStage.setTitle("Battle Board");
-		primaryStage.setScene(scene);
-	}
-
-	public void drawTimeAndRound() {
-		statusGC.clearRect(0, 0, 800, 100);
-		statusGC.setFill(Color.LIGHTGREY);
-		statusGC.fillRect(0, 0, 800, 100);
-
-		statusGC.drawImage(RenderableHolder.sword_Image, 50, 15, 65, 65);
-		statusGC.drawImage(RenderableHolder.sword_Image, 680, 15, 65, 65);
-		statusGC.setFill(Color.BLUE);
-		Font font1 = Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 40);
-		statusGC.setFont(font1);
-		statusGC.fillText(Integer.toString(GameController.getP1Score()), 10, 65);
-		statusGC.setFill(Color.RED);
-		statusGC.fillText(Integer.toString(GameController.getP2Score()), 770, 65);
-		Font font2 = Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 48);
-		statusGC.setFont(font2);
-		statusGC.setFill(Color.BLACK);
-		statusGC.fillText("ROUND  " + GameController.getRoundCount(), 150, 65);
-		statusGC.fillText("TIME ", 420, 65);
-
-		if (10 <= gameTime) {
-			statusGC.fillText(Integer.toString(gameTime), 570, 65);
-		} else {
-			statusGC.setFill(Color.RED);
-			statusGC.fillText(Integer.toString(gameTime), 585, 65);
-		}
-
-	}
-
 	public void initializeGame() {
 		SimulationManager.initializeAllPane();
 		gameCanvas = SimulationManager.getBoard();
@@ -263,10 +145,7 @@ public class GameScreen {
 				InputUtility.removeKeyPressed();
 				if (GameController.isTurnDone()) {
 					System.out.println("====================================");
-					printMap();
-					System.out.println("====================================");
 					gameBoard.printMap();
-					System.out.println("====================================");
 					this.stop();
 					if (!GameController.isRoundDone()) {
 						initializeBattle();
@@ -283,14 +162,127 @@ public class GameScreen {
 		animationTimer.start();
 		setScene();
 	}
-	
-	public void printMap() {
-		for (int i = 0; i < 5; i++) {
-			String eachRow = "";
-			for (int j = 0; j < 7; j++) {
-				eachRow += gameBoard.map[i][j] + " ";
+
+	private void paintGameScreenComponent() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < GameController.N_ROWS; i++) {
+			for (int j = 0; j < GameController.N_COLS; j++) {
+				if (gameBoard.map[i][j] <= 20) {
+					if ((6 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 10)
+							|| (16 <= gameBoard.map[i][j] && gameBoard.map[i][j] <= 20)) {
+						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
+								GameController.originX + (j * GameController.PIXEL_X) + 10,
+								GameController.originY + (i * GameController.PIXEL_Y) - 56, 90, 100);
+					} else {
+						gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
+								GameController.originX + (j * GameController.PIXEL_X) + 5,
+								GameController.originY + (i * GameController.PIXEL_Y) - 56, 95, 100);
+					}
+				}
+
 			}
-			System.out.println(eachRow);
 		}
+	}
+
+	// Set up bottom pane to show game name
+	public void drawNamePane() {
+		Text gameName = new Text("BATTLE BOARD");
+		gameName.setFont(Font.font("Times New Roman", FontWeight.BOLD, 36));
+		gameName.setStroke(Color.SILVER);
+		namePane = new StackPane();
+		namePane.setAlignment(Pos.CENTER);
+		namePane.setPrefSize(1000, 100);
+		namePane.setMaxSize(1000, 100);
+		namePane.getChildren().add(gameName);
+		namePane.setBackground(new Background(new BackgroundImage(RenderableHolder.gameNameBar_bg_Image, null, null,
+				null, new BackgroundSize(1000, 100, false, false, false, false))));
+	}
+
+	// Set up Header pane to show time, round and win count
+	public void drawStatusPane() {
+		statusPane = new HBox();
+		statusPane.setMaxSize(1000, 100);
+		// Including player 1 tag, time and round , player 2 tag
+
+		StackPane P1Tag = new StackPane();
+		P1Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		P1Tag.setMinSize(100, 100);
+		P1Tag.setMaxSize(100, 100);
+		P1Tag.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+		Text P1NameText = new Text("Player 1:\n" + P1Name);
+		P1NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+		P1NameText.setFill(Color.WHITE);
+		P1Tag.getChildren().add(P1NameText);
+
+		statusCanvas = new Canvas(800, 100);
+		statusGC = statusCanvas.getGraphicsContext2D();
+
+		StackPane P2Tag = new StackPane();
+		P2Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
+		P2Tag.setMinSize(100, 100);
+		P2Tag.setMaxSize(100, 100);
+		P2Tag.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+		Text P2NameText = new Text("Player 2:\n" + P2Name);
+		P2NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+		P2NameText.setFill(Color.WHITE);
+		P2Tag.getChildren().add(P2NameText);
+
+		statusPane.getChildren().addAll(P1Tag, statusCanvas, P2Tag);
+
+	}
+	
+	// Receive input from user
+	private void addListener(Scene scene) {
+		scene.setOnKeyPressed((KeyEvent e) -> {
+			InputUtility.setKeyPressed(e.getCode(), true);
+		});
+
+		scene.setOnKeyReleased((KeyEvent e) -> {
+			InputUtility.setKeyPressed(e.getCode(), false);
+		});
+	}
+	
+	// Add all nodes to root and set new scene
+	public void setScene() {
+		root = new BorderPane();
+		root.setTop(statusPane); // Status Pane
+		root.setLeft(P1Pane);
+		root.setCenter(board); // Set Board Bar
+		root.setRight(P2Pane);
+		root.setBottom(namePane); // Name Pane
+
+		scene = new Scene(root, 1000, 800);
+		addListener(scene);
+		primaryStage.setTitle("Battle Board");
+		primaryStage.setScene(scene);
+	}
+	
+	// Draw time and round each fame
+	public void drawTimeAndRound() {
+		statusGC.clearRect(0, 0, 800, 100);
+		statusGC.setFill(Color.LIGHTGREY);
+		statusGC.fillRect(0, 0, 800, 100);
+
+		statusGC.drawImage(RenderableHolder.sword_Image, 50, 15, 65, 65);
+		statusGC.drawImage(RenderableHolder.sword_Image, 680, 15, 65, 65);
+		statusGC.setFill(Color.BLUE);
+		Font font1 = Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 40);
+		statusGC.setFont(font1);
+		statusGC.fillText(Integer.toString(GameController.getP1Score()), 10, 65);
+		statusGC.setFill(Color.RED);
+		statusGC.fillText(Integer.toString(GameController.getP2Score()), 770, 65);
+		Font font2 = Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 48);
+		statusGC.setFont(font2);
+		statusGC.setFill(Color.BLACK);
+		statusGC.fillText("ROUND  " + GameController.getRoundCount(), 150, 65);
+		statusGC.fillText("TIME ", 420, 65);
+
+		if (10 <= gameTime) {
+			statusGC.fillText(Integer.toString(gameTime), 570, 65);
+		} else {
+			statusGC.setFill(Color.RED);
+			statusGC.fillText(Integer.toString(gameTime), 585, 65);
+		}
+
 	}
 }

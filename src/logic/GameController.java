@@ -11,7 +11,7 @@ public class GameController {
 	public static final int N_COLS = 7;
 	public static final int PRE_BATTLE_PHASE_TIME = 60;
 	public static final int BATTLE_PHASE_TIME = 60;
-	public static final int MAX_TURN_PER_PLAYER = 2;
+	public static final int MAX_TURN_PER_PLAYER = 7;
 	public static final int MAX_ROUND = 3;
 
 	private static GameBoard gameBoard;
@@ -223,7 +223,7 @@ public class GameController {
 		}
 	}
 
-	public static void checkWinnerOfTheRound() { 
+	public static void checkWinnerOfTheRound() { // Can't use size() of Array because you didn't remove the fighter after the fighter died.
 		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
