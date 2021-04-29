@@ -63,13 +63,13 @@ public abstract class Fighter implements Updatable {
 
 	public void setBaseStats() {
 		if (type.equals("melee")) {
-			attack = 30;
+			attack = 100;
 			defense = 25;
 			hitPoint = 55;
 			maxHitPoint = 55;
 			attackRange = 1;
 		} else if (type.equals("range")) {
-			attack = 20;
+			attack = 100;
 			defense = 10;
 			hitPoint = 40;
 			maxHitPoint = 40;

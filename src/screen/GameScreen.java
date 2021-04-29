@@ -77,92 +77,6 @@ public class GameScreen {
 		initializeGame();
 	}
 
-	public void initializeGame() {
-		SimulationManager.initializeAllPane();
-		gameCanvas = SimulationManager.getBoard();
-		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
-		board.getChildren().add(gameCanvas);
-		drawNamePane(); // Set namePane
-		drawStatusPane(); // Set default statusPane without time and round
-		P1Pane = SimulationManager.getP1PanePreBattle();
-		P2Pane = SimulationManager.getP2PanePreBattle();
-		GameController.setEndPreBattle(false);
-
-		final long startNanoTime = System.nanoTime();
-		AnimationTimer timerPreBattle = new AnimationTimer() {
-			public void handle(long currentNanoTime) {
-				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
-				gameTime = (int) (GameController.PRE_BATTLE_PHASE_TIME - t + 1);
-				drawTimeAndRound();
-				if (gameTime <= 0 || (P1Pane.getChildren().size() == 3 && P2Pane.getChildren().size() == 3)) {
-					GameController.setEndPreBattle(true);
-					SimulationManager.fillUpPaneBattle();
-					this.stop();
-					initializeBattle();
-				}
-			}
-		};
-
-		AnimationTimer animationTimer = new AnimationTimer() {
-			public void handle(long now) {
-				SimulationManager.updatePanePreBattle();
-				InputUtility.removeKeyPressed();
-				if (GameController.isEndPreBattle()) {
-					System.out.println("==================================");
-					this.stop();
-				}
-			}
-		};
-
-		timerPreBattle.start();
-		animationTimer.start();
-		setScene();
-	}
-
-	public void initializeBattle() {
-		GameController.setTurnDone(false);
-		P1Pane = SimulationManager.getP1PaneBattle();
-		P2Pane = SimulationManager.getP2PaneBattle();
-		final long startNanoTime = System.nanoTime();
-		AnimationTimer timerPerTurn = new AnimationTimer() {
-			public void handle(long currentNanoTime) {
-				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
-				gameTime = (int) (GameController.BATTLE_PHASE_TIME - t + 1);
-				drawTimeAndRound();
-				if (gameTime <= 0
-						|| (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() == 0)
-						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)) {
-					this.stop();
-					GameController.update();
-				}
-			}
-		};
-
-		AnimationTimer animationTimer = new AnimationTimer() {
-			public void handle(long now) {
-				SimulationManager.updatePaneBattle();
-				paintGameScreenComponent();
-				InputUtility.removeKeyPressed();
-				if (GameController.isTurnDone()) {
-					System.out.println("====================================");
-					gameBoard.printMap();
-					this.stop();
-					if (!GameController.isRoundDone()) {
-						initializeBattle();
-					} else if (GameController.isRoundDone() && !GameController.isGame()) {
-						initializeGame();
-					} else {
-						new EndScreen(primaryStage);
-					}
-				}
-			}
-		};
-
-		timerPerTurn.start();
-		animationTimer.start();
-		setScene();
-	}
-
 	private void paintGameScreenComponent() {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < GameController.N_ROWS; i++) {
@@ -230,7 +144,7 @@ public class GameScreen {
 		statusPane.getChildren().addAll(P1Tag, statusCanvas, P2Tag);
 
 	}
-	
+
 	// Receive input from user
 	private void addListener(Scene scene) {
 		scene.setOnKeyPressed((KeyEvent e) -> {
@@ -241,7 +155,7 @@ public class GameScreen {
 			InputUtility.setKeyPressed(e.getCode(), false);
 		});
 	}
-	
+
 	// Add all nodes to root and set new scene
 	public void setScene() {
 		root = new BorderPane();
@@ -256,7 +170,7 @@ public class GameScreen {
 		primaryStage.setTitle("Battle Board");
 		primaryStage.setScene(scene);
 	}
-	
+
 	// Draw time and round each fame
 	public void drawTimeAndRound() {
 		statusGC.clearRect(0, 0, 800, 100);
@@ -284,5 +198,92 @@ public class GameScreen {
 			statusGC.fillText(Integer.toString(gameTime), 585, 65);
 		}
 
+	}
+
+	public void initializeGame() {
+		SimulationManager.initializeAllPane();
+		gameCanvas = SimulationManager.getBoard();
+		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
+		board.getChildren().add(gameCanvas);
+		drawNamePane(); // Set namePane
+		drawStatusPane(); // Set default statusPane without time and round
+		P1Pane = SimulationManager.getP1PanePreBattle();
+		P2Pane = SimulationManager.getP2PanePreBattle();
+		GameController.setEndPreBattle(false);
+
+		final long startNanoTime = System.nanoTime();
+		AnimationTimer timerPreBattle = new AnimationTimer() {
+			public void handle(long currentNanoTime) {
+				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
+				gameTime = (int) (GameController.PRE_BATTLE_PHASE_TIME - t + 1);
+				drawTimeAndRound();
+				if (gameTime <= 0 || (P1Pane.getChildren().size() == 3 && P2Pane.getChildren().size() == 3)) {
+					GameController.setEndPreBattle(true);
+					SimulationManager.fillUpPaneBattle();
+					this.stop();
+					initializeBattle();
+				}
+			}
+		};
+
+		AnimationTimer animationTimer = new AnimationTimer() {
+			public void handle(long now) {
+				SimulationManager.updatePanePreBattle();
+				InputUtility.removeKeyPressed();
+				if (GameController.isEndPreBattle()) {
+					System.out.println("==================================");
+					this.stop();
+				}
+			}
+		};
+
+		timerPreBattle.start();
+		animationTimer.start();
+		setScene();
+	}
+
+	public void initializeBattle() {
+		GameController.setTurnDone(false);
+		P1Pane = SimulationManager.getP1PaneBattle();
+		P2Pane = SimulationManager.getP2PaneBattle();
+		final long startNanoTime = System.nanoTime();
+		AnimationTimer timerPerTurn = new AnimationTimer() {
+			public void handle(long currentNanoTime) {
+				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
+				gameTime = (int) (GameController.BATTLE_PHASE_TIME - t + 1);
+				drawTimeAndRound();
+				if (gameTime <= 0
+						|| (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() == 0)
+						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)
+						|| GameController.checkRoundOver()) {
+					this.stop();
+					GameController.update();
+				}
+			}
+		};
+
+		AnimationTimer animationTimer = new AnimationTimer() {
+			public void handle(long now) {
+				SimulationManager.updatePaneBattle();
+				paintGameScreenComponent();
+				InputUtility.removeKeyPressed();
+				if (GameController.isTurnDone()) {
+					System.out.println("====================================");
+					this.stop();
+					gameBoard.printMap();
+					if (!GameController.isRoundDone()) {
+						initializeBattle();
+					} else if (GameController.isRoundDone() && !GameController.isGame()) {
+						initializeGame();
+					} else {
+						new EndScreen(primaryStage);
+					}
+				}
+			}
+		};
+
+		timerPerTurn.start();
+		animationTimer.start();
+		setScene();
 	}
 }

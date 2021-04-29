@@ -1,5 +1,6 @@
 package logic;
 
+import gui.SimulationManager;
 import screen.GameScreen;
 
 public class GameController {
@@ -21,6 +22,7 @@ public class GameController {
 	private static int roundCount;
 	private static int turnCount;
 	private static boolean isRoundDone;
+	private static boolean isRoundOver; // got a winner of the round
 	private static boolean isGame;
 	private static boolean isWin;
 	private static boolean isP1;
@@ -126,6 +128,14 @@ public class GameController {
 		GameController.isRoundDone = isRoundDone;
 	}
 
+	public static boolean isRoundOver() {
+		return isRoundOver;
+	}
+
+	public static void setRoundOver(boolean isRoundOver) {
+		GameController.isRoundOver = isRoundOver;
+	}
+
 	public static int getTurnCount() {
 		return turnCount;
 	}
@@ -193,14 +203,20 @@ public class GameController {
 		GameController.setRoundDone(false);
 		setP1(!isP1());
 		gameBoard.resetReady();
-		if (GameController.getTurnCount() > GameController.MAX_TURN_PER_PLAYER * 2) {
-			GameController.getGameBoard().setDefault();
-			setP1(!isP1());
-			checkWinnerOfTheRound();
-			GameController.addRoundCount();
-			GameController.setTurnCount(1);
-			GameController.setRoundDone(true);
+		if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1) {
+			checkWinnerAtTheEnd();
+			GameController.setRoundOver(true);
 		}
+		if (isRoundOver()) {
+			GameController.addRoundCount();
+			setP1(!isP1());
+			GameController.setTurnCount(1);
+			GameController.getGameBoard().setDefault();
+			System.out.println(1 + ": " + GameController.gameBoard.Player1Fighters.size());
+			System.out.println(2 + ": " + GameController.gameBoard.Player2Fighters.size());
+			GameController.setRoundDone(true); // finished round
+		}
+
 		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1
 				|| GameController.getP2Score() > 1) {
 			GameController.setGame(true);
@@ -208,22 +224,20 @@ public class GameController {
 		}
 	}
 
-	public static void checkWinRound(int team) {
-		if (team == 1) {
-			if (GameController.getGameBoard().Player1Fighters.size() == 0) {
-				P1Score++;
-				update();
-			}
+	public static boolean checkRoundOver() { // is called when there is an attack action
+		if (GameController.getGameBoard().Player1Fighters.size() == 0) {
+			P2Score++;
+			setRoundOver(true);
+			return true;
+		} else if (GameController.getGameBoard().Player2Fighters.size() == 0) {
+			P1Score++;
+			setRoundOver(true);
+			return true;
 		}
-		if (team == 2) {
-			if (GameController.getGameBoard().Player2Fighters.size() == 0) {
-				P2Score++;
-				update();
-			}
-		}
+		return false;
 	}
 
-	public static void checkWinnerOfTheRound() { // Can't use size() of Array because you didn't remove the fighter after the fighter died.
+	public static void checkWinnerAtTheEnd() {
 		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
