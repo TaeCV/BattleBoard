@@ -24,9 +24,6 @@ public class GameBoard {
 	private int height;
 
 	public GameBoard() {
-		Player1Fighters = new ArrayList<>();
-		Player2Fighters = new ArrayList<>();
-
 		allFighters = new ArrayList<Fighter>();
 		rows = GameController.N_ROWS;
 		cols = GameController.N_COLS;
@@ -35,12 +32,6 @@ public class GameBoard {
 
 		setWidth(rows);
 		setHeight(cols);
-//		cellBoard = new Cell[rows][cols];
-//		for (int i = 0; i < rows; i++) {
-//			for (int j = 0; j < cols; j++) {
-//				cellBoard[i][j] = new Cell(new Coordinate(i, j));
-//			}
-//		}	
 		setDefault();
 	}
 
@@ -88,24 +79,23 @@ public class GameBoard {
 		return randomFighters;
 	}
 
-	public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
-		System.out.println("I'm coming here" + GameController.getRoundCount());
-		int i = 0;
-		for (Fighter f : fighters1) {
-			Player1Fighters.add(f);
-			addFighter(f, new Coordinate(i, 0));
-			i++;
-		}
-		i = 0;
-		for (Fighter f : fighters2) {
-			Player2Fighters.add(f);
-			addFighter(f, new Coordinate(i, 6));
-			i++;
-		}
+	 public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
+		 for (int i = 0; i < 5; i++) {
+			 Fighter f = fighters1.get(i);
+			 Player1Fighters.add(f);
+			 addFighter(f, board[i][0]);
+		 }
+		 for (int i = 0; i < 5; i++) {
+			 Fighter f = fighters2.get(i);
+			 Player2Fighters.add(f);
+			 addFighter(f, board[i][6]);
+		 }
 	}
 
 	public void setDefault() {
-		System.out.println("I'm coming" + GameController.getRoundCount());
+		System.out.println("Set Default :" + GameController.getRoundCount());
+		Player1Fighters = new ArrayList<>();
+		Player2Fighters = new ArrayList<>();
 		setBoard();
 		setRiver();
 		setMap();
@@ -121,14 +111,17 @@ public class GameBoard {
 
 	public void setRiver() {
 		board[0][3].setEmpty(false);
+		updateMap(board[0][3]);
 		board[2][3].setEmpty(false);
+		updateMap(board[2][3]);
 		board[4][3].setEmpty(false);
+		updateMap(board[4][3]);
 	}
 
 	public void setMap() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				map[i][j] = board[i][j].getSymbol();
+				map[i][j] = Sprites.GROUND;
 			}
 		}
 	}
@@ -151,6 +144,7 @@ public class GameBoard {
 				}
 			}
 		}
+		Collections.sort(allReadyFightersCoordinate);
 		return allReadyFightersCoordinate;
 	}
 
@@ -231,7 +225,6 @@ public class GameBoard {
 		attacker.setReady(false);
 		update(attackerCoordinate, targetCoordinate);
 		double damageDone = attacker.attack(target);
-		GameController.checkWinRound(attacker.getTeam());
 		return damageDone;
 	}
 
@@ -264,8 +257,11 @@ public class GameBoard {
 		} else {
 			Player2Fighters.remove(removing);
 		}
+		System.out.println(Player1Fighters.size());
+		System.out.println(Player2Fighters.size());
 		allFighters.remove(removing);
 		c.setFighter(null);
+		
 		update(c);
 	}
 
@@ -415,7 +411,7 @@ public class GameBoard {
 		updateBoard(c1);
 		updateBoard(c2);
 	}
-
+	
 	public void updateMap(Coordinate c) {
 		int i = c.getI();
 		int j = c.getJ();

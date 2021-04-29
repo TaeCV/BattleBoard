@@ -204,6 +204,8 @@ public class GameScreen {
 		drawStatusPane(); // Set default statusPane without time and round
 		P1Pane = SimulationManager.getP1PanePreBattle();
 		P2Pane = SimulationManager.getP2PanePreBattle();
+		GameController.setRoundOver(false);
+		GameController.setRoundDone(false);
 		GameController.setEndPreBattle(false);
 
 		final long startNanoTime = System.nanoTime();
@@ -241,6 +243,9 @@ public class GameScreen {
 		GameController.setTurnDone(false);
 		P1Pane = SimulationManager.getP1PaneBattle();
 		P2Pane = SimulationManager.getP2PaneBattle();
+		gameCanvas = SimulationManager.getBoard();
+		gameGC = gameCanvas.getGraphicsContext2D();
+		paintGameScreenComponent();
 		final long startNanoTime = System.nanoTime();
 		AnimationTimer timerPerTurn = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
@@ -249,7 +254,8 @@ public class GameScreen {
 				drawTimeAndRound();
 				if (gameTime <= 0
 						|| (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() == 0)
-						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)) {
+						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)
+						|| GameController.checkRoundOver()) {
 					this.stop();
 					GameController.update();
 				}
@@ -264,6 +270,7 @@ public class GameScreen {
 				if (GameController.isTurnDone()) {
 					System.out.println("====================================");
 					this.stop();
+					gameBoard.printMap();
 					if (!GameController.isRoundDone()) {
 						initializeBattle();
 					} else if (GameController.isRoundDone() && !GameController.isGame()) {

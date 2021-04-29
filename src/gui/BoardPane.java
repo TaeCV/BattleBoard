@@ -275,6 +275,8 @@ public class BoardPane extends Canvas implements Updatable {
 	}
 
 	public void setDefault() {
+		System.out.println("in BoardPane.setDefault()");
+		gameBoard = GameController.getGameBoard();
 		draw();
 		GameController.setSelect(false);
 		GameController.setChoose(false);

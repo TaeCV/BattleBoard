@@ -297,7 +297,7 @@ public class RenderableHolder implements IRenderable {
 		duckmelee1_Image = new Image(ClassLoader.getSystemResource(img + "duckmelee1.png").toString());
 		duckmelee2_Image = new Image(ClassLoader.getSystemResource(img + "duckmelee2.png").toString());
 		duckrange1_Image = new Image(ClassLoader.getSystemResource(img + "duckrange1.png").toString());
-		duckrange2_Image = new Image(ClassLoader.getSystemResource(img + "duckrange1.png").toString());
+		duckrange2_Image = new Image(ClassLoader.getSystemResource(img + "duckrange2.png").toString());
 		duckmeleehead_Image = new Image(ClassLoader.getSystemResource(img + "duckmeleehead.png").toString());
 		duckrangehead_Image = new Image(ClassLoader.getSystemResource(img + "duckrangehead.png").toString());
 
@@ -328,7 +328,6 @@ public class RenderableHolder implements IRenderable {
 		wildrange2_Image = new Image(ClassLoader.getSystemResource(img + "wildrange2.png").toString());
 		wildmeleehead_Image = new Image(ClassLoader.getSystemResource(img + "wildmeleehead.png").toString());
 		wildrangehead_Image = new Image(ClassLoader.getSystemResource(img + "wildrangehead.png").toString());
-
 	}
 
 	public static RenderableHolder getInstance() {
