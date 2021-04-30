@@ -12,7 +12,7 @@ public class GameController {
 	public static final int N_COLS = 7;
 	public static final int PRE_BATTLE_PHASE_TIME = 60;
 	public static final int BATTLE_PHASE_TIME = 60;
-	public static final int MAX_TURN_PER_PLAYER = 7;
+	public static final int MAX_TURN_PER_PLAYER = 9;
 	public static final int MAX_ROUND = 3;
 
 	private static GameBoard gameBoard;
