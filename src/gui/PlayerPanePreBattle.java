@@ -17,6 +17,7 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 		super(player);
 		this.fighters = GameController.getGameBoard().getRandomFighters(player);
 		for (Fighter fighter : fighters) {
+			System.out.println(fighter.getName() + ": " + fighter);
 			addFighterBox(fighter);
 		}
 	}
@@ -49,10 +50,8 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 				SimulationManager.getP1PaneBattle().addFighters(selectedPreFighter.getFighter());
 				getChildren().remove(GameScreen.positionToSelectP1);
 				GameScreen.positionToSelectP1 = 0;
-				if (getChildren().size() > 3) {
-					selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
-					selectedPreFighter.update();
-				}
+				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
+				selectedPreFighter.update();
 			}
 		} else if (player == 2 && getChildren().size() > 3) {
 			if (InputUtility.getKeyPressed(KeyCode.I) && GameScreen.positionToSelectP2 != 0) {
@@ -71,6 +70,7 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 			} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
 				SimulationManager.getP2PaneBattle().addFighters(selectedPreFighter.getFighter());
+				System.out.println("From pre :"+ GameScreen.positionToSelectP2 + " ," + selectedPreFighter.getFighter().getName());
 				getChildren().remove(GameScreen.positionToSelectP2);
 				GameScreen.positionToSelectP2 = 0;
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP2);

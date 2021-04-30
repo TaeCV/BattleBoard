@@ -17,6 +17,7 @@ public class PlayerPaneBattle extends PlayerPane implements Updatable {
 	}
 
 	public void addFighters(Fighter fighter) {
+		System.out.println(player + " " + fighters.size() + " " + fighter.getName());
 		if (fighters.size() < 5) {
 			if (player == 1) {
 				GameController.getGameBoard().map[fighters.size()][0] = fighter.getSymbol();
@@ -25,7 +26,6 @@ public class PlayerPaneBattle extends PlayerPane implements Updatable {
 			}
 			fighters.add(fighter);
 			addFighterBox(fighter);
-
 		}
 	}
 
