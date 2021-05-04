@@ -200,7 +200,6 @@ public class GameController {
 		GameController.setSelect(false);
 		GameController.setChoose(false);
 		GameController.setTurnDone(true);
-		GameController.setRoundDone(false);
 		setP1(!isP1());
 		gameBoard.resetReady();
 		if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1) {
@@ -213,6 +212,7 @@ public class GameController {
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
 			GameController.setRoundDone(true); // finished round
+			GameController.setRoundOver(false); // finished check and reset for next round
 		}
 
 		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1

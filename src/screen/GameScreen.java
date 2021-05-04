@@ -237,6 +237,7 @@ public class GameScreen {
 
 	public void initializeBattle() {
 		GameController.setTurnDone(false);
+		GameController.setRoundDone(false);
 		P1Pane = SimulationManager.getP1PaneBattle();
 		P2Pane = SimulationManager.getP2PaneBattle();
 		final long startNanoTime = System.nanoTime();
