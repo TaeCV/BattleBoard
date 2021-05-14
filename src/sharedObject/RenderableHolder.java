@@ -93,11 +93,11 @@ public class RenderableHolder implements IRenderable {
 	
 	// Actions
 	public static Image heal_Image;
-	public static Image meleeAttack1_Image;
-	public static Image meleeAttack2_Image;
+	public static Image meleeAttack1_Image; // team 1
+	public static Image meleeAttack2_Image; // team 2
 	public static Image rangeAttack_Image;
-	public static Image dodge_Image; // not drawn yet
-	
+	public static Image ducked1_Image; // team 1
+	public static Image ducked2_Image; // team 2
 
 	// =============================EndScreen====================================
 	// Background Images
@@ -359,7 +359,8 @@ public class RenderableHolder implements IRenderable {
 		meleeAttack1_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack1.png").toString());
 		meleeAttack2_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack2.png").toString());
 		rangeAttack_Image = new Image(ClassLoader.getSystemResource(img + "rangeattack.png").toString());
-		//dodge_Image = new Image(ClassLoader.getSystemResource(img + "dodge.png").toString()); // not drawn yet
+		ducked1_Image = new Image(ClassLoader.getSystemResource(img + "ducked1.png").toString());
+		ducked2_Image = new Image(ClassLoader.getSystemResource(img + "ducked2.png").toString());
 		
 		String audio = "audio/";
 		
