@@ -185,7 +185,7 @@ public abstract class Fighter implements Updatable {
 	public String getName() {
 		return this.name;
 	}
-
+	
 	public void update() {
 		if (hitPoint <= 0) {
 			isAlive = false;

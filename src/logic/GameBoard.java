@@ -346,8 +346,12 @@ public class GameBoard {
 		for (int i = 0; i < rows; i++) {
 			String eachRow = "";
 			for (int j = 0; j < cols; j++) {
-				eachRow += map[i][j] + " ";
-			}
+				if (map[i][j] >= 10) {
+					eachRow += map[i][j] + " ";
+				} else {
+					eachRow += " " + map[i][j] + " ";
+				}
+			} 
 			System.out.println(eachRow);
 		}
 	}
