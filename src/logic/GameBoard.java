@@ -6,6 +6,7 @@ import java.util.Random;
 
 import entity.*;
 import entity.base.Fighter;
+import entity.base.HitPointRegenerable;
 
 public class GameBoard {
 	// private Cell[][] cellBoard;
@@ -394,6 +395,19 @@ public class GameBoard {
 		update(c2);
 	}
 
+	public void update() { // update every turn
+		for (Fighter fighter: Player1Fighters) {
+			if (fighter instanceof HitPointRegenerable) {
+				((HitPointRegenerable) fighter).regenerateHitPoint();
+			}
+		}
+		for (Fighter fighter: Player2Fighters) {
+			if (fighter instanceof HitPointRegenerable) {
+				((HitPointRegenerable) fighter).regenerateHitPoint();
+			}
+		}
+	}
+	
 	public void resetReady() {
 		for (Fighter fighter : Player1Fighters) {
 			fighter.setReady(true);

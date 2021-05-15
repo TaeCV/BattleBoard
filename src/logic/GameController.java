@@ -202,6 +202,7 @@ public class GameController {
 		GameController.setTurnDone(true);
 		setP1(!isP1());
 		gameBoard.resetReady();
+		gameBoard.update();
 		if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1) {
 			checkWinnerAtTheEnd();
 			GameController.setRoundOver(true);
@@ -220,7 +221,7 @@ public class GameController {
 		}
 	}
 
-	public static boolean checkRoundOver() { // is called when there is an attack action
+	public static boolean checkRoundOver() {
 		if (GameController.getGameBoard().Player1Fighters.size() == 0) {
 			P2Score++;
 			setRoundOver(true);

@@ -30,6 +30,7 @@ public abstract class Fighter implements Updatable {
 		setCoordinate(null);
 		setBaseStats();
 		setSpecialAbility();
+		attack = 150; // just for testing, delete this line
 	}
 
 	public double attack(Fighter target) {
@@ -63,22 +64,22 @@ public abstract class Fighter implements Updatable {
 
 	public void setBaseStats() {
 		if (type.equals("melee")) {
-			attack = 40;
-			defense = 25;
-			hitPoint = 55;
-			maxHitPoint = 55;
-			attackRange = 1;
+			setAttack(40);
+			setDefense(25);
+			setMaxHitPoint(55);
+			setHitPoint(maxHitPoint);
+			setAttackRange(1);
 		} else if (type.equals("range")) {
-			attack = 25;
-			defense = 10;
-			hitPoint = 40;
-			maxHitPoint = 40;
-			attackRange = 2;
+			setAttack(25);
+			setDefense(10);
+			setMaxHitPoint(40);
+			setHitPoint(maxHitPoint);
+			setAttackRange(2);
 		}
-		totalMoves = 1;
-		isAlive = true;
-		isVisible = true;
-		isReady = true;
+		setTotalMoves(1);
+		setAlive(true);
+		setVisible(true);
+		setReady(true);
 	}
 
 	public abstract void setSpecialAbility();
@@ -135,6 +136,10 @@ public abstract class Fighter implements Updatable {
 		return attackRange;
 	}
 
+	public void setAttackRange(int attackRange) {
+		this.attackRange = attackRange;
+	}
+	
 	public int getTotalMoves() {
 		return totalMoves;
 	}
