@@ -5,11 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import entity.base.Updatable;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
-public class RenderableHolder{
+public class RenderableHolder {
 	private ArrayList<IRenderable> entities;
 	private Comparator<IRenderable> comparator;
 	private static final RenderableHolder instance = new RenderableHolder();
@@ -74,7 +73,7 @@ public class RenderableHolder{
 	public static Image wildrange2_Image;
 	public static Image wildmeleehead_Image;
 	public static Image wildrangehead_Image;
-	
+
 	// Actions
 	public static Image heal_Image;
 	public static Image meleeAttack1_Image; // team 1
@@ -91,27 +90,26 @@ public class RenderableHolder{
 	// Audio Holder
 	// ==========================StartScreen==================================
 	public static AudioClip StartScreen_Music;
-	
+
 	public static AudioClip ButtonClick_Sound;
 	public static AudioClip Error_Sound;
-	
+
 	// ===========================GameScreen===================================
 	public static AudioClip GameScreen_Music;
-	
-	public static AudioClip Select_Sound; //click2
-	
+
+	public static AudioClip Select_Sound; // click2
+
 	public static AudioClip MeleeAttack_Sound;
 	public static AudioClip RangeAttack_Sound;
 	public static AudioClip Heal_Sound;
 	public static AudioClip DodgeMelee_Sound;
 	public static AudioClip DodgeRange_Sound;
-	
+
 	public static AudioClip RoundWin_Sound;
-	
+
 	// =============================EndScreen====================================
 	public static AudioClip GameWin_Sound;
-	
-	
+
 	static {
 		loadResource();
 	}
@@ -127,11 +125,8 @@ public class RenderableHolder{
 	}
 
 	public void add(IRenderable entity) {
+		System.out.println("add");
 		entities.add(entity);
-
-		// System.out.println("Suscessfully added "+entity.toString()+"\nto
-		// entites....");
-
 		Collections.sort(entities, comparator);
 	}
 
@@ -256,6 +251,31 @@ public class RenderableHolder{
 		return image;
 	}
 
+	public static Image getEffectImage(int symbol) {
+		Image image = null;
+		switch (symbol) {
+		case 23:
+			image = RenderableHolder.meleeAttack1_Image;
+			break;
+		case 24:
+			image = RenderableHolder.meleeAttack2_Image;
+			break;
+		case 25:
+			image = RenderableHolder.rangeAttack_Image;
+			break;
+		case 26:
+			image = RenderableHolder.heal_Image;
+			break;
+		case 27:
+			image = RenderableHolder.ducked1_Image;
+			break;
+		case 28:
+			image = RenderableHolder.ducked2_Image;
+			break;
+		}
+		return image;
+	}
+
 	public static void loadResource() {
 		String img = "image/";
 
@@ -313,27 +333,25 @@ public class RenderableHolder{
 		rangeAttack_Image = new Image(ClassLoader.getSystemResource(img + "rangeattack.png").toString());
 		ducked1_Image = new Image(ClassLoader.getSystemResource(img + "ducked1.png").toString());
 		ducked2_Image = new Image(ClassLoader.getSystemResource(img + "ducked2.png").toString());
-		
+
 		String audio = "audio/";
 
 		ButtonClick_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click1.mp3").toString());
 		Error_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "clickerror.mp3").toString());
-		Select_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click2.mp3").toString()); 
+		Select_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click2.mp3").toString());
 
-		
-		MeleeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "melee_attack.mp3").toString()); 
-		RangeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "range_attack.mp3").toString()); 
-		Heal_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "heal.mp3").toString()); 
-		DodgeMelee_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "dodgemelee1.mp3").toString()); 
-		DodgeRange_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "dodgerange.mp3").toString()); 
-		
-		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.mp3").toString()); 
-		GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.mp3").toString()); 
-		
+		MeleeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "melee_attack.mp3").toString());
+		RangeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "range_attack.mp3").toString());
+		Heal_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "heal.mp3").toString());
+		DodgeMelee_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "dodgemelee1.mp3").toString());
+		DodgeRange_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "dodgerange.mp3").toString());
+
+		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.mp3").toString());
+		GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.mp3").toString());
+
 		StartScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "startscreen_music.mp3").toString());
-		GameScreen_Music =  new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());
-		
-		
+		GameScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());
+
 	}
 
 	public static RenderableHolder getInstance() {

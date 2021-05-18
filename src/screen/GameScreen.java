@@ -10,6 +10,7 @@ import gui.SimulationManager;
 import gui.base.PlayerPane;
 import input.InputUtility;
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,9 +37,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import logic.Coordinate;
 import logic.GameBoard;
 import logic.GameController;
+import logic.Sprites;
 import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
@@ -76,7 +79,7 @@ public class GameScreen {
 		gameBoard = GameController.getGameBoard();
 		board = new StackPane();
 		gameScreenSong = new AnimationTimer() {
-			
+
 			@Override
 			public void handle(long arg0) {
 				// TODO Auto-generated method stub
@@ -101,8 +104,50 @@ public class GameScreen {
 		}
 	}
 
-	// Set up bottom pane to show game name
-	public void drawGameNamePane() {
+//	private void paintEffect(String action, int i, int j, int targetFighterTeam, String type) {
+//		if (action.equals("ATTACK")) {
+//			paintAttackEffect(i, j, targetFighterTeam, type);
+//		} else if (action.equals("HEAL")) {
+//			paintHealEffect(i, j);
+//		} else if (action.equals("DUCK")) {
+//			paintDuckEffect(i, j, targetFighterTeam);
+//		}
+//	}
+//	
+//	private void paintAttackEffect(int i, int j, int targetFighterTeam, String type) { 
+//		// still not working in the way we want
+//		if (type.equals("melee")) {
+//			if (targetFighterTeam == 1) { // attack on team 1 Fighter
+//				Image image = RenderableHolder.getEffectImage(Sprites.P2_MELEEATTACK);
+////				FadeTransition ft = new FadeTransition(Duration.millis(1000), new ImageView(image));
+////				ft.setFromValue(1.0);
+////				ft.setToValue(0.0);
+////				ft.play();
+//				
+////				gameGC.drawImage(image, // team 2 Fighter is attacker
+////						GameController.originX + (j * GameController.PIXEL_X),
+////						GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+//			} else if (targetFighterTeam == 2) { // attack on team 2 Fighter
+//				gameGC.drawImage(RenderableHolder.getEffectImage(Sprites.P1_MELEEATTACK), // team 1 Fighter is attacker
+//						GameController.originX + (j * GameController.PIXEL_X),
+//						GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+//			}
+//		} else if (type.equals("range")) {
+//			gameGC.drawImage(RenderableHolder.getEffectImage(Sprites.RANGEATTACK),
+//					GameController.originX + (j * GameController.PIXEL_X),
+//					GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+//		}
+//	}
+//	
+//	private void paintHealEffect(int i, int j) {
+//		
+//	}
+//	
+//	private void paintDuckEffect(int i, int j, int targetFighterTeam) {
+//		
+//	}
+
+	public void drawNamePane() {
 		Text gameName = new Text("BATTLE BOARD");
 		gameName.setFont(Font.font("Times New Roman", FontWeight.BOLD, 36));
 		gameName.setStroke(Color.SILVER);
@@ -208,7 +253,7 @@ public class GameScreen {
 		gameCanvas = SimulationManager.getBoard();
 		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
 		board.getChildren().add(gameCanvas);
-		drawGameNamePane(); // Set namePane
+		drawNamePane(); // Set namePane
 		drawStatusPane(); // Set default statusPane without time and round
 		P1Pane = SimulationManager.getP1PanePreBattle();
 		P2Pane = SimulationManager.getP2PanePreBattle();
@@ -271,6 +316,9 @@ public class GameScreen {
 				paintGameScreenComponent();
 				InputUtility.removeKeyPressed();
 				if (GameController.isTurnDone()) {
+					System.out.println("====================================");
+					SimulationManager.getBoard().resetActorCoordinate();
+					System.out.println("====================================");
 					this.stop();
 					if (!GameController.isRoundDone()) {
 						initializeBattle();
