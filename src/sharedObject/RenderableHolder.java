@@ -354,12 +354,7 @@ public class RenderableHolder implements IRenderable {
 		wildrange2_Image = new Image(ClassLoader.getSystemResource(img + "wildrange2.png").toString());
 		wildmeleehead_Image = new Image(ClassLoader.getSystemResource(img + "wildmeleehead.png").toString());
 		wildrangehead_Image = new Image(ClassLoader.getSystemResource(img + "wildrangehead.png").toString());
-		
-<<<<<<< HEAD
-		String audio = "audio/";
-||||||| b03830c
-		String audio = "audio";
-=======
+
 		heal_Image = new Image(ClassLoader.getSystemResource(img + "heal.png").toString());
 		meleeAttack1_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack1.png").toString());
 		meleeAttack2_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack2.png").toString());
@@ -368,22 +363,11 @@ public class RenderableHolder implements IRenderable {
 		ducked2_Image = new Image(ClassLoader.getSystemResource(img + "ducked2.png").toString());
 		
 		String audio = "audio/";
->>>>>>> a0def29571deb2f2ee7adb613d84d97d58097e37
-		
-<<<<<<< HEAD
-		ButtonClick_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click1.wav").toString());
 
-		Error_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "clickerror.wav").toString());
-		//Select_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "clickselect.wav").toString()); 
-||||||| b03830c
-		ButtonClick_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click1.wav").toString());
-		Error_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "clickerror.wav").toString());
-		Select_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click2.wav").toString()); 
-=======
 		ButtonClick_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click1.mp3").toString());
 		Error_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "clickerror.mp3").toString());
 		Select_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click2.mp3").toString()); 
->>>>>>> a0def29571deb2f2ee7adb613d84d97d58097e37
+
 		
 		MeleeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "melee_attack.mp3").toString()); 
 		RangeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "range_attack.mp3").toString()); 
@@ -391,16 +375,8 @@ public class RenderableHolder implements IRenderable {
 		DodgeMelee_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "dodgemelee1.mp3").toString()); 
 		DodgeRange_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "dodgerange.mp3").toString()); 
 		
-<<<<<<< HEAD
-		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.wav").toString()); 
-		//GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.wav").toString()); 
-||||||| b03830c
-		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.wav").toString()); 
-		GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.wav").toString()); 
-=======
 		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.mp3").toString()); 
 		GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.mp3").toString()); 
->>>>>>> a0def29571deb2f2ee7adb613d84d97d58097e37
 		
 		StartScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "startscreen_music.mp3").toString());
 		GameScreen_Music =  new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());
