@@ -23,16 +23,4 @@ public class MenuBar extends VBox {
 
 		getChildren().addAll(startButton, howToPlayButton, quitButton);
 	}
-
-	public void setButtonDisable() {
-		startButton.setDisable(true);
-		howToPlayButton.setDisable(true);
-		quitButton.setDisable(true);
-	}
-
-	public void setButtonUsable() {
-		startButton.setDisable(false);
-		howToPlayButton.setDisable(false);
-		quitButton.setDisable(false);
-	}
 }

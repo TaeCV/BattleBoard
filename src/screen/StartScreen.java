@@ -17,39 +17,37 @@ public class StartScreen {
 	private Stage primaryStage;
 	private Canvas canvas;
 	private GraphicsContext gc;
-	public static MenuBar menu;
+	private MenuBar menu;
 	private HowToPlay howToPlay;
-
 	public static StackPane root;
 
 	public StartScreen(Stage primaryStage) {
-		// TODO Auto-generated method stub
 		this.primaryStage = primaryStage;
-		canvas = new Canvas(1000, 800);
-		gc = canvas.getGraphicsContext2D();
-		menu = new MenuBar();
-		howToPlay = new HowToPlay();
+		this.canvas = new Canvas(1000, 800);
+		this.gc = canvas.getGraphicsContext2D();
+		this.menu = new MenuBar();
+		this.howToPlay = new HowToPlay();
 
 		setUp();
 	}
 
 	public void setBackground(GraphicsContext gc) {
+		// Draw background picture
 		gc.drawImage(RenderableHolder.start_bg_Image, 0, 0, 1000, 800);
 		gc.setFill(Color.BLACK);
 		gc.setStroke(Color.LIGHTGRAY);
 		gc.setLineWidth(1.5);
 
+		// Draw title bar with game's name
 		gc.drawImage(RenderableHolder.title_bg_Image, 130, 25, 765, 175);
-		Font font = Font.font("Palatino Linotype", FontWeight.BOLD, 100);
-		gc.setFont(font);
+		gc.setFont(Font.font("Palatino Linotype", FontWeight.BOLD, 100));
 		gc.fillText("Battle Board!", 220, 150);
 		gc.strokeText("Battle Board!", 220, 150);
 	}
 
-	public void draw(GraphicsContext gc) {
+	public void drawScene(GraphicsContext gc) {
 		root = new StackPane();
 		root.getChildren().addAll(canvas, menu);
-
 		Scene scene = new Scene(root, 1000, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Battle Board");
@@ -59,23 +57,18 @@ public class StartScreen {
 		menu.startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				root.getChildren().add(new PlayerNameBar(primaryStage));
-				menu.setButtonDisable();
 			}
 		});
 		menu.howToPlayButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				root.getChildren().add(howToPlay);
-				menu.setButtonDisable();
 			}
 		});
 		menu.quitButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				Platform.exit();
 			}
 		});
@@ -84,13 +77,12 @@ public class StartScreen {
 	public static void removeChildFromRoot() {
 		int numOfChild = root.getChildren().size();
 		root.getChildren().remove(numOfChild - 1);
-		menu.setButtonUsable();
 	}
 
 	public void setUp() {
 		setMenuAction();
 		setBackground(gc);
-		draw(gc);
+		drawScene(gc);
 	}
 
 }

@@ -36,19 +36,20 @@ import exception.InvalidNameException;
 import gui.base.ActionButton;
 
 public class PlayerNameBar extends VBox {
+	private Stage primaryStage;
 	private String Player1Name;
 	private String Player2Name;
-	private Stage primaryStage;
 
 	private TextField Player1NameField;
 	private TextField Player2NameField;
 	private HBox nameConfirm1;
 	private HBox nameConfirm2;
-
+	private HBox buttonBox;
 	private Button confirmButton1;
 	private Button confirmButton2;
 	private Button editButton1;
 	private Button editButton2;
+
 	private Button startButton;
 	private Button backButton;
 
@@ -56,26 +57,20 @@ public class PlayerNameBar extends VBox {
 	private boolean isCheckP2;
 
 	public PlayerNameBar(Stage primaryStage) {
-		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 		this.primaryStage = primaryStage;
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
 		setAlignment(Pos.CENTER);
-		setPrefSize(720, 300);
 		setMaxSize(720, 300);
 		setPadding(new Insets(100, 50, 100, 50));
 		setSpacing(25);
 		setBackground(new Background(new BackgroundFill(Color.TAN, CornerRadii.EMPTY, Insets.EMPTY)));
 		setUpButtons();
 		setUpNameConfirm();
-		HBox buttonBox = new HBox(40);
-		buttonBox.setPadding(new Insets(25));
-		buttonBox.getChildren().addAll(startButton, backButton);
 
 		Text description = new Text("Put your name in TextFeild\n" + "1) It must be contained with 1 - 6 characters.\n"
 				+ "2) It must be cantained only English alphabet and number.\n"
 				+ "3) Player 1 and Player 2 should not use the same name.");
 		description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 14));
-		description.setX(0);
-		description.setY(0);
 		StackPane groupText = new StackPane(description);
 		groupText.setAlignment(Pos.CENTER_LEFT);
 
@@ -91,19 +86,15 @@ public class PlayerNameBar extends VBox {
 		Player1NameField = new TextField();
 		Player2NameField = new TextField();
 		Player1NameField.setPrefSize(200, 50);
-		Player1NameField.setMinSize(200, 50);
 		Player1NameField.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		Player2NameField.setPrefSize(200, 50);
-		Player2NameField.setMinSize(200, 50);
 		Player2NameField.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 	}
 
 	public void setUpNameConfirm() {
 		setUpTextFields();
-		nameConfirm1 = new HBox();
-		nameConfirm2 = new HBox();
-		nameConfirm1.setSpacing(30);
-		nameConfirm2.setSpacing(30);
+		nameConfirm1 = new HBox(30);
+		nameConfirm2 = new HBox(30);
 		nameConfirm1.getChildren().addAll(Player1NameField, confirmButton1);
 		nameConfirm2.getChildren().addAll(Player2NameField, confirmButton2);
 	}
@@ -127,6 +118,7 @@ public class PlayerNameBar extends VBox {
 	}
 
 	public void setUpButtons() {
+
 		confirmButton1 = new ActionButton("CONFIRM");
 		confirmButton1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		confirmButton1.setPrefSize(200, 50);
@@ -220,26 +212,6 @@ public class PlayerNameBar extends VBox {
 			}
 		});
 
-		startButton = new ActionButton("START GAME!");
-		startButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				if (isCheckP1 && isCheckP2) {
-					GameController.setDefault(Player1Name, Player2Name);
-					new GameScreen(primaryStage, Player1Name, Player2Name);
-				}
-			}
-		});
-
-		backButton = new ActionButton("Back");
-		backButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				StartScreen.removeChildFromRoot();
-			}
-		});
-
 		editButton1 = new ActionButton("Edit");
 		editButton1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		editButton1.setPrefSize(200, 50);
@@ -270,6 +242,29 @@ public class PlayerNameBar extends VBox {
 			}
 		});
 
+		buttonBox = new HBox(40);
+		buttonBox.setPadding(new Insets(25));
+
+		startButton = new ActionButton("START GAME!");
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				if (isCheckP1 && isCheckP2) {
+					GameController.setDefault(Player1Name, Player2Name);
+					new GameScreen(primaryStage, Player1Name, Player2Name);
+				}
+			}
+		});
+
+		backButton = new ActionButton("Back");
+		backButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				StartScreen.removeChildFromRoot();
+			}
+		});
+		buttonBox.getChildren().addAll(startButton, backButton);
 	}
 
 	public ImageView imageViewCheck() {

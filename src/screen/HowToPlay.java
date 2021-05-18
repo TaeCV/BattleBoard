@@ -34,7 +34,6 @@ public class HowToPlay extends VBox {
 		title.setStroke(Color.SILVER);
 
 		// Describe the player button and character's ability
-
 		GridPane description = new GridPane();
 		description.setHgap(10);
 		description.setVgap(10);

@@ -85,15 +85,13 @@ public class GameScreen {
 					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
 							GameController.originX + (j * GameController.PIXEL_X),
 							GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
-
 				}
-
 			}
 		}
 	}
 
 	// Set up bottom pane to show game name
-	public void drawNamePane() {
+	public void drawGameNamePane() {
 		Text gameName = new Text("BATTLE BOARD");
 		gameName.setFont(Font.font("Times New Roman", FontWeight.BOLD, 36));
 		gameName.setStroke(Color.SILVER);
@@ -199,7 +197,7 @@ public class GameScreen {
 		gameCanvas = SimulationManager.getBoard();
 		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
 		board.getChildren().add(gameCanvas);
-		drawNamePane(); // Set namePane
+		drawGameNamePane(); // Set namePane
 		drawStatusPane(); // Set default statusPane without time and round
 		P1Pane = SimulationManager.getP1PanePreBattle();
 		P2Pane = SimulationManager.getP2PanePreBattle();
