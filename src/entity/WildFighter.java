@@ -1,19 +1,20 @@
 package entity;
 
 import entity.base.Fighter;
+import entity.base.StatsIncreasable;
 import logic.Sprites;
 
-public class WildFighter extends Fighter {
+public class WildFighter extends Fighter implements StatsIncreasable {
 	// attack boost
 	private double bonusAttack; // bonusAttack is percent attack increased
 
 	public WildFighter(String type, int team, String name) {
 		super(type, team, name);
+		setBonusStats();
 	}
 
 	public void setSpecialAbility() {
-		setBonusAttack();
-		attack += attack * bonusAttack / 100;
+		// WildFighter has no special ability
 	}
 
 	public int getSymbol() {
@@ -31,6 +32,11 @@ public class WildFighter extends Fighter {
 			}
 		}
 		return 0;
+	}
+	
+	public void setBonusStats() {
+		setBonusAttack();
+		setAttack(attack + attack * bonusAttack / 100);
 	}
 
 	public double getBonusAttack() {

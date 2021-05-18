@@ -6,6 +6,7 @@ import java.util.Random;
 
 import entity.*;
 import entity.base.Fighter;
+import entity.base.HitPointRegenerable;
 
 public class GameBoard {
 	// private Cell[][] cellBoard;
@@ -346,8 +347,12 @@ public class GameBoard {
 		for (int i = 0; i < rows; i++) {
 			String eachRow = "";
 			for (int j = 0; j < cols; j++) {
-				eachRow += map[i][j] + " ";
-			}
+				if (map[i][j] >= 10) {
+					eachRow += map[i][j] + " ";
+				} else {
+					eachRow += " " + map[i][j] + " ";
+				}
+			} 
 			System.out.println(eachRow);
 		}
 	}
@@ -390,6 +395,19 @@ public class GameBoard {
 		update(c2);
 	}
 
+	public void update() { // update every turn
+		for (Fighter fighter: Player1Fighters) {
+			if (fighter instanceof HitPointRegenerable) {
+				((HitPointRegenerable) fighter).regenerateHitPoint();
+			}
+		}
+		for (Fighter fighter: Player2Fighters) {
+			if (fighter instanceof HitPointRegenerable) {
+				((HitPointRegenerable) fighter).regenerateHitPoint();
+			}
+		}
+	}
+	
 	public void resetReady() {
 		for (Fighter fighter : Player1Fighters) {
 			fighter.setReady(true);

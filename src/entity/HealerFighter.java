@@ -1,11 +1,13 @@
 package entity;
 
 import entity.base.Fighter;
+import entity.base.HitPointRegenerable;
 import logic.Sprites;
 
-public class HealerFighter extends Fighter {
+public class HealerFighter extends Fighter implements HitPointRegenerable{
 	// can choose to attack or heal any team mates including itself
 	private double healingPoint;
+	private double regeneratedHitPoint;
 
 	public HealerFighter(String type, int team, String name) {
 		super(type, team, name);
@@ -43,11 +45,21 @@ public class HealerFighter extends Fighter {
 		return 0;
 	}
 
+	public double regenerateHitPoint() {
+		setRegeneratedHitPoint();
+		setHitPoint(hitPoint + regeneratedHitPoint);
+		return regeneratedHitPoint;
+	}
+	
 	public double getHealingPoint() {
 		return healingPoint;
 	}
 
 	public void setHealingPoint() {
 		healingPoint = Math.random() * 10 + 5; // healingPoint is between 5,20
+	}
+	
+	public void setRegeneratedHitPoint() {
+		regeneratedHitPoint = maxHitPoint * 5 / 100;
 	}
 }

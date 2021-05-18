@@ -1,19 +1,23 @@
 package entity;
 
 import entity.base.Fighter;
+import entity.base.HitPointRegenerable;
+import entity.base.StatsIncreasable;
 import logic.Sprites;
 
-public class ToughFighter extends Fighter {
+public class ToughFighter extends Fighter implements HitPointRegenerable, StatsIncreasable {
 	// defense and hitPoint boost
 	private double bonusDefense;
 	private double bonusHitPoint;
+	private double regeneratedHitPoint;
 
 	public ToughFighter(String type, int team, String name) {
 		super(type, team, name);
+		setBonusStats();
 	}
 
 	public void setSpecialAbility() {
-		setStats();
+		// ToughFighter has no special ability
 	}
 
 	public int getSymbol() {
@@ -33,14 +37,20 @@ public class ToughFighter extends Fighter {
 		return 0;
 	}
 
-	public void setStats() {
+	public void setBonusStats() {
 		setBonusDefense();
 		setBonusHitPoint();
-		defense += defense * bonusDefense / 100;
-		hitPoint += hitPoint * bonusHitPoint / 100;
-		maxHitPoint += maxHitPoint * bonusHitPoint / 100;
+		setDefense(defense + defense * bonusDefense / 100);
+		setMaxHitPoint(maxHitPoint + maxHitPoint * bonusHitPoint / 100);
+		setHitPoint(maxHitPoint);
 	}
 
+	public double regenerateHitPoint() {
+		setRegeneratedHitPoint();
+		setHitPoint(hitPoint + regeneratedHitPoint);
+		return regeneratedHitPoint;
+	}
+	
 	public double getBonusDefense() {
 		return bonusDefense;
 	}
@@ -55,6 +65,10 @@ public class ToughFighter extends Fighter {
 
 	public void setBonusHitPoint() {
 		bonusHitPoint = Math.random() * 30 + 10;
+	}
+	
+	public void setRegeneratedHitPoint() {
+		regeneratedHitPoint = maxHitPoint * 2 / 100;
 	}
 
 }
