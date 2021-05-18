@@ -59,6 +59,7 @@ public class GameScreen {
 	private PlayerPane P2Pane;
 
 	private GameBoard gameBoard;
+	private AnimationTimer gameScreenSong;
 
 	public static GraphicsContext gameGC;
 	public static GraphicsContext statusGC;
@@ -74,6 +75,16 @@ public class GameScreen {
 		this.P2Name = P2Name;
 		gameBoard = GameController.getGameBoard();
 		board = new StackPane();
+		gameScreenSong = new AnimationTimer() {
+			
+			@Override
+			public void handle(long arg0) {
+				// TODO Auto-generated method stub
+				if (!RenderableHolder.GameScreen_Music.isPlaying())
+					RenderableHolder.GameScreen_Music.play();
+			}
+		};
+		gameScreenSong.start();
 		initializeGame();
 	}
 
@@ -267,6 +278,8 @@ public class GameScreen {
 						board.getChildren().clear();
 						initializeGame();
 					} else {
+						RenderableHolder.GameScreen_Music.stop();
+						gameScreenSong.stop();
 						new EndScreen(primaryStage);
 					}
 				}

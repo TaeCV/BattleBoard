@@ -1,5 +1,6 @@
 package screen;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +21,7 @@ public class StartScreen {
 	private MenuBar menu;
 	private HowToPlay howToPlay;
 	public static StackPane root;
+	public static AnimationTimer startScreenSong;
 
 	public StartScreen(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -49,6 +51,13 @@ public class StartScreen {
 		root = new StackPane();
 		root.getChildren().addAll(canvas, menu);
 		Scene scene = new Scene(root, 1000, 800);
+		startScreenSong = new AnimationTimer() {
+			public void handle(long now) {
+				if (!RenderableHolder.StartScreen_Music.isPlaying())
+					RenderableHolder.StartScreen_Music.play();
+			}
+		};
+		startScreenSong.start();
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Battle Board");
 	}
@@ -57,18 +66,21 @@ public class StartScreen {
 		menu.startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				RenderableHolder.ButtonClick_Sound.play();
 				root.getChildren().add(new PlayerNameBar(primaryStage));
 			}
 		});
 		menu.howToPlayButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				RenderableHolder.ButtonClick_Sound.play();
 				root.getChildren().add(howToPlay);
 			}
 		});
 		menu.quitButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				RenderableHolder.ButtonClick_Sound.play();
 				Platform.exit();
 			}
 		});

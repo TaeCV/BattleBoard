@@ -7,6 +7,7 @@ import input.InputUtility;
 import javafx.scene.input.KeyCode;
 import logic.GameController;
 import screen.GameScreen;
+import sharedObject.RenderableHolder;
 
 public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 	private Fighter[] fighters;
@@ -45,6 +46,7 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
 				selectedPreFighter.update();
 			} else if (InputUtility.getKeyPressed(KeyCode.F)) {
+				RenderableHolder.Select_Sound.play();
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
 				SimulationManager.getP1PaneBattle().addFighters(selectedPreFighter.getFighter());
 				getChildren().remove(GameScreen.positionToSelectP1);
@@ -67,6 +69,7 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP2);
 				selectedPreFighter.update();
 			} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
+				RenderableHolder.Select_Sound.play();
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP2);
 				SimulationManager.getP2PaneBattle().addFighters(selectedPreFighter.getFighter());
 				getChildren().remove(GameScreen.positionToSelectP2);

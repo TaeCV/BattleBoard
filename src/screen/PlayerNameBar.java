@@ -129,6 +129,7 @@ public class PlayerNameBar extends VBox {
 					try {
 						confirmName(Player1NameField.getText().strip());
 						Player1Name = Player1NameField.getText().strip();
+						RenderableHolder.ButtonClick_Sound.play();
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {
@@ -145,6 +146,7 @@ public class PlayerNameBar extends VBox {
 							}
 						});
 					} catch (InvalidNameException e) {
+						RenderableHolder.Error_Sound.play();
 						Platform.runLater(new Runnable() {
 
 							@Override
@@ -175,6 +177,7 @@ public class PlayerNameBar extends VBox {
 				Thread checker = new Thread(() -> {
 					try {
 						confirmName(Player2NameField.getText().strip());
+						RenderableHolder.ButtonClick_Sound.play();
 						Player2Name = Player2NameField.getText().strip();
 						Platform.runLater(new Runnable() {
 							@Override
@@ -191,6 +194,7 @@ public class PlayerNameBar extends VBox {
 							}
 						});
 					} catch (InvalidNameException e) {
+						RenderableHolder.Error_Sound.play();
 						Platform.runLater(new Runnable() {
 
 							@Override
@@ -217,7 +221,9 @@ public class PlayerNameBar extends VBox {
 		editButton1.setPrefSize(200, 50);
 		editButton1.setMinSize(200, 50);
 		editButton1.setOnAction(new EventHandler<ActionEvent>() {
+
 			public void handle(ActionEvent event) {
+				RenderableHolder.ButtonClick_Sound.play();
 				Player1NameField.setDisable(false);
 				int numOfChild = nameConfirm1.getChildren().size();
 				nameConfirm1.getChildren().remove(numOfChild - 1);
@@ -233,6 +239,7 @@ public class PlayerNameBar extends VBox {
 		editButton2.setMinSize(200, 50);
 		editButton2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				RenderableHolder.ButtonClick_Sound.play();
 				Player2NameField.setDisable(false);
 				int numOfChild = nameConfirm2.getChildren().size();
 				nameConfirm2.getChildren().remove(numOfChild - 1);
@@ -249,8 +256,13 @@ public class PlayerNameBar extends VBox {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				if (isCheckP1 && isCheckP2) {
+					RenderableHolder.ButtonClick_Sound.play();
 					GameController.setDefault(Player1Name, Player2Name);
+					RenderableHolder.StartScreen_Music.stop();
+					StartScreen.startScreenSong.stop();
 					new GameScreen(primaryStage, Player1Name, Player2Name);
+				} else {
+					RenderableHolder.Error_Sound.play();
 				}
 			}
 		});
@@ -261,6 +273,7 @@ public class PlayerNameBar extends VBox {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				RenderableHolder.ButtonClick_Sound.play();
 				StartScreen.removeChildFromRoot();
 			}
 		});

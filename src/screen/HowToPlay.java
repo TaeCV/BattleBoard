@@ -58,6 +58,7 @@ public class HowToPlay extends VBox {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				RenderableHolder.ButtonClick_Sound.play();
 				StartScreen.removeChildFromRoot();
 			}
 		});

@@ -1,6 +1,7 @@
 package screen;
 
 import gui.base.ActionButton;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,12 +28,23 @@ import sharedObject.RenderableHolder;
 public class EndScreen {
 	private Pane root;
 	private VBox textGroup;
+	private AnimationTimer endScreenSong;
 
 	public EndScreen(Stage primaryStage) {
 		root = new Pane();		
 		root.setMaxSize(1000, 800);		
 
 		if (GameController.isWin()) {
+			endScreenSong = new AnimationTimer() {
+				
+				@Override
+				public void handle(long arg0) {
+					// TODO Auto-generated method stub
+					if (!RenderableHolder.GameWin_Sound.isPlaying())
+						RenderableHolder.GameWin_Sound.play();
+				}
+			};
+			endScreenSong.start();
 			root.setBackground(new Background(new BackgroundImage(RenderableHolder.end_bg_Image, null, null, null,
 					new BackgroundSize(1000, 800, false, false, false, false))));
 			
@@ -74,6 +86,9 @@ public class EndScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				RenderableHolder.ButtonClick_Sound.play();
+				RenderableHolder.GameWin_Sound.stop();
+				endScreenSong.stop();
 				new StartScreen(primaryStage);
 			}
 		});
@@ -86,6 +101,9 @@ public class EndScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				RenderableHolder.ButtonClick_Sound.play();
+				RenderableHolder.GameWin_Sound.stop();
+				endScreenSong.stop();
 				Platform.exit();
 			}
 		});
