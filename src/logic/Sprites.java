@@ -23,4 +23,10 @@ public class Sprites {
 	public static final int P2_WILDRANGE = 20;
 	public static final int RIVER = 21;
 	public static final int GROUND = 22;
+	public static final int P1_MELEEATTACK = 23;
+	public static final int P2_MELEEATTACK = 24;
+	public static final int RANGEATTACK = 25;
+	public static final int HEAL = 26;
+	public static final int P1_DUCKED = 27;
+	public static final int P2_DUCKED = 28;
 }

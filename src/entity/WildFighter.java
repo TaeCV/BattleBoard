@@ -2,6 +2,7 @@ package entity;
 
 import entity.base.Fighter;
 import entity.base.StatsIncreasable;
+import javafx.scene.canvas.GraphicsContext;
 import logic.Sprites;
 
 public class WildFighter extends Fighter implements StatsIncreasable {

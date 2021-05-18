@@ -22,7 +22,7 @@ public class ActionPane extends VBox {
 	private Text blankActionText;
 	private Text cancelText;
 
-	public ActionPane(int symbol, int moveCount, int attackCount, int healCount) {
+	public ActionPane(boolean isHealer, int moveCount, int attackCount, int healCount) {
 		setMaxSize(400, 200);
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.TAN, null, getInsets())));
@@ -44,13 +44,13 @@ public class ActionPane extends VBox {
 		healText = new Text(Integer.toString(3 + addition) + ") HEAL	");
 		healText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
 
-		if (moveCount != 0) {
+		if (moveCount > 1) {
 			getChildren().add(moveText);
 		}
 		if (attackCount != 0) {
 			getChildren().add(attackText);
 		}
-		if ((symbol == 2 || symbol == 7 || symbol == 12 || symbol == 17) && healCount != 0) {
+		if (isHealer && healCount != 0) {
 			getChildren().add(healText);
 		}
 

@@ -212,6 +212,7 @@ public class GameController {
 			setP1(GameController.getRoundCount() % 2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
+			
 			GameController.setRoundDone(true); // finished round
 		}
 		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1

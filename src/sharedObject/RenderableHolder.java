@@ -5,11 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import entity.base.Updatable;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
-public class RenderableHolder implements IRenderable {
+public class RenderableHolder {
 	private ArrayList<IRenderable> entities;
 	private Comparator<IRenderable> comparator;
 	private static final RenderableHolder instance = new RenderableHolder();
@@ -142,36 +141,10 @@ public class RenderableHolder implements IRenderable {
 		};
 	}
 
-	@Override
-	public int getZ() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void draw(GraphicsContext gc) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isDestroyed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public void add(IRenderable entity) {
+		System.out.println("add");
 		entities.add(entity);
-
-		// System.out.println("Suscessfully added "+entity.toString()+"\nto
-		// entites....");
-
 		Collections.sort(entities, comparator);
 	}
 
@@ -296,6 +269,31 @@ public class RenderableHolder implements IRenderable {
 		return image;
 	}
 
+	public static Image getEffectImage(int symbol) {
+		Image image = null;
+		switch(symbol) {
+		case 23:
+			image = RenderableHolder.meleeAttack1_Image;
+			break;
+		case 24:
+			image = RenderableHolder.meleeAttack2_Image;
+			break;
+		case 25:
+			image = RenderableHolder.rangeAttack_Image;
+			break;
+		case 26:
+			image = RenderableHolder.heal_Image;
+			break;
+		case 27:
+			image = RenderableHolder.ducked1_Image;
+			break;
+		case 28:
+			image = RenderableHolder.ducked2_Image;
+			break;
+		}
+		return image;
+	}
+	
 	public static void loadResource() {
 		String img = "image/";
 

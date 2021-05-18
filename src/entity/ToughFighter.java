@@ -64,7 +64,7 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 	}
 
 	public void setBonusHitPoint() {
-		bonusHitPoint = Math.random() * 30 + 10;
+		bonusHitPoint = Math.random() * 30 + 20;
 	}
 	
 	public void setRegeneratedHitPoint() {

@@ -133,6 +133,7 @@ public class GameBoard {
 		// to
 		// logic is move 1 block at a time
 		ArrayList<Coordinate> possibleCoordinate = new ArrayList<>();
+		possibleCoordinate.add(currentCoordinate);
 		ArrayList<Coordinate> firstTime = getAllPossibleToMoveDistance1(currentCoordinate);
 		possibleCoordinate.addAll(firstTime);
 		if (currentCoordinate.getFighter() instanceof SpeedyFighter) {
@@ -194,7 +195,6 @@ public class GameBoard {
 		// receive actorCoordinate and target from input
 		Fighter moving = actorCoordinate.getFighter();
 		moving.move(targetCoordinate);
-		moving.setReady(false);
 		update(actorCoordinate, targetCoordinate);
 	}
 
