@@ -56,7 +56,7 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 	}
 
 	public void setHealingPoint() {
-		healingPoint = Math.random() * 10 + 5; // healingPoint is between 5,20
+		healingPoint = Math.random() * 10 + 5; // healingPoint is between 5,10
 	}
 	
 	public void setRegeneratedHitPoint() {

@@ -5,11 +5,11 @@ import logic.Coordinate;
 import logic.GameController;
 import sharedObject.IRenderable;
 
-public abstract class Fighter implements Updatable, IRenderable {
+public abstract class Fighter implements Updatable {
 	protected String type; // melee or range
 	protected String name;
 
-	protected double attack;
+	protected double attack; 
 	protected double defense; // reduce damage income by defense percent
 	protected int attackRange;
 	protected double hitPoint;
@@ -199,7 +199,7 @@ public abstract class Fighter implements Updatable, IRenderable {
 	}
 
 	public void setZ() {
-		int i = coordinate.getI(); 
+		
 	}
 
 	public void update() {
