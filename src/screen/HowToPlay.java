@@ -109,14 +109,10 @@ public class HowToPlay extends VBox {
 		// Back Button
 		ActionButton backButton = new ActionButton("Back");
 		backButton.setPrefSize(200, 50);
-		backButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
+		backButton.setOnMouseClicked(event -> {
 				// TODO Auto-generated method stub
 				RenderableHolder.ButtonClick_Sound.play();
 				StartScreen.removeChildFromRoot();
-			}
 		});
 
 		getChildren().addAll(title, scrollPane, backButton);

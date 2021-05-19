@@ -25,6 +25,7 @@ public class BoardPane extends Canvas implements Updatable {
 	private int[] pixel;
 	private int key;
 	private ArrayList<Coordinate> coordinates;
+	private Coordinate beforeActionCoordinate;
 	private Coordinate targetCoordinate; // where the target at
 	private Coordinate actorCoordinate; // where the actor at
 	private GameBoard gameBoard;
@@ -84,6 +85,7 @@ public class BoardPane extends Canvas implements Updatable {
 					draw();
 					System.out.println("Action!");
 					System.out.println(actorCoordinate.toString());
+					beforeActionCoordinate = actorCoordinate;
 					actionPane = new ActionPane(actorCoordinate.getFighter() instanceof HealerFighter,
 							gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size(),
 							gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size(),
@@ -161,7 +163,8 @@ public class BoardPane extends Canvas implements Updatable {
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
-						actorCoordinate = null;
+						gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);
+						actorCoordinate = beforeActionCoordinate;
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					}
@@ -213,7 +216,7 @@ public class BoardPane extends Canvas implements Updatable {
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
-						actorCoordinate = null;
+						actorCoordinate = beforeActionCoordinate;
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					}
@@ -256,6 +259,7 @@ public class BoardPane extends Canvas implements Updatable {
 					draw();
 					System.out.println("Action!");
 					System.out.println(actorCoordinate.toString());
+					beforeActionCoordinate = actorCoordinate;
 					actionPane = new ActionPane(actorCoordinate.getFighter() instanceof HealerFighter,
 							gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size(),
 							gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size(),
@@ -332,7 +336,8 @@ public class BoardPane extends Canvas implements Updatable {
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
-						actorCoordinate = null;
+						gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);
+						actorCoordinate = beforeActionCoordinate;
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					}
@@ -384,7 +389,7 @@ public class BoardPane extends Canvas implements Updatable {
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
-						actorCoordinate = null;
+						actorCoordinate = beforeActionCoordinate;
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					}

@@ -63,26 +63,17 @@ public class StartScreen {
 	}
 
 	public void setMenuAction() {
-		menu.startButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				RenderableHolder.ButtonClick_Sound.play();
-				root.getChildren().add(new PlayerNameBar(primaryStage));
-			}
+		menu.startButton.setOnMouseClicked(event -> {
+			RenderableHolder.ButtonClick_Sound.play();
+			root.getChildren().add(new PlayerNameBar(primaryStage));
 		});
-		menu.howToPlayButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				RenderableHolder.ButtonClick_Sound.play();
-				root.getChildren().add(howToPlay);
-			}
+		menu.howToPlayButton.setOnMouseClicked(event -> {
+			RenderableHolder.ButtonClick_Sound.play();
+			root.getChildren().add(howToPlay);
 		});
-		menu.quitButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				RenderableHolder.ButtonClick_Sound.play();
-				Platform.exit();
-			}
+		menu.quitButton.setOnMouseClicked(event -> {
+			RenderableHolder.ButtonClick_Sound.play();
+			Platform.exit();
 		});
 	}
 

@@ -109,6 +109,7 @@ public class RenderableHolder {
 
 	// =============================EndScreen====================================
 	public static AudioClip GameWin_Sound;
+	public static AudioClip GameTie_Sound;
 
 	static {
 		loadResource();
@@ -348,6 +349,8 @@ public class RenderableHolder {
 
 		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.mp3").toString());
 		GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.mp3").toString());
+		GameTie_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gametie1.mp3").toString());
+		
 
 		StartScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "startscreen_music.mp3").toString());
 		GameScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());
