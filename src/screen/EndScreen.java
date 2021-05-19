@@ -31,12 +31,12 @@ public class EndScreen {
 	private AnimationTimer endScreenSong;
 
 	public EndScreen(Stage primaryStage) {
-		root = new Pane();		
-		root.setMaxSize(1000, 800);		
+		root = new Pane();
+		root.setMaxSize(1000, 800);
 
 		if (GameController.isWin()) {
 			endScreenSong = new AnimationTimer() {
-				
+
 				@Override
 				public void handle(long arg0) {
 					// TODO Auto-generated method stub
@@ -47,7 +47,7 @@ public class EndScreen {
 			endScreenSong.start();
 			root.setBackground(new Background(new BackgroundImage(RenderableHolder.end_bg_Image, null, null, null,
 					new BackgroundSize(1000, 800, false, false, false, false))));
-			
+
 			textGroup = new VBox(60);
 			textGroup.setPadding(new Insets(0, 0, 400, 400));
 			textGroup.setAlignment(Pos.CENTER);
@@ -72,7 +72,7 @@ public class EndScreen {
 			tieText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 80));
 			tieText.setFill(Color.WHITE);
 			textGroup.getChildren().addAll(tieText);
-		}				
+		}
 
 		HBox buttonGroup = new HBox(20);
 		buttonGroup.setPadding(new Insets(100));
@@ -81,31 +81,23 @@ public class EndScreen {
 		Button backButton = new ActionButton("Main Menu");
 		backButton.setPrefSize(200, 50);
 		backButton.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
-		backButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				RenderableHolder.ButtonClick_Sound.play();
-				RenderableHolder.GameWin_Sound.stop();
-				endScreenSong.stop();
-				new StartScreen(primaryStage);
-			}
+		backButton.setOnMouseClicked(event -> {
+			// TODO Auto-generated method stub
+			RenderableHolder.ButtonClick_Sound.play();
+			RenderableHolder.GameWin_Sound.stop();
+			endScreenSong.stop();
+			new StartScreen(primaryStage);
 		});
 
 		Button quitButton = new ActionButton("QUIT");
 		quitButton.setPrefSize(200, 50);
 		quitButton.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
-		quitButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				RenderableHolder.ButtonClick_Sound.play();
-				RenderableHolder.GameWin_Sound.stop();
-				endScreenSong.stop();
-				Platform.exit();
-			}
+		quitButton.setOnMouseClicked(event -> {
+			// TODO Auto-generated method stub
+			RenderableHolder.ButtonClick_Sound.play();
+			RenderableHolder.GameWin_Sound.stop();
+			endScreenSong.stop();
+			Platform.exit();
 		});
 
 		buttonGroup.getChildren().addAll(backButton, quitButton);

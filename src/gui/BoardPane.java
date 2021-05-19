@@ -10,14 +10,12 @@ import entity.base.Updatable;
 import input.InputUtility;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import logic.Coordinate;
 import logic.GameBoard;
 import logic.GameController;
 import screen.GameScreen;
-import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
 public class BoardPane extends Canvas implements Updatable {

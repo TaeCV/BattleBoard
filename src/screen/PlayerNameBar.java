@@ -123,159 +123,145 @@ public class PlayerNameBar extends VBox {
 		confirmButton1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		confirmButton1.setPrefSize(200, 50);
 		confirmButton1.setMinSize(200, 50);
-		confirmButton1.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				Thread checker = new Thread(() -> {
-					try {
-						confirmName(Player1NameField.getText().strip());
-						Player1Name = Player1NameField.getText().strip();
-						RenderableHolder.ButtonClick_Sound.play();
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								if (!isCheckP1) {
-									Player1NameField.setDisable(true);
-									int numOfChild = nameConfirm1.getChildren().size();
-									nameConfirm1.getChildren().remove(numOfChild - 1);
-									nameConfirm1.getChildren().add(editButton1);
-									nameConfirm1.getChildren().add(imageViewCheck());
-									isCheckP1 = true;
-								}
-
-							}
-						});
-					} catch (InvalidNameException e) {
-						RenderableHolder.Error_Sound.play();
-						Platform.runLater(new Runnable() {
-
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Please fill again!");
-								alert.setContentText(e.getType());
-								alert.setHeaderText(null);
-								alert.showAndWait();
-								Player1NameField.setText("");
-								Player1Name = "";
+		confirmButton1.setOnMouseClicked(event -> {
+			Thread checker = new Thread(() -> {
+				try {
+					confirmName(Player1NameField.getText().strip());
+					Player1Name = Player1NameField.getText().strip();
+					RenderableHolder.ButtonClick_Sound.play();
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							if (!isCheckP1) {
+								Player1NameField.setDisable(true);
+								int numOfChild = nameConfirm1.getChildren().size();
+								nameConfirm1.getChildren().remove(numOfChild - 1);
+								nameConfirm1.getChildren().add(editButton1);
+								nameConfirm1.getChildren().add(imageViewCheck());
+								isCheckP1 = true;
 							}
 
-						});
-					}
-				});
-				checker.start();
-			}
+						}
+					});
+				} catch (InvalidNameException e) {
+					RenderableHolder.Error_Sound.play();
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Please fill again!");
+							alert.setContentText(e.getType());
+							alert.setHeaderText(null);
+							alert.showAndWait();
+							Player1NameField.setText("");
+							Player1Name = "";
+						}
+
+					});
+				}
+			});
+			checker.start();
 		});
 
 		confirmButton2 = new ActionButton("CONFIRM");
 		confirmButton2.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		confirmButton2.setPrefSize(200, 50);
 		confirmButton2.setMinSize(200, 50);
-		confirmButton2.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				Thread checker = new Thread(() -> {
-					try {
-						confirmName(Player2NameField.getText().strip());
-						RenderableHolder.ButtonClick_Sound.play();
-						Player2Name = Player2NameField.getText().strip();
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								if (!isCheckP2) {
-									Player2NameField.setDisable(true);
-									int numOfChild = nameConfirm2.getChildren().size();
-									nameConfirm2.getChildren().remove(numOfChild - 1);
-									nameConfirm2.getChildren().add(editButton2);
-									nameConfirm2.getChildren().add(imageViewCheck());
-									isCheckP2 = true;
-								}
+		confirmButton2.setOnMouseClicked(event -> {
+			Thread checker = new Thread(() -> {
+				try {
+					confirmName(Player2NameField.getText().strip());
+					RenderableHolder.ButtonClick_Sound.play();
+					Player2Name = Player2NameField.getText().strip();
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							if (!isCheckP2) {
+								Player2NameField.setDisable(true);
+								int numOfChild = nameConfirm2.getChildren().size();
+								nameConfirm2.getChildren().remove(numOfChild - 1);
+								nameConfirm2.getChildren().add(editButton2);
+								nameConfirm2.getChildren().add(imageViewCheck());
+								isCheckP2 = true;
 							}
-						});
-					} catch (InvalidNameException e) {
-						RenderableHolder.Error_Sound.play();
-						Platform.runLater(new Runnable() {
+						}
+					});
+				} catch (InvalidNameException e) {
+					RenderableHolder.Error_Sound.play();
+					Platform.runLater(new Runnable() {
 
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Please fill again!");
-								alert.setContentText(e.getType());
-								alert.setHeaderText(null);
-								alert.showAndWait();
-								Player2NameField.setText("");
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Please fill again!");
+							alert.setContentText(e.getType());
+							alert.setHeaderText(null);
+							alert.showAndWait();
+							Player2NameField.setText("");
 
-							}
+						}
 
-						});
-					}
-				});
-				checker.start();
-			}
+					});
+				}
+			});
+			checker.start();
+
 		});
 
 		editButton1 = new ActionButton("Edit");
 		editButton1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		editButton1.setPrefSize(200, 50);
 		editButton1.setMinSize(200, 50);
-		editButton1.setOnAction(new EventHandler<ActionEvent>() {
-
-			public void handle(ActionEvent event) {
-				RenderableHolder.ButtonClick_Sound.play();
-				Player1NameField.setDisable(false);
-				int numOfChild = nameConfirm1.getChildren().size();
-				nameConfirm1.getChildren().remove(numOfChild - 1);
-				nameConfirm1.getChildren().remove(numOfChild - 2);
-				nameConfirm1.getChildren().add(confirmButton1);
-				isCheckP1 = false;
-			}
+		editButton1.setOnMouseClicked(event -> {
+			RenderableHolder.ButtonClick_Sound.play();
+			Player1NameField.setDisable(false);
+			int numOfChild = nameConfirm1.getChildren().size();
+			nameConfirm1.getChildren().remove(numOfChild - 1);
+			nameConfirm1.getChildren().remove(numOfChild - 2);
+			nameConfirm1.getChildren().add(confirmButton1);
+			isCheckP1 = false;
 		});
 
 		editButton2 = new ActionButton("Edit");
 		editButton2.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		editButton2.setPrefSize(200, 50);
 		editButton2.setMinSize(200, 50);
-		editButton2.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				RenderableHolder.ButtonClick_Sound.play();
-				Player2NameField.setDisable(false);
-				int numOfChild = nameConfirm2.getChildren().size();
-				nameConfirm2.getChildren().remove(numOfChild - 1);
-				nameConfirm2.getChildren().remove(numOfChild - 2);
-				nameConfirm2.getChildren().add(confirmButton2);
-				isCheckP2 = false;
-			}
+		editButton2.setOnMouseClicked(event -> {
+			RenderableHolder.ButtonClick_Sound.play();
+			Player2NameField.setDisable(false);
+			int numOfChild = nameConfirm2.getChildren().size();
+			nameConfirm2.getChildren().remove(numOfChild - 1);
+			nameConfirm2.getChildren().remove(numOfChild - 2);
+			nameConfirm2.getChildren().add(confirmButton2);
+			isCheckP2 = false;
 		});
 
 		buttonBox = new HBox(40);
 		buttonBox.setPadding(new Insets(25));
 
 		startButton = new ActionButton("START GAME!");
-		startButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				if (isCheckP1 && isCheckP2) {
-					RenderableHolder.ButtonClick_Sound.play();
-					GameController.setDefault(Player1Name, Player2Name);
-					RenderableHolder.StartScreen_Music.stop();
-					StartScreen.startScreenSong.stop();
-					new GameScreen(primaryStage, Player1Name, Player2Name);
-				} else {
-					RenderableHolder.Error_Sound.play();
-				}
+		startButton.setOnMouseClicked(event -> {
+			if (isCheckP1 && isCheckP2) {
+				RenderableHolder.ButtonClick_Sound.play();
+				GameController.setDefault(Player1Name, Player2Name);
+				RenderableHolder.StartScreen_Music.stop();
+				StartScreen.startScreenSong.stop();
+				new GameScreen(primaryStage, Player1Name, Player2Name);
+			} else {
+				RenderableHolder.Error_Sound.play();
 			}
 		});
 
 		backButton = new ActionButton("Back");
-		backButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				RenderableHolder.ButtonClick_Sound.play();
-				StartScreen.removeChildFromRoot();
-			}
+		backButton.setOnMouseClicked(event -> {
+			// TODO Auto-generated method stub
+			RenderableHolder.ButtonClick_Sound.play();
+			StartScreen.removeChildFromRoot();
 		});
 		buttonBox.getChildren().addAll(startButton, backButton);
 	}

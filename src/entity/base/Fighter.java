@@ -5,7 +5,7 @@ import logic.Coordinate;
 import logic.GameController;
 import sharedObject.IRenderable;
 
-public abstract class Fighter implements Updatable {
+public abstract class Fighter implements Updatable, IRenderable {
 	protected String type; // melee or range
 	protected String name;
 
@@ -23,9 +23,9 @@ public abstract class Fighter implements Updatable {
 	protected boolean isReady; // already took action that turn or not
 
 	protected Coordinate coordinate;
-	
+
 	protected int z;
-	
+
 	public Fighter(String type, int team, String name) {
 		setType(type);
 		setTeam(team);
@@ -33,7 +33,6 @@ public abstract class Fighter implements Updatable {
 		setCoordinate(null);
 		setBaseStats();
 		setSpecialAbility();
-		attack = 150; // just for testing, delete this line
 	}
 
 	public double attack(Fighter target) {
@@ -142,7 +141,7 @@ public abstract class Fighter implements Updatable {
 	public void setAttackRange(int attackRange) {
 		this.attackRange = attackRange;
 	}
-	
+
 	public int getTotalMoves() {
 		return totalMoves;
 	}
@@ -181,6 +180,7 @@ public abstract class Fighter implements Updatable {
 
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
+		setZ();
 	}
 
 	public void setName(String name) {
@@ -193,15 +193,15 @@ public abstract class Fighter implements Updatable {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public int getZ() {
 		return z;
 	}
-	
-	public void setZ(int z) {
-		this.z = z;
+
+	public void setZ() {
+		int i = coordinate.getI(); 
 	}
-	
+
 	public void update() {
 		if (hitPoint <= 0) {
 			isAlive = false;
@@ -211,6 +211,6 @@ public abstract class Fighter implements Updatable {
 			GameController.getGameBoard().removeFighter(coordinate);
 			setCoordinate(null);
 		}
-		
+
 	}
 }
