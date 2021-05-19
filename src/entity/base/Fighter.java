@@ -34,7 +34,7 @@ public abstract class Fighter implements Updatable {
 		setBaseStats();
 		setSpecialAbility();
 		setZ(-1);
-		//attack = 150; // just for testing, delete this line
+		attack = 150; // just for testing, delete this line
 	}
 
 	public double attack(Fighter target) {

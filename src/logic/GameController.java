@@ -21,8 +21,8 @@ public class GameController {
 	private static int P2Score;
 	private static int roundCount;
 	private static int turnCount;
-	private static boolean isRoundDone;
-	private static boolean isRoundOver; // got a winner of the round
+	private static boolean isRoundDone; // done round
+	private static boolean isRoundOver; // got the winner of the round
 	private static boolean isGame;
 	private static boolean isWin;
 	private static boolean isP1;
@@ -203,7 +203,7 @@ public class GameController {
 		setP1(!isP1());
 		gameBoard.resetReady();
 		gameBoard.update();
-		if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1) {
+		if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
 			checkWinnerAtTheEnd();
 			GameController.setRoundOver(true);
 		}
@@ -212,8 +212,10 @@ public class GameController {
 			setP1(GameController.getRoundCount() % 2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
-
+			System.out.println("P1Score " + P1Score);
+			System.out.println("P2Score " + P2Score);
 			GameController.setRoundDone(true); // finished round
+			GameController.setRoundOver(false);
 		}
 		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1
 				|| GameController.getP2Score() > 1) {
