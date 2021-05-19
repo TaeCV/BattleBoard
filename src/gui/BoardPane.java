@@ -154,10 +154,12 @@ public class BoardPane extends Canvas implements Updatable {
 					} else if (InputUtility.getKeyPressed(KeyCode.D)) {
 						doMove(getMovingToCoordinate("right"));
 					} else if (InputUtility.getKeyPressed(KeyCode.F)) {
-						System.out.println("Done!");
-						System.out.println(actorCoordinate.toString());
-						actorCoordinate.getFighter().setReady(false);
-						actorCoordinate = null;
+						if (!actorCoordinate.equals(beforeActionCoordinate)) {
+							System.out.println("Done!");
+							System.out.println(actorCoordinate.toString());
+							actorCoordinate.getFighter().setReady(false);
+							actorCoordinate = null;
+						}
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
@@ -327,10 +329,12 @@ public class BoardPane extends Canvas implements Updatable {
 					} else if (InputUtility.getKeyPressed(KeyCode.L)) {
 						doMove(getMovingToCoordinate("right"));
 					} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
-						System.out.println("Done!");
-						System.out.println(actorCoordinate.toString());
-						actorCoordinate.getFighter().setReady(false);
-						actorCoordinate = null;
+						if (!actorCoordinate.equals(beforeActionCoordinate)) {
+							System.out.println("Done!");
+							System.out.println(actorCoordinate.toString());
+							actorCoordinate.getFighter().setReady(false);
+							actorCoordinate = null;
+						}
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
