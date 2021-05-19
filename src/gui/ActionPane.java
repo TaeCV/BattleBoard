@@ -23,7 +23,7 @@ public class ActionPane extends VBox {
 	private Text cancelText;
 
 	public ActionPane(boolean isHealer, int moveCount, int attackCount, int healCount) {
-		setMaxSize(400, 200);
+		setMaxSize(400, 250);
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.TAN, null, getInsets())));
 		setSpacing(15);
