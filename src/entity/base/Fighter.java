@@ -23,9 +23,9 @@ public abstract class Fighter implements Updatable {
 	protected boolean isReady; // already took action that turn or not
 
 	protected Coordinate coordinate;
-	
+
 	protected int z;
-	
+
 	public Fighter(String type, int team, String name) {
 		setType(type);
 		setTeam(team);
@@ -34,7 +34,6 @@ public abstract class Fighter implements Updatable {
 		setBaseStats();
 		setSpecialAbility();
 		setZ(-100);
-		attack = 150; // just for testing, delete this line
 	}
 
 	public double attack(Fighter target) {
@@ -143,7 +142,7 @@ public abstract class Fighter implements Updatable {
 	public void setAttackRange(int attackRange) {
 		this.attackRange = attackRange;
 	}
-	
+
 	public int getTotalMoves() {
 		return totalMoves;
 	}
@@ -194,15 +193,15 @@ public abstract class Fighter implements Updatable {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public int getZ() {
 		return z;
 	}
-	
+
 	public void setZ(int z) {
 		this.z = z;
 	}
-	
+
 	public void update() {
 		if (hitPoint <= 0) {
 			isAlive = false;
@@ -212,6 +211,6 @@ public abstract class Fighter implements Updatable {
 			GameController.getGameBoard().removeFighter(coordinate);
 			setCoordinate(null);
 		}
-		
+
 	}
 }
