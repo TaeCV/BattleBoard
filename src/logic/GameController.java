@@ -212,8 +212,6 @@ public class GameController {
 			setP1(GameController.getRoundCount() % 2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
-			System.out.println("P1Score " + P1Score);
-			System.out.println("P2Score " + P2Score);
 			GameController.setRoundDone(true); // finished round
 			GameController.setRoundOver(false);
 		}

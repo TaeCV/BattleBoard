@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -9,6 +10,7 @@ import entity.base.Updatable;
 import input.InputUtility;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import logic.Coordinate;
@@ -154,10 +156,12 @@ public class BoardPane extends Canvas implements Updatable {
 					} else if (InputUtility.getKeyPressed(KeyCode.D)) {
 						doMove(getMovingToCoordinate("right"));
 					} else if (InputUtility.getKeyPressed(KeyCode.F)) {
-						System.out.println("Done!");
-						System.out.println(actorCoordinate.toString());
-						actorCoordinate.getFighter().setReady(false);
-						actorCoordinate = null;
+						if (!actorCoordinate.equals(beforeActionCoordinate)) {
+							System.out.println("Done!");
+							System.out.println(actorCoordinate.toString());
+							actorCoordinate.getFighter().setReady(false);
+							actorCoordinate = null;
+						}
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
@@ -192,11 +196,22 @@ public class BoardPane extends Canvas implements Updatable {
 						select(targetCoordinate);
 					} else if (InputUtility.getKeyPressed(KeyCode.F)) {
 						draw();
+						GameScreen.key = key;
+						GameScreen.timeToDrawAnimation = 10;
+						GameScreen.P1 = true;
+						GameScreen.selectedFighterType = actorCoordinate.getFighter().getType();
+						GameScreen.selectedPixel = Arrays.copyOf(pixel, pixel.length);
 						System.out.println("Done!");
 						System.out.println(targetCoordinate.toString());
 						if (key == 2) {
+							if (actorCoordinate.getFighter().getType().equals("melee")) {
+								RenderableHolder.MeleeAttack_Sound.play();
+							} else if (actorCoordinate.getFighter().getType().equals("range")) {
+								RenderableHolder.RangeAttack_Sound.play();
+							}
 							gameBoard.takeAttack(actorCoordinate, targetCoordinate);
 						} else if (key == 3) {
+							RenderableHolder.Heal_Sound.play();
 							gameBoard.takeHeal(actorCoordinate, targetCoordinate);
 						}
 						actorCoordinate = null;
@@ -316,10 +331,12 @@ public class BoardPane extends Canvas implements Updatable {
 					} else if (InputUtility.getKeyPressed(KeyCode.L)) {
 						doMove(getMovingToCoordinate("right"));
 					} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
-						System.out.println("Done!");
-						System.out.println(actorCoordinate.toString());
-						actorCoordinate.getFighter().setReady(false);
-						actorCoordinate = null;
+						if (!actorCoordinate.equals(beforeActionCoordinate)) {
+							System.out.println("Done!");
+							System.out.println(actorCoordinate.toString());
+							actorCoordinate.getFighter().setReady(false);
+							actorCoordinate = null;
+						}
 						GameController.setSelect(false);
 						GameController.setChoose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
@@ -354,11 +371,22 @@ public class BoardPane extends Canvas implements Updatable {
 						select(targetCoordinate);
 					} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
 						draw();
+						GameScreen.key = key;
+						GameScreen.timeToDrawAnimation = 10;
+						GameScreen.P1 = true;
+						GameScreen.selectedFighterType = actorCoordinate.getFighter().getType();
+						GameScreen.selectedPixel = Arrays.copyOf(pixel, pixel.length);
 						System.out.println("Done!");
 						System.out.println(targetCoordinate.toString());
 						if (key == 2) {
+							if (actorCoordinate.getFighter().getType().equals("melee")) {
+								RenderableHolder.MeleeAttack_Sound.play();
+							} else if (actorCoordinate.getFighter().getType().equals("range")) {
+								RenderableHolder.RangeAttack_Sound.play();
+							}
 							gameBoard.takeAttack(actorCoordinate, targetCoordinate);
 						} else if (key == 3) {
+							RenderableHolder.Heal_Sound.play();
 							gameBoard.takeHeal(actorCoordinate, targetCoordinate);
 						}
 						actorCoordinate = null;
@@ -486,13 +514,4 @@ public class BoardPane extends Canvas implements Updatable {
 	public void resetActorCoordinate() {
 		actorCoordinate = null;
 	}
-
-	public void setDefault() {
-		System.out.println("in BoardPane.setDefault()");
-		gameBoard = GameController.getGameBoard();
-		draw();
-		GameController.setSelect(false);
-		GameController.setChoose(false);
-	}
-
 }
