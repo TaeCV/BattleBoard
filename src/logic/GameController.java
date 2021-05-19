@@ -212,7 +212,6 @@ public class GameController {
 			setP1(GameController.getRoundCount() % 2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
-			GameController.setRoundOver(false);
 			GameController.setRoundDone(true); // finished round
 			GameController.setRoundOver(false);
 		}
