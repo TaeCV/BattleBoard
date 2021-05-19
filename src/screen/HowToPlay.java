@@ -38,13 +38,69 @@ public class HowToPlay extends VBox {
 		description.setHgap(10);
 		description.setVgap(10);
 		description.setPadding(new Insets(15));
-		ImageView howToPlay_p1_Image = new ImageView(RenderableHolder.howToPlay_p1_Image);
-		Text howToPlay_p1_Text = new Text("Player 1:\n" + "1) Use 'A','W','S','D' to move the cursor\n"
-				+ "2) Click ctrl button to choose the selected box");
-		howToPlay_p1_Text.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 24));
-		howToPlay_p1_Text.setWrappingWidth(230);
+		int row_idx = 0;
+		Text howToPlay_text = new Text("Rules :\n 1) Pick 5 fighters from 8 random fighters, and play best of 3 round.\n"
+				+ "2) Each round, player will play around 7 turns.\n"
+				+ "3) Each turn, pick each fighter to do an action ( move, attack, or heal (healer only) ).\n"
+				+ "4) The round will end if time is up, or after playing 14 turns, or fighters are all dead.\n");
+		howToPlay_text.setWrappingWidth(400);
+		howToPlay_text.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 25));
+		description.add(howToPlay_text, 0, row_idx++, 2, 1);
+		Text board_topic = new Text("Board description:");
+		board_topic.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
+		description.add(board_topic, 0, row_idx++, 2, 1);
+		ImageView board_img = new ImageView(RenderableHolder.board_bg_Image);
+		board_img.setFitWidth(175);
+		board_img.setPreserveRatio(true);
+		Text gameboard_description = new Text("The board has 3 components, including floor, river, and bridge.");
+		gameboard_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		gameboard_description.setWrappingWidth(220);
+		description.addRow(row_idx++, board_img, gameboard_description);
 
-		description.addRow(0, howToPlay_p1_Image, howToPlay_p1_Text);
+		// Describe each fighter's ability
+		Text player_topic = new Text("Player description:");
+		player_topic.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 30));
+		description.add(player_topic, 0, row_idx++, 2, 1);
+		ImageView duck_img = new ImageView(RenderableHolder.duckmelee1_Image);
+		duck_img.setFitWidth(175);
+		duck_img.setPreserveRatio(true);
+		Text duck_description = new Text("Duck Fighter :\n" + "This fighter has a change to dodge the enerm's attack.");
+		duck_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		duck_description.setWrappingWidth(220);
+		description.addRow(row_idx++, duck_img, duck_description);
+
+		ImageView healer_img = new ImageView(RenderableHolder.healermelee1_Image);
+		healer_img.setFitWidth(175);
+		healer_img.setPreserveRatio(true);
+		Text healer_description = new Text("Healer Fighter :\n" + "This fighter has an ability to heal his teammate.");
+		healer_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		healer_description.setWrappingWidth(220);
+		description.addRow(row_idx++, healer_img, healer_description);
+
+		ImageView speedy_img = new ImageView(RenderableHolder.speedymelee1_Image);
+		speedy_img.setFitWidth(175);
+		speedy_img.setPreserveRatio(true);
+		Text speedy_description = new Text("Speedy Fighter :\n" + "This fighter can move 2 blocks");
+		speedy_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		speedy_description.setWrappingWidth(220);
+		description.addRow(row_idx++, speedy_img, speedy_description);
+
+		ImageView tough_img = new ImageView(RenderableHolder.toughmelee1_Image);
+		tough_img.setFitWidth(175);
+		tough_img.setPreserveRatio(true);
+		Text tough_description = new Text("Tough Fighter :\n" + "This fighter can reduce the damaged recieve.");
+		tough_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		tough_description.setWrappingWidth(220);
+		description.addRow(row_idx++, tough_img, tough_description);
+
+		ImageView wild_img = new ImageView(RenderableHolder.wildmelee1_Image);
+		wild_img.setFitWidth(175);
+		wild_img.setPreserveRatio(true);
+		Text wild_description = new Text("Wild Fighter :\n" + "This fighter attack with additional damage.");
+		wild_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		wild_description.setWrappingWidth(220);
+		description.addRow(row_idx++, wild_img, wild_description);
+
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setContent(description);
 		scrollPane.setPrefHeight(400);
