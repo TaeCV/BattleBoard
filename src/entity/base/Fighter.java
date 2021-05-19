@@ -33,7 +33,6 @@ public abstract class Fighter implements Updatable {
 		setCoordinate(null);
 		setBaseStats();
 		setSpecialAbility();
-		setZ(-100);
 		attack = 150; // just for testing, delete this line
 	}
 
