@@ -10,8 +10,6 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 	// defense and hitPoint boost
 	private double bonusDefense;
 	private double bonusHitPoint;
-	
-	private double regeneratedHitPoint;
 
 	private final int MAX_BONUS_DEFENSE = 20;
 	private final int MIN_BONUS_HIT_POINT = 20;
@@ -26,7 +24,7 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 		setBonusStats();
 	}
 
-	public void setSpecialAbility() {
+	protected void setSpecialAbility() {
 		// ToughFighter has no special ability
 	}
 
@@ -55,24 +53,15 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 		setHitPoint(maxHitPoint);
 	}
 
-	public double regenerateHitPoint() {
+	public void regenerateHitPoint() {
 		setHitPoint(hitPoint + REGENERATED_HIT_POINT);
-		return regeneratedHitPoint;
-	}
-	
-	public double getBonusDefense() {
-		return bonusDefense;
 	}
 
-	public void setBonusDefense() {
+	private void setBonusDefense() {
 		bonusDefense = Math.random() * MAX_BONUS_DEFENSE;
 	}
-
-	public double getBonusHitPoint() {
-		return bonusHitPoint;
-	}
-
-	public void setBonusHitPoint() {
+	
+	private void setBonusHitPoint() {
 		bonusHitPoint = MIN_BONUS_HIT_POINT + Math.random() * MAX_EXTRA_BONUS_HIT_POINT;
 	}
 

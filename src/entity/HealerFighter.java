@@ -50,9 +50,8 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 		return 0;
 	}
 
-	public double regenerateHitPoint() {
+	public void regenerateHitPoint() {
 		setHitPoint(hitPoint + REGENERATED_HIT_POINT);
-		return REGENERATED_HIT_POINT;
 	}
 	
 	private void setHealingPoint() {
