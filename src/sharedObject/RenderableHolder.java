@@ -21,7 +21,6 @@ public class RenderableHolder {
 	public static Image title_bg_Image;
 
 	// HowToPlay Images
-	public static Image howToPlay_p1_Image;
 
 	// PlayerNameBar Images
 	public static Image check_Image;
@@ -288,7 +287,6 @@ public class RenderableHolder {
 		tie_end_bg_Image = new Image(ClassLoader.getSystemResource(img + "tie_end_bg.jpg").toString());
 
 		howToPlay_bg_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_bg.jpg").toString());
-		howToPlay_p1_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_p1.jpg").toString());
 
 		check_Image = new Image(ClassLoader.getSystemResource(img + "check.png").toString());
 		sword_Image = new Image(ClassLoader.getSystemResource(img + "sword.png").toString());
@@ -350,7 +348,6 @@ public class RenderableHolder {
 		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.mp3").toString());
 		GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.mp3").toString());
 		GameTie_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gametie1.mp3").toString());
-		
 
 		StartScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "startscreen_music.mp3").toString());
 		GameScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());

@@ -67,8 +67,8 @@ public class PlayerNameBar extends VBox {
 		setUpButtons();
 		setUpNameConfirm();
 
-		Text description = new Text("Put your name in TextFeild\n" + "1) It must be contained with 1 - 6 characters.\n"
-				+ "2) It must be cantained only English alphabet and number.\n"
+		Text description = new Text("Put your name in TextFeild\n" + "1) It must contain 1 - 6 characters.\n"
+				+ "2) It must contain only English alphabet and number.\n"
 				+ "3) Player 1 and Player 2 should not use the same name.");
 		description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 14));
 		StackPane groupText = new StackPane(description);

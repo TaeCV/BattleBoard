@@ -1,6 +1,7 @@
 package entity;
 
 import entity.base.Fighter;
+import javafx.scene.canvas.GraphicsContext;
 import logic.Sprites;
 
 public class DuckFighter extends Fighter {
