@@ -1,11 +1,11 @@
 package gui;
 
 import entity.base.Fighter;
-import entity.base.Updatable;
 import gui.base.PlayerPane;
 import input.InputUtility;
 import javafx.scene.input.KeyCode;
 import logic.GameController;
+import logic.Updatable;
 import screen.GameScreen;
 import sharedObject.RenderableHolder;
 

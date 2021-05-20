@@ -3,6 +3,7 @@ package entity.base;
 import entity.DuckFighter;
 import logic.Coordinate;
 import logic.GameController;
+import logic.Updatable;
 import sharedObject.IRenderable;
 
 public abstract class Fighter implements Updatable {
@@ -78,19 +79,15 @@ public abstract class Fighter implements Updatable {
 	
 	public abstract int getSymbol();
 
-	public double getAttack() {
-		return attack;
-	}
-
-	public void setAttack(double attack) {
+	protected void setAttack(double attack) {
 		this.attack = attack;
 	}
 
-	public double getDefense() {
+	protected double getDefense() {
 		return defense;
 	}
 
-	public void setDefense(double defense) {
+	protected void setDefense(double defense) {
 		this.defense = defense;
 	}
 
@@ -115,28 +112,20 @@ public abstract class Fighter implements Updatable {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	public void setAlive(boolean isAlive) {
+	
+	private void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
 	}
-
+	
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
-	}
-	
-	public boolean isAlive() {
-		return isAlive;
-	}
-
-	public boolean isVisible() {
-		return isVisible;
 	}
 
 	public int getAttackRange() {
 		return attackRange;
 	}
 
-	public void setAttackRange(int attackRange) {
+	private void setAttackRange(int attackRange) {
 		this.attackRange = attackRange;
 	}
 
@@ -144,7 +133,7 @@ public abstract class Fighter implements Updatable {
 		return totalMoves;
 	}
 
-	public void setTotalMoves(int totalMoves) {
+	protected void setTotalMoves(int totalMoves) {
 		this.totalMoves = totalMoves;
 	}
 
@@ -152,7 +141,7 @@ public abstract class Fighter implements Updatable {
 		return maxHitPoint;
 	}
 
-	public void setMaxHitPoint(double maxHitPoint) {
+	protected void setMaxHitPoint(double maxHitPoint) {
 		this.maxHitPoint = maxHitPoint;
 	}
 
@@ -160,7 +149,7 @@ public abstract class Fighter implements Updatable {
 		return team;
 	}
 
-	public void setTeam(int team) {
+	private void setTeam(int team) {
 		this.team = team;
 	}
 
@@ -180,23 +169,23 @@ public abstract class Fighter implements Updatable {
 		this.coordinate = coordinate;
 	}
 
-	public void setName(String name) {
+	public String getName() {
+		return this.name;
+	}
+	
+	private void setName(String name) {
 		if (name.isBlank()) {
 			name = "anonymous";
 		}
 		this.name = name;
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
 	public void update() {
 		if (hitPoint <= 0) {
-			isAlive = false;
+			setAlive(false);
 		}
 		if (!isAlive) {
-			isVisible = false;
+			setVisible(false);
 			GameController.getGameBoard().removeFighter(coordinate);
 			setCoordinate(null);
 		}

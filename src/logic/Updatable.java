@@ -1,4 +1,4 @@
-package entity.base;
+package logic;
 
 public interface Updatable {
 	public void update();

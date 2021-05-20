@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import entity.HealerFighter;
-import entity.base.Updatable;
 import input.InputUtility;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,6 +15,7 @@ import logic.Coordinate;
 import logic.EffectUtility;
 import logic.GameBoard;
 import logic.GameController;
+import logic.Updatable;
 import screen.GameScreen;
 import sharedObject.RenderableHolder;
 
