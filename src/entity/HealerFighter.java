@@ -16,22 +16,20 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 	private final double REGENERATED_HIT_POINT = maxHitPoint * REGENERATING / 100;
 	
 
-	public HealerFighter(String type, int team, String name) {
-		super(type, team, name);
+	public HealerFighter(String type, int team) {
+		super(type, team);
+		setName(GameController.HEALER_NAME);
 	}
 
-	public double heal(Fighter f) {
+	public double heal(Fighter ally) {
 		double healed;
-		double beforeHealed = f.getHitPoint();
-		f.setHitPoint(f.getHitPoint() + healingPoint);
-		if (f.getHitPoint() > f.getMaxHitPoint()) {
-			f.setHitPoint(f.getMaxHitPoint());
-		}
-		healed = beforeHealed - f.getHitPoint();
+		double beforeHealed = ally.getHitPoint();
+		ally.setHitPoint(ally.getHitPoint() + healingPoint);
+		healed = ally.getHitPoint() - beforeHealed;
 		return healed;
 	}
 
-	public void setSpecialAbility() {
+	protected void setSpecialAbility() {
 		setHealingPoint();
 	}
 
@@ -43,7 +41,7 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 				return Sprites.P1_HEALERRANGE;
 			}
 		} else if (team == GameController.TEAM_2) {
-			if (type.equals(GameController.RANGE_TYPE_STRING)) {
+			if (type.equals(GameController.MELEE_TYPE_STRING)) {
 				return Sprites.P2_HEALERMELEE;
 			} else {
 				return Sprites.P2_HEALERRANGE;
@@ -57,11 +55,7 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 		return REGENERATED_HIT_POINT;
 	}
 	
-	public double getHealingPoint() {
-		return healingPoint;
-	}
-
-	public void setHealingPoint() {
+	private void setHealingPoint() {
 		healingPoint = MIN_HEALING_POINT + Math.random() * MAX_EXTRA_HEALING_POINT; // healingPoint is between 5,10
 	}
 }

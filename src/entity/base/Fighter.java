@@ -25,10 +25,9 @@ public abstract class Fighter implements Updatable {
 
 	protected Coordinate coordinate;
 
-	public Fighter(String type, int team, String name) {
+	public Fighter(String type, int team) {
 		setType(type);
 		setTeam(team);
-		setName(name);
 		setCoordinate(null);
 		setBaseStats();
 		setSpecialAbility();
@@ -173,7 +172,7 @@ public abstract class Fighter implements Updatable {
 		return this.name;
 	}
 	
-	private void setName(String name) {
+	protected void setName(String name) {
 		if (name.isBlank()) {
 			name = "anonymous";
 		}

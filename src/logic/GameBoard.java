@@ -43,34 +43,34 @@ public class GameBoard {
 			int x = r.nextInt(10);
 			switch (x) {
 			case 0:
-				randomFighters[i] = new DuckFighter(GameController.MELEE_TYPE_STRING, team, "Duck");
+				randomFighters[i] = new DuckFighter(GameController.MELEE_TYPE_STRING, team);
 				break;
 			case 1:
-				randomFighters[i] = new HealerFighter(GameController.MELEE_TYPE_STRING, team, "Healer");
+				randomFighters[i] = new HealerFighter(GameController.MELEE_TYPE_STRING, team);
 				break;
 			case 2:
-				randomFighters[i] = new SpeedyFighter(GameController.MELEE_TYPE_STRING, team, "Speedy");
+				randomFighters[i] = new SpeedyFighter(GameController.MELEE_TYPE_STRING, team);
 				break;
 			case 3:
-				randomFighters[i] = new ToughFighter(GameController.MELEE_TYPE_STRING, team, "Tough");
+				randomFighters[i] = new ToughFighter(GameController.MELEE_TYPE_STRING, team);
 				break;
 			case 4:
-				randomFighters[i] = new WildFighter(GameController.MELEE_TYPE_STRING, team, "Wild");
+				randomFighters[i] = new WildFighter(GameController.MELEE_TYPE_STRING, team);
 				break;
 			case 5:
-				randomFighters[i] = new DuckFighter(GameController.RANGE_TYPE_STRING, team, "Duck");
+				randomFighters[i] = new DuckFighter(GameController.RANGE_TYPE_STRING, team);
 				break;
 			case 6:
-				randomFighters[i] = new HealerFighter(GameController.RANGE_TYPE_STRING, team, "Healer");
+				randomFighters[i] = new HealerFighter(GameController.RANGE_TYPE_STRING, team);
 				break;
 			case 7:
-				randomFighters[i] = new SpeedyFighter(GameController.RANGE_TYPE_STRING, team, "Speedy");
+				randomFighters[i] = new SpeedyFighter(GameController.RANGE_TYPE_STRING, team);
 				break;
 			case 8:
-				randomFighters[i] = new ToughFighter(GameController.RANGE_TYPE_STRING, team, "Tough");
+				randomFighters[i] = new ToughFighter(GameController.RANGE_TYPE_STRING, team);
 				break;
 			case 9:
-				randomFighters[i] = new WildFighter(GameController.RANGE_TYPE_STRING, team, "Wild");
+				randomFighters[i] = new WildFighter(GameController.RANGE_TYPE_STRING, team);
 				break;
 			}
 		}

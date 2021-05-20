@@ -10,6 +10,7 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 	// defense and hitPoint boost
 	private double bonusDefense;
 	private double bonusHitPoint;
+	
 	private double regeneratedHitPoint;
 
 	private final int MAX_BONUS_DEFENSE = 20;
@@ -19,8 +20,9 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 	private final int REGENERATING = 2; // percent
 	private final double REGENERATED_HIT_POINT = maxHitPoint * REGENERATING / 100;
 	
-	public ToughFighter(String type, int team, String name) {
-		super(type, team, name);
+	public ToughFighter(String type, int team) {
+		super(type, team);
+		setName(GameController.TOUGH_NAME);
 		setBonusStats();
 	}
 
@@ -36,7 +38,7 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 				return Sprites.P1_TOUGHRANGE;
 			}
 		} else if (team == GameController.TEAM_2) {
-			if (type.equals(GameController.RANGE_TYPE_STRING)) {
+			if (type.equals(GameController.MELEE_TYPE_STRING)) {
 				return Sprites.P2_TOUGHMELEE;
 			} else {
 				return Sprites.P2_TOUGHRANGE;

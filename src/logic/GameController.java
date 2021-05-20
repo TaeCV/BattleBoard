@@ -32,6 +32,12 @@ public class GameController {
 	public static final int TEAM_1 = 1;
 	public static final int TEAM_2 = 2;
 	
+	public static final String DUCK_NAME = "Duck";
+	public static final String HEALER_NAME = "Healer";
+	public static final String SPEEDY_NAME = "Speedy";
+	public static final String TOUGH_NAME = "Tough";
+	public static final String WILD_NAME = "Wild";
+	
 	public static final char MOVE_KEY = 'M';
 	public static final char ATTACK_KEY = 'A';
 	public static final char HEAL_KEY = 'H';

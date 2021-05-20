@@ -13,8 +13,9 @@ public class WildFighter extends Fighter implements StatsIncreasable {
 	private final int MIN_BONUS_ATTACK = 25;
 	private final int MAX_EXTRA_BONUS_ATTACK = 15;
 	
-	public WildFighter(String type, int team, String name) {
-		super(type, team, name);
+	public WildFighter(String type, int team) {
+		super(type, team);
+		setName(GameController.WILD_NAME);
 		setBonusStats();
 	}
 
@@ -30,7 +31,7 @@ public class WildFighter extends Fighter implements StatsIncreasable {
 				return Sprites.P1_WILDRANGE;
 			}
 		} else if (team == GameController.TEAM_2) {
-			if (type.equals(GameController.RANGE_TYPE_STRING)) {
+			if (type.equals(GameController.MELEE_TYPE_STRING)) {
 				return Sprites.P2_WILDMELEE;
 			} else {
 				return Sprites.P2_WILDRANGE;
