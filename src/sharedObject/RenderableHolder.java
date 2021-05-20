@@ -294,7 +294,7 @@ public class RenderableHolder {
 		tie_end_bg_Image = new Image(ClassLoader.getSystemResource(img + "tie_end_bg.jpg").toString());
 
 		howToPlay_bg_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_bg.jpg").toString());
-		howToPlay_p1_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_p1.jpg").toString());
+		//howToPlay_p1_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_p1.jpg").toString());
 
 		check_Image = new Image(ClassLoader.getSystemResource(img + "check.png").toString());
 		sword_Image = new Image(ClassLoader.getSystemResource(img + "sword.png").toString());
@@ -338,8 +338,8 @@ public class RenderableHolder {
 		meleeAttack1_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack1.png").toString());
 		meleeAttack2_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack2.png").toString());
 		rangeAttack_Image = new Image(ClassLoader.getSystemResource(img + "rangeattack.png").toString());
-		ducked1_Image = new Image(ClassLoader.getSystemResource(img + "ducked1.png").toString());
-		ducked2_Image = new Image(ClassLoader.getSystemResource(img + "ducked2.png").toString());
+		ducked1_Image = new Image(ClassLoader.getSystemResource(img + "ducked1_alt.png").toString());
+		ducked2_Image = new Image(ClassLoader.getSystemResource(img + "ducked2_alt.png").toString());
 
 		String audio = "audio/";
 

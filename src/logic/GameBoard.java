@@ -43,34 +43,34 @@ public class GameBoard {
 			int x = r.nextInt(10);
 			switch (x) {
 			case 0:
-				randomFighters[i] = new DuckFighter("melee", team, "Duck");
+				randomFighters[i] = new DuckFighter(GameController.MELEE_TYPE_STRING, team, "Duck");
 				break;
 			case 1:
-				randomFighters[i] = new HealerFighter("melee", team, "Healer");
+				randomFighters[i] = new HealerFighter(GameController.MELEE_TYPE_STRING, team, "Healer");
 				break;
 			case 2:
-				randomFighters[i] = new SpeedyFighter("melee", team, "Speedy");
+				randomFighters[i] = new SpeedyFighter(GameController.MELEE_TYPE_STRING, team, "Speedy");
 				break;
 			case 3:
-				randomFighters[i] = new ToughFighter("melee", team, "Tough");
+				randomFighters[i] = new ToughFighter(GameController.MELEE_TYPE_STRING, team, "Tough");
 				break;
 			case 4:
-				randomFighters[i] = new WildFighter("melee", team, "Wild");
+				randomFighters[i] = new WildFighter(GameController.MELEE_TYPE_STRING, team, "Wild");
 				break;
 			case 5:
-				randomFighters[i] = new DuckFighter("range", team, "Duck");
+				randomFighters[i] = new DuckFighter(GameController.RANGE_TYPE_STRING, team, "Duck");
 				break;
 			case 6:
-				randomFighters[i] = new HealerFighter("range", team, "Healer");
+				randomFighters[i] = new HealerFighter(GameController.RANGE_TYPE_STRING, team, "Healer");
 				break;
 			case 7:
-				randomFighters[i] = new SpeedyFighter("range", team, "Speedy");
+				randomFighters[i] = new SpeedyFighter(GameController.RANGE_TYPE_STRING, team, "Speedy");
 				break;
 			case 8:
-				randomFighters[i] = new ToughFighter("range", team, "Tough");
+				randomFighters[i] = new ToughFighter(GameController.RANGE_TYPE_STRING, team, "Tough");
 				break;
 			case 9:
-				randomFighters[i] = new WildFighter("range", team, "Wild");
+				randomFighters[i] = new WildFighter(GameController.RANGE_TYPE_STRING, team, "Wild");
 				break;
 			}
 		}
@@ -154,13 +154,13 @@ public class GameBoard {
 		// can attack
 		ArrayList<Coordinate> allPossibleTargets = new ArrayList<>();
 		Fighter attacker = attackerCoordinate.getFighter();
-		if (attacker.getTeam() == 1) {
+		if (attacker.getTeam() == GameController.TEAM_1) {
 			for (Fighter target : Player2Fighters) {
 				if (isPossibleToAttack(attacker, target)) {
 					allPossibleTargets.add(target.getCoordinate());
 				}
 			}
-		} else {
+		} else if (attacker.getTeam() == GameController.TEAM_2) {
 			for (Fighter target : Player1Fighters) {
 				if (isPossibleToAttack(attacker, target)) {
 					allPossibleTargets.add(target.getCoordinate());
@@ -175,13 +175,13 @@ public class GameBoard {
 		// heal
 		ArrayList<Coordinate> allPossibleAllies = new ArrayList<>();
 		Fighter healer = healerCoordinate.getFighter();
-		if (healer.getTeam() == 1) {
+		if (healer.getTeam() == GameController.TEAM_1) {
 			for (Fighter ally : Player1Fighters) {
 				if (isPossibleToHeal(healer, ally)) {
 					allPossibleAllies.add(ally.getCoordinate());
 				}
 			}
-		} else {
+		} else if (healer.getTeam() == GameController.TEAM_2){
 			for (Fighter ally : Player2Fighters) {
 				if (isPossibleToHeal(healer, ally)) {
 					allPossibleAllies.add(ally.getCoordinate());
@@ -352,7 +352,7 @@ public class GameBoard {
 				} else {
 					eachRow += " " + map[i][j] + " ";
 				}
-			} 
+			}
 			System.out.println(eachRow);
 		}
 	}
@@ -396,18 +396,18 @@ public class GameBoard {
 	}
 
 	public void update() { // update every turn
-		for (Fighter fighter: Player1Fighters) {
+		for (Fighter fighter : Player1Fighters) {
 			if (fighter instanceof HitPointRegenerable) {
 				((HitPointRegenerable) fighter).regenerateHitPoint();
 			}
 		}
-		for (Fighter fighter: Player2Fighters) {
+		for (Fighter fighter : Player2Fighters) {
 			if (fighter instanceof HitPointRegenerable) {
 				((HitPointRegenerable) fighter).regenerateHitPoint();
 			}
 		}
 	}
-	
+
 	public void resetReady() {
 		for (Fighter fighter : Player1Fighters) {
 			fighter.setReady(true);

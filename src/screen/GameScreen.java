@@ -74,7 +74,8 @@ public class GameScreen {
 	public static int[] selectedPixel;
 	public static boolean P1;
 	public static String selectedFighterType;
-	public static int key;
+
+	public static int effectSymbol;
 
 	public static StackPane board;
 
@@ -111,29 +112,12 @@ public class GameScreen {
 	}
 
 	public void drawAnimation() {
-		if (timeToDrawAnimation > 0) {
-			if (key == 3) {
-				gameGC.drawImage(RenderableHolder.heal_Image, selectedPixel[0], selectedPixel[1] - 56, 100, 100);
-			} else if (key == 2) {
-				if (P1) {
-					if (selectedFighterType.equals("melee")) {
-						gameGC.drawImage(RenderableHolder.meleeAttack1_Image, selectedPixel[0], selectedPixel[1] - 56,
-								100, 100);
-					} else if (selectedFighterType.equals("range")) {
-						gameGC.drawImage(RenderableHolder.rangeAttack_Image, selectedPixel[0], selectedPixel[1] - 56,
-								100, 100);
-					}
-				} else {
-					if (selectedFighterType.equals("melee")) {
-						gameGC.drawImage(RenderableHolder.meleeAttack2_Image, selectedPixel[0], selectedPixel[1] - 56,
-								100, 100);
-					} else if (selectedFighterType.equals("range")) {
-						gameGC.drawImage(RenderableHolder.rangeAttack_Image, selectedPixel[0], selectedPixel[1] - 56,
-								100, 100);
-					}
-				}
-			}
+		if (timeToDrawAnimation > 0 && effectSymbol != 0) {
+			gameGC.drawImage(RenderableHolder.getEffectImage(effectSymbol), selectedPixel[0], selectedPixel[1] - 56,
+					100, 100);
 			timeToDrawAnimation--;
+		} else {
+			effectSymbol = 0;
 		}
 	}
 
@@ -240,7 +224,7 @@ public class GameScreen {
 	}
 
 	public void initializeGame() {
-		this.timeToDrawAnimation = 0;
+		GameScreen.timeToDrawAnimation = 0;
 		SimulationManager.initializeAllPane();
 		gameCanvas = SimulationManager.getBoard();
 		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
