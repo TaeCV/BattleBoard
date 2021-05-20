@@ -15,6 +15,17 @@ public class GameController {
 	public static final int MAX_TURN_PER_PLAYER = 9;
 	public static final int MAX_ROUND = 3;
 	
+	public static final int BASE_MELEE_ATTACK = 40;
+	public static final int BASE_MELEE_DEFENSE = 25;
+	public static final int BASE_MELEE_MAXHITPOINT = 55;
+	public static final int BASE_MELEE_ATTACK_RANGE = 1;
+	public static final int BASE_RANGE_ATTACK = 25;
+	public static final int BASE_RANGE_DEFENSE = 10;
+	public static final int BASE_RANGE_MAXHITPOINT = 40;
+	public static final int BASE_RANGE_ATTACK_RANGE = 2;
+	
+	public static final int BASE_TOTAL_MOVES = 1;
+	
 	public static final String MELEE_TYPE_STRING = "melee";
 	public static final String RANGE_TYPE_STRING = "range";
 	

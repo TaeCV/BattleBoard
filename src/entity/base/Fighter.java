@@ -48,41 +48,35 @@ public abstract class Fighter implements Updatable {
 		return damageDone;
 	}
 
-	public void move(Coordinate target) {
+	public void move(Coordinate targetCoordinate) {
 		coordinate.setFighter(null);
-		setCoordinate(target);
-		target.setFighter(this);
+		setCoordinate(targetCoordinate);
+		targetCoordinate.setFighter(this);
 	}
 
-	public boolean isAlive() {
-		return isAlive;
-	}
-
-	public boolean isVisible() {
-		return isVisible;
-	}
-
-	public void setBaseStats() {
+	private void setBaseStats() {
 		if (type.equals(GameController.MELEE_TYPE_STRING)) {
-			setAttack(40);
-			setDefense(25);
-			setMaxHitPoint(55);
+			setAttack(GameController.BASE_MELEE_ATTACK);
+			setDefense(GameController.BASE_MELEE_DEFENSE);
+			setMaxHitPoint(GameController.BASE_MELEE_MAXHITPOINT);
 			setHitPoint(maxHitPoint);
-			setAttackRange(1);
+			setAttackRange(GameController.BASE_MELEE_ATTACK_RANGE);
 		} else if (type.equals(GameController.RANGE_TYPE_STRING)) {
-			setAttack(25);
-			setDefense(10);
-			setMaxHitPoint(40);
+			setAttack(GameController.BASE_RANGE_ATTACK);
+			setDefense(GameController.BASE_RANGE_DEFENSE);
+			setMaxHitPoint(GameController.BASE_RANGE_MAXHITPOINT);
 			setHitPoint(maxHitPoint);
-			setAttackRange(2);
+			setAttackRange(GameController.BASE_RANGE_ATTACK_RANGE);
 		}
-		setTotalMoves(1);
+		setTotalMoves(GameController.BASE_TOTAL_MOVES);
 		setAlive(true);
 		setVisible(true);
 		setReady(true);
 	}
 
-	public abstract void setSpecialAbility();
+	protected abstract void setSpecialAbility();
+	
+	public abstract int getSymbol();
 
 	public double getAttack() {
 		return attack;
@@ -129,8 +123,14 @@ public abstract class Fighter implements Updatable {
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
+	
+	public boolean isAlive() {
+		return isAlive;
+	}
 
-	public abstract int getSymbol();
+	public boolean isVisible() {
+		return isVisible;
+	}
 
 	public int getAttackRange() {
 		return attackRange;
