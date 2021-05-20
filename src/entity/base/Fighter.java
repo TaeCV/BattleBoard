@@ -24,8 +24,6 @@ public abstract class Fighter implements Updatable {
 
 	protected Coordinate coordinate;
 
-	protected int z;
-
 	public Fighter(String type, int team, String name) {
 		setType(type);
 		setTeam(team);
@@ -180,7 +178,6 @@ public abstract class Fighter implements Updatable {
 
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
-		setZ();
 	}
 
 	public void setName(String name) {
@@ -192,14 +189,6 @@ public abstract class Fighter implements Updatable {
 
 	public String getName() {
 		return this.name;
-	}
-
-	public int getZ() {
-		return z;
-	}
-
-	public void setZ() {
-		
 	}
 
 	public void update() {
