@@ -51,7 +51,7 @@ public class BoardPane extends Canvas implements Updatable {
 
 	public void update() {
 		if (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() != 0) {
-			if (!GameController.isSelect()) {
+			if (!GameController.isSelected()) {
 				draw();
 				coordinates = gameBoard.getAllReadyPlayerFightersCoordinate(1);
 				if (actorCoordinate == null) {
@@ -92,10 +92,10 @@ public class BoardPane extends Canvas implements Updatable {
 							gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size(),
 							gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size());
 					GameScreen.board.getChildren().add(actionPane);
-					GameController.setSelect(true);
+					GameController.setSelected(true);
 				}
 
-			} else if (GameController.isSelect() && !GameController.isChoose()) {
+			} else if (GameController.isSelected() && !GameController.isChose()) {
 				// use 1,2,3 to select action or space to skip
 				// 1) move, 2) attack, 3) heal (only healer can do this action), and
 				// 4) can't do anything action
@@ -105,7 +105,7 @@ public class BoardPane extends Canvas implements Updatable {
 					System.out.println(gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size());
 					key = GameConstants.MOVE_KEY;
 					coordinates = gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate);
-					GameController.setChoose(true);
+					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT2)
 						&& gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size() != 0) {
@@ -114,7 +114,7 @@ public class BoardPane extends Canvas implements Updatable {
 					key = GameConstants.ATTACK_KEY;
 					coordinates = gameBoard.getAllPossibleTargetsToAttack(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
-					GameController.setChoose(true);
+					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT3)
 						&& (actorCoordinate.getFighter() instanceof HealerFighter)
@@ -124,15 +124,15 @@ public class BoardPane extends Canvas implements Updatable {
 					key = GameConstants.HEAL_KEY;
 					coordinates = gameBoard.getAllPossibleAlliesToHeal(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
-					GameController.setChoose(true);
+					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
 					System.out.println("Cancel!");
-					GameController.setSelect(false);
+					GameController.setSelected(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.SPACE)) {
 					System.out.println("Skip!");
-					GameController.setSelect(false);
+					GameController.setSelected(false);
 					actorCoordinate.getFighter().setReady(false);
 					actorCoordinate = null;
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
@@ -163,13 +163,13 @@ public class BoardPane extends Canvas implements Updatable {
 							actorCoordinate.getFighter().setReady(false);
 							actorCoordinate = null;
 						}
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
 						gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);
 						actorCoordinate = beforeActionCoordinate;
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					}
 				} else if (key == GameConstants.ATTACK_KEY || key == GameConstants.HEAL_KEY) {
 					pixel = targetCoordinate.coordinate2Pixel(); // {x, y}
@@ -214,18 +214,18 @@ public class BoardPane extends Canvas implements Updatable {
 							EffectUtility.playSoundEffect(key, actorCoordinate, 0);
 						}
 						actorCoordinate = null;
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.ESCAPE)) {
 						actorCoordinate = beforeActionCoordinate;
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					}
 				}
 			}
 
 		} else if (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() != 0) {
-			if (!GameController.isSelect()) {
+			if (!GameController.isSelected()) {
 				draw();
 				coordinates = gameBoard.getAllReadyPlayerFightersCoordinate(2);
 				if (actorCoordinate == null) {
@@ -266,10 +266,10 @@ public class BoardPane extends Canvas implements Updatable {
 							gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size(),
 							gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size());
 					GameScreen.board.getChildren().add(actionPane);
-					GameController.setSelect(true);
+					GameController.setSelected(true);
 				}
 
-			} else if (GameController.isSelect() && !GameController.isChoose()) {
+			} else if (GameController.isSelected() && !GameController.isChose()) {
 				// use 7,8,9 to select action or space to skip
 				// 1) move, 2) attack, 3) heal (only healer can do this action)
 				if (InputUtility.getKeyPressed(KeyCode.DIGIT7)
@@ -278,7 +278,7 @@ public class BoardPane extends Canvas implements Updatable {
 					System.out.println(gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size());
 					key = GameConstants.MOVE_KEY;
 					coordinates = gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate);
-					GameController.setChoose(true);
+					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT8)
 						&& gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size() != 0) {
@@ -287,7 +287,7 @@ public class BoardPane extends Canvas implements Updatable {
 					key = GameConstants.ATTACK_KEY;
 					coordinates = gameBoard.getAllPossibleTargetsToAttack(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
-					GameController.setChoose(true);
+					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT9)
 						&& (actorCoordinate.getFighter() instanceof HealerFighter)
@@ -297,15 +297,15 @@ public class BoardPane extends Canvas implements Updatable {
 					key = GameConstants.HEAL_KEY;
 					coordinates = gameBoard.getAllPossibleAlliesToHeal(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
-					GameController.setChoose(true);
+					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
 					System.out.println("Cancel!");
-					GameController.setSelect(false);
+					GameController.setSelected(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.SPACE)) {
 					System.out.println("Skip!");
-					GameController.setSelect(false);
+					GameController.setSelected(false);
 					actorCoordinate.getFighter().setReady(false);
 					actorCoordinate = null;
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
@@ -336,13 +336,13 @@ public class BoardPane extends Canvas implements Updatable {
 							actorCoordinate.getFighter().setReady(false);
 							actorCoordinate = null;
 						}
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
 						gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);
 						actorCoordinate = beforeActionCoordinate;
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					}
 				} else if (key == GameConstants.ATTACK_KEY || key == GameConstants.HEAL_KEY) {
 					pixel = targetCoordinate.coordinate2Pixel(); // {x, y}
@@ -386,12 +386,12 @@ public class BoardPane extends Canvas implements Updatable {
 							EffectUtility.playSoundEffect(key, actorCoordinate, 0);
 						}
 						actorCoordinate = null;
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					} else if (InputUtility.getKeyPressed(KeyCode.BACK_SPACE)) {
 						actorCoordinate = beforeActionCoordinate;
-						GameController.setSelect(false);
-						GameController.setChoose(false);
+						GameController.setSelected(false);
+						GameController.setChose(false);
 					}
 				}
 			}
@@ -495,5 +495,15 @@ public class BoardPane extends Canvas implements Updatable {
 
 	public void resetActorCoordinate() {
 		actorCoordinate = null;
+	}
+	
+	public void checkUnDoneMove() {
+		if (key == GameConstants.MOVE_KEY) {
+			if (beforeActionCoordinate != null) {
+				if (beforeActionCoordinate != actorCoordinate) {
+					gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);
+				}
+			}
+		}
 	}
 }
