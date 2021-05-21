@@ -7,6 +7,8 @@ import logic.Updatable;
 import sharedObject.IRenderable;
 
 public abstract class Fighter implements Updatable {
+	// Fighter is battlers on the board
+	
 	protected String type; // melee or range
 	protected String name;
 
@@ -112,6 +114,10 @@ public abstract class Fighter implements Updatable {
 		this.type = type;
 	}
 	
+	public boolean isAlive() {
+		return isAlive;
+	}
+	
 	private void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
 	}
@@ -185,8 +191,6 @@ public abstract class Fighter implements Updatable {
 		}
 		if (!isAlive) {
 			setVisible(false);
-			GameController.getGameBoard().removeFighter(coordinate);
-			setCoordinate(null);
 		}
 
 	}
