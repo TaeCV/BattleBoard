@@ -2,7 +2,7 @@ package entity.base;
 
 import entity.DuckFighter;
 import logic.Coordinate;
-import logic.GameController;
+import logic.GameConstants;
 import logic.Updatable;
 import sharedObject.IRenderable;
 
@@ -26,6 +26,16 @@ public abstract class Fighter implements Updatable {
 	protected boolean isReady; // already took action that turn or not
 
 	protected Coordinate coordinate;
+	
+	private final int BASE_MELEE_ATTACK = 40;
+	private final int BASE_MELEE_DEFENSE = 25;
+	private final int BASE_MELEE_MAXHITPOINT = 55;
+	private final int MELEE_ATTACK_RANGE = 1;
+	private final int BASE_RANGE_ATTACK = 25;
+	private final int BASE_RANGE_DEFENSE = 10;
+	private final int BASE_RANGE_MAXHITPOINT = 40;
+	private final int RANGE_ATTACK_RANGE = 2;
+	private static final int BASE_TOTAL_MOVES = 1;
 
 	public Fighter(String type, int team) {
 		setType(type);
@@ -57,20 +67,20 @@ public abstract class Fighter implements Updatable {
 	}
 
 	private void setBaseStats() {
-		if (type.equals(GameController.MELEE_TYPE_STRING)) {
-			setAttack(GameController.BASE_MELEE_ATTACK);
-			setDefense(GameController.BASE_MELEE_DEFENSE);
-			setMaxHitPoint(GameController.BASE_MELEE_MAXHITPOINT);
+		if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+			setAttack(BASE_MELEE_ATTACK);
+			setDefense(BASE_MELEE_DEFENSE);
+			setMaxHitPoint(BASE_MELEE_MAXHITPOINT);
 			setHitPoint(maxHitPoint);
-			setAttackRange(GameController.BASE_MELEE_ATTACK_RANGE);
-		} else if (type.equals(GameController.RANGE_TYPE_STRING)) {
-			setAttack(GameController.BASE_RANGE_ATTACK);
-			setDefense(GameController.BASE_RANGE_DEFENSE);
-			setMaxHitPoint(GameController.BASE_RANGE_MAXHITPOINT);
+			setAttackRange(MELEE_ATTACK_RANGE);
+		} else if (type.equals(GameConstants.RANGE_TYPE_STRING)) {
+			setAttack(BASE_RANGE_ATTACK);
+			setDefense(BASE_RANGE_DEFENSE);
+			setMaxHitPoint(BASE_RANGE_MAXHITPOINT);
 			setHitPoint(maxHitPoint);
-			setAttackRange(GameController.BASE_RANGE_ATTACK_RANGE);
+			setAttackRange(RANGE_ATTACK_RANGE);
 		}
-		setTotalMoves(GameController.BASE_TOTAL_MOVES);
+		setTotalMoves(BASE_TOTAL_MOVES);
 		setAlive(true);
 		setVisible(true);
 		setReady(true);

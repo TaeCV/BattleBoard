@@ -4,44 +4,8 @@ import gui.SimulationManager;
 import screen.GameScreen;
 
 public class GameController {
-	public static final int originX = 0;
-	public static final int originY = 100;
-	public static final int PIXEL_X = 100;
-	public static final int PIXEL_Y = 88;
-	public static final int N_ROWS = 5;
-	public static final int N_COLS = 7;
-	public static final int PRE_BATTLE_PHASE_TIME = 60;
-	public static final int BATTLE_PHASE_TIME = 60;
-	public static final int MAX_TURN_PER_PLAYER = 9;
-	public static final int MAX_ROUND = 3;
+	// control game processes
 	
-	public static final int BASE_MELEE_ATTACK = 40;
-	public static final int BASE_MELEE_DEFENSE = 25;
-	public static final int BASE_MELEE_MAXHITPOINT = 55;
-	public static final int BASE_MELEE_ATTACK_RANGE = 1;
-	public static final int BASE_RANGE_ATTACK = 25;
-	public static final int BASE_RANGE_DEFENSE = 10;
-	public static final int BASE_RANGE_MAXHITPOINT = 40;
-	public static final int BASE_RANGE_ATTACK_RANGE = 2;
-	
-	public static final int BASE_TOTAL_MOVES = 1;
-	
-	public static final String MELEE_TYPE_STRING = "melee";
-	public static final String RANGE_TYPE_STRING = "range";
-	
-	public static final int TEAM_1 = 1;
-	public static final int TEAM_2 = 2;
-	
-	public static final String DUCK_NAME = "Duck";
-	public static final String HEALER_NAME = "Healer";
-	public static final String SPEEDY_NAME = "Speedy";
-	public static final String TOUGH_NAME = "Tough";
-	public static final String WILD_NAME = "Wild";
-	
-	public static final char MOVE_KEY = 'M';
-	public static final char ATTACK_KEY = 'A';
-	public static final char HEAL_KEY = 'H';
-
 	private static GameBoard gameBoard;
 
 	private static int P1Score;
@@ -230,7 +194,7 @@ public class GameController {
 		setP1(!isP1());
 		gameBoard.resetReady();
 		gameBoard.update();
-		if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
+		if (GameController.getTurnCount() == GameConstants.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
 			checkWinnerAtTheEnd();
 			GameController.setRoundOver(true);
 		}
@@ -242,7 +206,7 @@ public class GameController {
 			GameController.setRoundDone(true); // finished round
 			GameController.setRoundOver(false);
 		}
-		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1
+		if ((GameController.getRoundCount() > GameConstants.MAX_ROUND) || GameController.getP1Score() > 1
 				|| GameController.getP2Score() > 1) {
 			GameController.setGame(true);
 			GameController.checkWinner();

@@ -1,11 +1,12 @@
 package entity;
 
 import entity.base.Fighter;
-import logic.GameController;
+import logic.GameConstants;
 import logic.Sprites;
 
 public class DuckFighter extends Fighter {
 	// when this is attacked there is chance to dodge the attack
+	
 	private double dodgeChance; // percent to dodge
 	
 	private final int MIN_DODGECHANCE = 25;
@@ -13,7 +14,7 @@ public class DuckFighter extends Fighter {
 
 	public DuckFighter(String type, int team) {
 		super(type, team);
-		setName(GameController.DUCK_NAME);
+		setName(GameConstants.DUCK_NAME);
 	}
 
 	protected void setSpecialAbility() {
@@ -21,14 +22,14 @@ public class DuckFighter extends Fighter {
 	}
 
 	public int getSymbol() {
-		if (team == GameController.TEAM_1) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		if (team == GameConstants.TEAM_1) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P1_DUCKMELEE;
 			} else {
 				return Sprites.P1_DUCKRANGE;
 			}
-		} else if (team == GameController.TEAM_2) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstants.TEAM_2) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P2_DUCKMELEE;
 			} else {
 				return Sprites.P2_DUCKRANGE;

@@ -3,12 +3,14 @@ package logic;
 import entity.base.Fighter;
 
 public class Coordinate implements Updatable, Comparable<Coordinate> {
-	private int i;
-	private int j;
+	// a box on the board
+	
+	private int i; // row index
+	private int j; // column index
 
 	private boolean isEmpty;
 
-	private Fighter myFighter;
+	private Fighter myFighter; // Fighter in this Coordinate
 
 	public Coordinate(int i, int j) {
 		setI(i);
@@ -73,8 +75,8 @@ public class Coordinate implements Updatable, Comparable<Coordinate> {
 	}
 
 	public int[] coordinate2Pixel() {
-		int[] pixel = { GameController.originX + (j * GameController.PIXEL_X),
-				GameController.originY + (i * GameController.PIXEL_Y) };
+		int[] pixel = { GameConstants.ORIGIN_X + (j * GameConstants.BOX_WIDTH),
+				GameConstants.ORIGIN_Y + (i * GameConstants.BOX_HEIGHT) };
 		return pixel;
 	}
 

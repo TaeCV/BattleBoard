@@ -5,6 +5,7 @@ import gui.base.PlayerPane;
 import input.InputUtility;
 import javafx.scene.input.KeyCode;
 import logic.GameController;
+import logic.LogicUtility;
 import logic.Updatable;
 import screen.GameScreen;
 import sharedObject.RenderableHolder;
@@ -16,7 +17,7 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 
 	public PlayerPanePreBattle(int player) {
 		super(player);
-		this.fighters = GameController.getGameBoard().getRandomFighters(player);
+		this.fighters = LogicUtility.getRandomFighters(player);
 		for (Fighter fighter : fighters) {
 			addFighterBox(fighter);
 		}

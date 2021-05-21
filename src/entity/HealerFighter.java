@@ -2,11 +2,12 @@ package entity;
 
 import entity.base.Fighter;
 import entity.base.HitPointRegenerable;
-import logic.GameController;
+import logic.GameConstants;
 import logic.Sprites;
 
 public class HealerFighter extends Fighter implements HitPointRegenerable{
 	// can choose to attack or heal any team mates including itself
+	
 	private double healingPoint;
 	
 	private final int MIN_HEALING_POINT = 5;
@@ -18,7 +19,7 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 
 	public HealerFighter(String type, int team) {
 		super(type, team);
-		setName(GameController.HEALER_NAME);
+		setName(GameConstants.HEALER_NAME);
 	}
 
 	public double heal(Fighter ally) {
@@ -34,14 +35,14 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 	}
 
 	public int getSymbol() {
-		if (team == GameController.TEAM_1) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		if (team == GameConstants.TEAM_1) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P1_HEALERMELEE;
 			} else {
 				return Sprites.P1_HEALERRANGE;
 			}
-		} else if (team == GameController.TEAM_2) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstants.TEAM_2) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P2_HEALERMELEE;
 			} else {
 				return Sprites.P2_HEALERRANGE;

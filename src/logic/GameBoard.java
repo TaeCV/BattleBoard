@@ -15,8 +15,8 @@ public class GameBoard implements Updatable {
 	private Coordinate[][] board; // all Coordinates
 	public int[][] map; // symbol for each Coordinate
 
-	private final int ROWS = GameController.N_ROWS;
-	private final int COLS = GameController.N_COLS;
+	private final int ROWS = GameConstants.N_ROWS;
+	private final int COLS = GameConstants.N_COLS;
 
 	public ArrayList<Fighter> Player1Fighters;
 	public ArrayList<Fighter> Player2Fighters;
@@ -33,11 +33,11 @@ public class GameBoard implements Updatable {
 	public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
 		for (int i = 0; i < 5; i++) {
 			Fighter fighter = fighters1.get(i);
-			addFighter(fighter, board[i][0], GameController.TEAM_1);
+			addFighter(fighter, board[i][0], GameConstants.TEAM_1);
 		}
 		for (int i = 0; i < 5; i++) {
 			Fighter fighter = fighters2.get(i);
-			addFighter(fighter, board[i][6], GameController.TEAM_2);
+			addFighter(fighter, board[i][6], GameConstants.TEAM_2);
 		}
 	}
 
@@ -98,14 +98,14 @@ public class GameBoard implements Updatable {
 		// can attack
 		ArrayList<Coordinate> allPossibleTargets = new ArrayList<>();
 		Fighter attacker = attackerCoordinate.getFighter();
-		if (attacker.getTeam() == GameController.TEAM_1) {
-			for (Fighter target : getFightersByTeam(GameController.TEAM_2)) {
+		if (attacker.getTeam() == GameConstants.TEAM_1) {
+			for (Fighter target : getFightersByTeam(GameConstants.TEAM_2)) {
 				if (LogicUtility.isPossibleToAttack(attacker, target)) {
 					allPossibleTargets.add(target.getCoordinate());
 				}
 			}
-		} else if (attacker.getTeam() == GameController.TEAM_2) {
-			for (Fighter target : getFightersByTeam(GameController.TEAM_1)) {
+		} else if (attacker.getTeam() == GameConstants.TEAM_2) {
+			for (Fighter target : getFightersByTeam(GameConstants.TEAM_1)) {
 				if (LogicUtility.isPossibleToAttack(attacker, target)) {
 					allPossibleTargets.add(target.getCoordinate());
 				}
@@ -157,9 +157,9 @@ public class GameBoard implements Updatable {
 	// -----------------------------------------data managing
 	// methods----------------------------------------
 	private void addFighter(Fighter fighter, Coordinate coordinate, int team) {
-		if (team == GameController.TEAM_1) {
+		if (team == GameConstants.TEAM_1) {
 			Player1Fighters.add(fighter);
-		} else if (team == GameController.TEAM_2) {
+		} else if (team == GameConstants.TEAM_2) {
 			Player2Fighters.add(fighter);
 		}
 		coordinate.setFighter(fighter);
@@ -167,7 +167,7 @@ public class GameBoard implements Updatable {
 		update(coordinate);
 	}
 
-	public void removeFighter(Coordinate coordinate) {
+	private void removeFighter(Coordinate coordinate) {
 		Fighter removing = coordinate.getFighter();
 		removing.setCoordinate(null);
 		coordinate.setFighter(null);
@@ -180,7 +180,7 @@ public class GameBoard implements Updatable {
 
 	// -----------------------------------------check possibilities
 	// methods----------------------------------------
-	public ArrayList<Coordinate> getAllPossibleToMoveDistance1(Coordinate currentCoordinate) {
+	private ArrayList<Coordinate> getAllPossibleToMoveDistance1(Coordinate currentCoordinate) {
 		// return all Coordinate that can move to by only 1 distance far
 		ArrayList<Coordinate> allPossibleCoordinate = new ArrayList<>();
 
@@ -209,9 +209,9 @@ public class GameBoard implements Updatable {
 	// methods----------------------------------------
 
 	private ArrayList<Fighter> getFightersByTeam(int team) {
-		if (team == GameController.TEAM_1) {
+		if (team == GameConstants.TEAM_1) {
 			return Player1Fighters;
-		} else if (team == GameController.TEAM_2) {
+		} else if (team == GameConstants.TEAM_2) {
 			return Player2Fighters;
 		}
 		return null;
@@ -241,29 +241,24 @@ public class GameBoard implements Updatable {
 
 	// -----------------------------------------updater---------------------------------------
 
-	public void updateMap(Coordinate c) {
-		int i = c.getI();
-		int j = c.getJ();
-		map[i][j] = c.getSymbol();
+	private void updateMap(Coordinate coordinate) {
+		int i = coordinate.getI();
+		int j = coordinate.getJ();
+		map[i][j] = coordinate.getSymbol();
 	}
 
-	public void updateMap(Coordinate c1, Coordinate c2) {
-		updateMap(c1);
-		updateMap(c2);
-	}
-
-	public void update(Coordinate c) {
-		if (c.getFighter() != null) {
-			if (!c.getFighter().isAlive()) {
-				removeFighter(c);
+	private void update(Coordinate coordinate) {
+		if (coordinate.getFighter() != null) {
+			if (!coordinate.getFighter().isAlive()) {
+				removeFighter(coordinate);
 			}
 		}
-		updateMap(c);
+		updateMap(coordinate);
 	}
 
-	public void update(Coordinate c1, Coordinate c2) {
-		update(c1);
-		update(c2);
+	private void update(Coordinate coordinate1, Coordinate coordinate2) {
+		update(coordinate1);
+		update(coordinate2);
 	}
 
 	public void update() { // update every turn

@@ -3,7 +3,13 @@ package logic;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
+import entity.DuckFighter;
+import entity.HealerFighter;
+import entity.SpeedyFighter;
+import entity.ToughFighter;
+import entity.WildFighter;
 import entity.base.Fighter;
 
 public class LogicUtility {
@@ -70,5 +76,47 @@ public class LogicUtility {
 			return false;
 		}
 		return true;
+	}
+	
+	// random fighters return Fighter[8]
+	public static Fighter[] getRandomFighters(int team) {
+		Fighter[] randomFighters = new Fighter[8];
+		Random r = new Random();
+		for (int i = 0; i < 8; i++) {
+			int x = r.nextInt(10);
+			switch (x) {
+			case 0:
+				randomFighters[i] = new DuckFighter(GameConstants.MELEE_TYPE_STRING, team);
+				break;
+			case 1:
+				randomFighters[i] = new HealerFighter(GameConstants.MELEE_TYPE_STRING, team);
+				break;
+			case 2:
+				randomFighters[i] = new SpeedyFighter(GameConstants.MELEE_TYPE_STRING, team);
+				break;
+			case 3:
+				randomFighters[i] = new ToughFighter(GameConstants.MELEE_TYPE_STRING, team);
+				break;
+			case 4:
+				randomFighters[i] = new WildFighter(GameConstants.MELEE_TYPE_STRING, team);
+				break;
+			case 5:
+				randomFighters[i] = new DuckFighter(GameConstants.RANGE_TYPE_STRING, team);
+				break;
+			case 6:
+				randomFighters[i] = new HealerFighter(GameConstants.RANGE_TYPE_STRING, team);
+				break;
+			case 7:
+				randomFighters[i] = new SpeedyFighter(GameConstants.RANGE_TYPE_STRING, team);
+				break;
+			case 8:
+				randomFighters[i] = new ToughFighter(GameConstants.RANGE_TYPE_STRING, team);
+				break;
+			case 9:
+				randomFighters[i] = new WildFighter(GameConstants.RANGE_TYPE_STRING, team);
+				break;
+			}
+		}
+		return randomFighters;
 	}
 }
