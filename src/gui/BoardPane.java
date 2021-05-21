@@ -2,8 +2,6 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 
 import entity.HealerFighter;
 import input.InputUtility;
@@ -39,13 +37,9 @@ public class BoardPane extends Canvas implements Updatable {
 		draw();
 	}
 
-	public void draw() {
-		clear();
-		gc.drawImage(RenderableHolder.board_bg_Image, 0, 0, getWidth(), getHeight());
-	}
-
-	public void clear() {
+	private void draw() {
 		gc.clearRect(0, 0, 600, 700);
+		gc.drawImage(RenderableHolder.board_bg_Image, 0, 0, getWidth(), getHeight());
 	}
 
 	public void update() {
@@ -397,7 +391,7 @@ public class BoardPane extends Canvas implements Updatable {
 		}
 	}
 
-	public Coordinate getMovingToCoordinate(String key) {
+	private Coordinate getMovingToCoordinate(String key) {
 		int currentI = actorCoordinate.getI();
 		int currentJ = actorCoordinate.getJ();
 		for (Coordinate coordinate : coordinates) {
@@ -424,7 +418,7 @@ public class BoardPane extends Canvas implements Updatable {
 		return null;
 	}
 
-	public Coordinate getTargetCoordinate(String key, Coordinate currentCoordinate) {
+	private Coordinate getTargetCoordinate(String key, Coordinate currentCoordinate) {
 		sortCoordinatesByStraight(currentCoordinate);
 		int currentI = currentCoordinate.getI();
 		int currentJ = currentCoordinate.getJ();
@@ -452,7 +446,7 @@ public class BoardPane extends Canvas implements Updatable {
 		return null;
 	}
 
-	public void doMove(Coordinate movingToCoordinate) {
+	private void doMove(Coordinate movingToCoordinate) {
 		if (movingToCoordinate != null) {
 			draw();
 			gameBoard.takeMove(actorCoordinate, movingToCoordinate);
@@ -462,7 +456,7 @@ public class BoardPane extends Canvas implements Updatable {
 		}
 	}
 
-	public void select(Coordinate currentCoordinate) {
+	private void select(Coordinate currentCoordinate) {
 		if (currentCoordinate != null) {
 			System.out.println("selecting " + currentCoordinate.toString());
 			draw();
@@ -471,7 +465,7 @@ public class BoardPane extends Canvas implements Updatable {
 		}
 	}
 
-	public void sortCoordinatesByStraight(Coordinate currentCoordinate) {
+	private void sortCoordinatesByStraight(Coordinate currentCoordinate) {
 		// straight come first
 		int currentI = currentCoordinate.getI();
 		int currentJ = currentCoordinate.getJ();

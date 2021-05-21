@@ -1,6 +1,5 @@
 package logic;
 
-import gui.SimulationManager;
 import screen.GameScreen;
 
 public class GameController {
@@ -14,7 +13,7 @@ public class GameController {
 	public static final int BATTLE_PHASE_TIME = 60;
 	public static final int MAX_TURN_PER_PLAYER = 9;
 	public static final int MAX_ROUND = 3;
-	
+
 	public static final int BASE_MELEE_ATTACK = 40;
 	public static final int BASE_MELEE_DEFENSE = 25;
 	public static final int BASE_MELEE_MAXHITPOINT = 55;
@@ -23,21 +22,21 @@ public class GameController {
 	public static final int BASE_RANGE_DEFENSE = 10;
 	public static final int BASE_RANGE_MAXHITPOINT = 40;
 	public static final int BASE_RANGE_ATTACK_RANGE = 2;
-	
+
 	public static final int BASE_TOTAL_MOVES = 1;
-	
+
 	public static final String MELEE_TYPE_STRING = "melee";
 	public static final String RANGE_TYPE_STRING = "range";
-	
+
 	public static final int TEAM_1 = 1;
 	public static final int TEAM_2 = 2;
-	
+
 	public static final String DUCK_NAME = "Duck";
 	public static final String HEALER_NAME = "Healer";
 	public static final String SPEEDY_NAME = "Speedy";
 	public static final String TOUGH_NAME = "Tough";
 	public static final String WILD_NAME = "Wild";
-	
+
 	public static final char MOVE_KEY = 'M';
 	public static final char ATTACK_KEY = 'A';
 	public static final char HEAL_KEY = 'H';
@@ -267,11 +266,11 @@ public class GameController {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
 			P2Score++;
-		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters) > 
-					LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters)) {
+		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters) > LogicUtility
+				.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters)) {
 			P1Score++;
-		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters) > 
-		LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters)) {
+		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters) > LogicUtility
+				.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters)) {
 			P2Score++;
 		}
 	}

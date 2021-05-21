@@ -2,7 +2,6 @@ package entity;
 
 import entity.base.Fighter;
 import entity.base.StatsIncreasable;
-import javafx.scene.canvas.GraphicsContext;
 import logic.GameController;
 import logic.Sprites;
 
@@ -12,7 +11,7 @@ public class WildFighter extends Fighter implements StatsIncreasable {
 
 	private final int MIN_BONUS_ATTACK = 25;
 	private final int MAX_EXTRA_BONUS_ATTACK = 15;
-	
+
 	public WildFighter(String type, int team) {
 		super(type, team);
 		setName(GameController.WILD_NAME);
@@ -39,13 +38,14 @@ public class WildFighter extends Fighter implements StatsIncreasable {
 		}
 		return 0;
 	}
-	
+
 	public void setBonusStats() {
 		setBonusAttack();
 		setAttack(attack + attack * bonusAttack / 100);
 	}
-	
+
 	private void setBonusAttack() {
-		bonusAttack = MIN_BONUS_ATTACK + Math.random() * MAX_EXTRA_BONUS_ATTACK; // attack is increased by between 10,40 percent
+		bonusAttack = MIN_BONUS_ATTACK + Math.random() * MAX_EXTRA_BONUS_ATTACK; // attack is increased by between 10,40
+																					// percent
 	}
 }

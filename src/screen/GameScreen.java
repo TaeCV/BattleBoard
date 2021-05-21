@@ -1,24 +1,14 @@
 package screen;
 
-import java.util.ArrayList;
-
-import gui.BoardPane;
-import gui.FighterBoxPreBattle;
-import gui.PlayerPaneBattle;
-import gui.PlayerPanePreBattle;
 import gui.SimulationManager;
 import gui.base.PlayerPane;
 import input.InputUtility;
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -37,12 +27,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import logic.Coordinate;
 import logic.GameBoard;
 import logic.GameController;
-import logic.Sprites;
-import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
 public class GameScreen {

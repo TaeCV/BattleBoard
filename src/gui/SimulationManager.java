@@ -1,8 +1,5 @@
 package gui;
 
-import java.util.ArrayList;
-
-import entity.base.Fighter;
 import logic.GameController;
 import screen.GameScreen;
 
@@ -57,7 +54,7 @@ public class SimulationManager {
 	public static BoardPane getBoard() {
 		return board;
 	}
-	
+
 	public static void fillUpPaneBattle() {
 		P1PaneBattle.fillUp(P1PanePreBattle);
 		P2PaneBattle.fillUp(P2PanePreBattle);
