@@ -44,12 +44,8 @@ public class WildFighter extends Fighter implements StatsIncreasable {
 		setBonusAttack();
 		setAttack(attack + attack * bonusAttack / 100);
 	}
-
-	public double getBonusAttack() {
-		return bonusAttack;
-	}
-
-	public void setBonusAttack() {
+	
+	private void setBonusAttack() {
 		bonusAttack = MIN_BONUS_ATTACK + Math.random() * MAX_EXTRA_BONUS_ATTACK; // attack is increased by between 10,40 percent
 	}
 }

@@ -1,5 +1,5 @@
 package entity.base;
 
 public interface HitPointRegenerable {
-	public double regenerateHitPoint(); // called every turn end
+	public void regenerateHitPoint(); // called every turn end
 }

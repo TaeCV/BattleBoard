@@ -267,11 +267,11 @@ public class GameController {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
 			P2Score++;
-		} else if (gameBoard.calculatePercentSumOfHitPointRemain(1) > gameBoard
-				.calculatePercentSumOfHitPointRemain(2)) {
+		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters) > 
+					LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters)) {
 			P1Score++;
-		} else if (gameBoard.calculatePercentSumOfHitPointRemain(2) > gameBoard
-				.calculatePercentSumOfHitPointRemain(1)) {
+		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters) > 
+		LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters)) {
 			P2Score++;
 		}
 	}

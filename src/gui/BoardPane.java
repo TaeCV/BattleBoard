@@ -15,6 +15,7 @@ import logic.Coordinate;
 import logic.EffectUtility;
 import logic.GameBoard;
 import logic.GameController;
+import logic.LogicUtility;
 import logic.Updatable;
 import screen.GameScreen;
 import sharedObject.RenderableHolder;
@@ -486,23 +487,9 @@ public class BoardPane extends Canvas implements Updatable {
 				notStraight.add(coordinate);
 			}
 		}
-		sortedCoordinates.addAll(sortByDistance(straight, currentCoordinate));
-		sortedCoordinates.addAll(sortByDistance(notStraight, currentCoordinate));
+		sortedCoordinates.addAll(LogicUtility.sortByDistance(straight, currentCoordinate));
+		sortedCoordinates.addAll(LogicUtility.sortByDistance(notStraight, currentCoordinate));
 		coordinates = sortedCoordinates;
-	}
-
-	public ArrayList<Coordinate> sortByDistance(ArrayList<Coordinate> coordinates, Coordinate currentCoordinate) {
-		if (coordinates != null) {
-			Comparator<Coordinate> compareByDistanceFromCurrent = new Comparator<Coordinate>() {
-				public int compare(Coordinate c1, Coordinate c2) {
-					return Integer.compare(GameController.getGameBoard().calculateDistance(currentCoordinate, c1),
-							GameController.getGameBoard().calculateDistance(currentCoordinate, c2));
-				}
-			};
-			Collections.sort(coordinates, compareByDistanceFromCurrent);
-			return coordinates;
-		}
-		return null;
 	}
 
 	public void resetActorCoordinate() {
