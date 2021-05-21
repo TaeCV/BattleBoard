@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 import entity.*;
@@ -80,13 +81,11 @@ public class GameBoard {
 	public void setPlayerFighters(ArrayList<Fighter> fighters1, ArrayList<Fighter> fighters2) {
 		for (int i = 0; i < 5; i++) {
 			Fighter fighter = fighters1.get(i);
-			Player1Fighters.add(fighter);
-			addFighter(fighter, board[i][0]);
+			addFighter(fighter, board[i][0], GameController.TEAM_1);
 		}
 		for (int i = 0; i < 5; i++) {
 			Fighter fighter = fighters2.get(i);
-			Player2Fighters.add(fighter);
-			addFighter(fighter, board[i][6]);
+			addFighter(fighter, board[i][6], GameController.TEAM_2);
 		}
 	}
 
@@ -139,7 +138,7 @@ public class GameBoard {
 		if (currentCoordinate.getFighter() instanceof SpeedyFighter) {
 			for (Coordinate current : firstTime) {
 				for (Coordinate possible : getAllPossibleToMoveDistance1(current)) {
-					if ((!possibleCoordinate.contains(possible)) && isPossibleToMove(current, possible)) {
+					if ((!possibleCoordinate.contains(possible)) && LogicUtility.isPossibleToMove(current, possible)) {
 						possibleCoordinate.add(possible);
 					}
 				}
@@ -156,13 +155,13 @@ public class GameBoard {
 		Fighter attacker = attackerCoordinate.getFighter();
 		if (attacker.getTeam() == GameController.TEAM_1) {
 			for (Fighter target : Player2Fighters) {
-				if (isPossibleToAttack(attacker, target)) {
+				if (LogicUtility.isPossibleToAttack(attacker, target)) {
 					allPossibleTargets.add(target.getCoordinate());
 				}
 			}
 		} else if (attacker.getTeam() == GameController.TEAM_2) {
 			for (Fighter target : Player1Fighters) {
-				if (isPossibleToAttack(attacker, target)) {
+				if (LogicUtility.isPossibleToAttack(attacker, target)) {
 					allPossibleTargets.add(target.getCoordinate());
 				}
 			}
@@ -177,13 +176,13 @@ public class GameBoard {
 		Fighter healer = healerCoordinate.getFighter();
 		if (healer.getTeam() == GameController.TEAM_1) {
 			for (Fighter ally : Player1Fighters) {
-				if (isPossibleToHeal(healer, ally)) {
+				if (LogicUtility.isPossibleToGetHealed(ally)) {
 					allPossibleAllies.add(ally.getCoordinate());
 				}
 			}
-		} else if (healer.getTeam() == GameController.TEAM_2){
+		} else if (healer.getTeam() == GameController.TEAM_2) {
 			for (Fighter ally : Player2Fighters) {
-				if (isPossibleToHeal(healer, ally)) {
+				if (LogicUtility.isPossibleToGetHealed(ally)) {
 					allPossibleAllies.add(ally.getCoordinate());
 				}
 			}
@@ -219,7 +218,12 @@ public class GameBoard {
 
 	// -----------------------------------------data managing
 	// methods----------------------------------------
-	public void addFighter(Fighter fighter, Coordinate coordinate) {
+	public void addFighter(Fighter fighter, Coordinate coordinate, int team) {
+		if (team == GameController.TEAM_1) {
+			Player1Fighters.add(fighter);
+		} else if (team == GameController.TEAM_2) {
+			Player2Fighters.add(fighter);
+		}
 		coordinate.setFighter(fighter);
 		fighter.setCoordinate(coordinate);
 		update(coordinate);
@@ -251,14 +255,14 @@ public class GameBoard {
 		int[] possiblej = new int[] { currentj - 1, currentj + 1 };
 		for (int i : possiblei) {
 			if (i >= 0 && i < width) {
-				if (isPossibleToMove(currentCoordinate, board[i][currentj])) {
+				if (LogicUtility.isPossibleToMove(currentCoordinate, board[i][currentj])) {
 					allPossibleCoordinate.add(board[i][currentj]);
 				}
 			}
 		}
 		for (int j : possiblej) {
 			if (j >= 0 && j < height) {
-				if (isPossibleToMove(currentCoordinate, board[currenti][j])) {
+				if (LogicUtility.isPossibleToMove(currentCoordinate, board[currenti][j])) {
 					allPossibleCoordinate.add(board[currenti][j]);
 				}
 			}
@@ -266,62 +270,8 @@ public class GameBoard {
 		return allPossibleCoordinate;
 	}
 
-	public boolean isPossibleToMove(Coordinate currentCoordinate, Coordinate targetc) {
-		if (!targetc.isEmpty()) {
-			return false;
-		}
-		return true;
-	}
-
-	public boolean isPossibleToAttack(Fighter attacker, Fighter target) {
-		int attackRange = attacker.getAttackRange();
-		Coordinate c1 = attacker.getCoordinate();
-		Coordinate c2 = target.getCoordinate();
-		int distance = calculateDistance(c1, c2);
-		if (distance <= attackRange) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean isPossibleToHeal(Fighter healer, Fighter target) {
-		if (target.getHitPoint() == target.getMaxHitPoint()) {
-			return false;
-		}
-		return true;
-	}
-
 	// -----------------------------------------other utility
 	// methods----------------------------------------
-	public int calculateDistance(Coordinate c1, Coordinate c2) {
-		int i1 = c1.getI();
-		int j1 = c1.getJ();
-		int i2 = c2.getI();
-		int j2 = c2.getJ();
-
-		int di = Math.abs(i1 - i2);
-		int dj = Math.abs(j1 - j2);
-		int distance = di + dj;
-		return distance;
-	}
-
-	public double calculatePercentSumOfHitPointRemain(int team) {
-		double hitPointSum = 0;
-		double maxHitPointSum = 0;
-		if (team == 1) {
-			for (Fighter fighter : Player1Fighters) {
-				hitPointSum += fighter.getHitPoint();
-				maxHitPointSum += fighter.getMaxHitPoint();
-			}
-		} else {
-			for (Fighter fighter : Player2Fighters) {
-				hitPointSum += fighter.getHitPoint();
-				maxHitPointSum += fighter.getMaxHitPoint();
-			}
-		}
-		return hitPointSum / maxHitPointSum;
-	}
 
 	public int getWidth() {
 		return width;

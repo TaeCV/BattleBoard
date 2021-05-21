@@ -2,7 +2,7 @@ package logic;
 
 import entity.base.Fighter;
 
-public class Coordinate implements Comparable<Coordinate> {
+public class Coordinate implements Updatable, Comparable<Coordinate> {
 	private int i;
 	private int j;
 
@@ -20,7 +20,7 @@ public class Coordinate implements Comparable<Coordinate> {
 		return i;
 	}
 
-	public void setI(int i) {
+	private void setI(int i) {
 		this.i = i;
 	}
 
@@ -28,7 +28,7 @@ public class Coordinate implements Comparable<Coordinate> {
 		return j;
 	}
 
-	public void setJ(int j) {
+	private void setJ(int j) {
 		this.j = j;
 	}
 
@@ -59,7 +59,7 @@ public class Coordinate implements Comparable<Coordinate> {
 		return isEmpty;
 	}
 
-	public void setEmpty(boolean isEmpty) {
+	private void setEmpty(boolean isEmpty) {
 		if (j == 3 && i % 2 == 0) {
 			isEmpty = false;
 		}
@@ -80,13 +80,6 @@ public class Coordinate implements Comparable<Coordinate> {
 
 	public String toString() {
 		return "(" + i + "," + j + ")";
-	}
-
-	public boolean equals(Coordinate other) {
-		if ((other.getI() == i) && (other.getJ() == j)) {
-			return true;
-		}
-		return false;
 	}
 
 	public int compareTo(Coordinate other) {
