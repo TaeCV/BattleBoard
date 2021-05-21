@@ -1,30 +1,34 @@
 package entity;
 
 import entity.base.Fighter;
-import javafx.scene.canvas.GraphicsContext;
+import logic.GameController;
 import logic.Sprites;
 
 public class DuckFighter extends Fighter {
 	// when this is attacked there is chance to dodge the attack
 	private double dodgeChance; // percent to dodge
 
-	public DuckFighter(String type, int team, String name) {
-		super(type, team, name);
+	private final int MIN_DODGECHANCE = 25;
+	private final int MAX_EXTRA_DODGECHANCE = 10;
+
+	public DuckFighter(String type, int team) {
+		super(type, team);
+		setName(GameController.DUCK_NAME);
 	}
 
-	public void setSpecialAbility() {
+	protected void setSpecialAbility() {
 		setDodgeChance();
 	}
 
 	public int getSymbol() {
-		if (team == 1) {
-			if (type.equals("melee")) {
+		if (team == GameController.TEAM_1) {
+			if (type.equals(GameController.MELEE_TYPE_STRING)) {
 				return Sprites.P1_DUCKMELEE;
 			} else {
 				return Sprites.P1_DUCKRANGE;
 			}
-		} else if (team == 2) {
-			if (type.equals("melee")) {
+		} else if (team == GameController.TEAM_2) {
+			if (type.equals(GameController.MELEE_TYPE_STRING)) {
 				return Sprites.P2_DUCKMELEE;
 			} else {
 				return Sprites.P2_DUCKRANGE;
@@ -37,7 +41,7 @@ public class DuckFighter extends Fighter {
 		return dodgeChance;
 	}
 
-	public void setDodgeChance() {
-		dodgeChance = Math.random() * 10 + 25; // dodge chance is between 25,35
+	private void setDodgeChance() {
+		dodgeChance = MIN_DODGECHANCE + Math.random() * MAX_EXTRA_DODGECHANCE; // dodge chance is between 25,35 percent
 	}
 }

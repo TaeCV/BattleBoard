@@ -1,11 +1,11 @@
 package gui;
 
 import entity.base.Fighter;
-import entity.base.Updatable;
 import gui.base.FighterBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import logic.Updatable;
 import sharedObject.RenderableHolder;
 
 public class FighterBoxPreBattle extends FighterBox implements Updatable {

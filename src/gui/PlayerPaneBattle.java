@@ -3,10 +3,10 @@ package gui;
 import java.util.ArrayList;
 
 import entity.base.Fighter;
-import entity.base.Updatable;
 import gui.base.PlayerPane;
 import javafx.scene.Node;
 import logic.GameController;
+import logic.Updatable;
 
 public class PlayerPaneBattle extends PlayerPane implements Updatable {
 	private ArrayList<Fighter> fighters;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import entity.base.Updatable;
+import logic.Updatable;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
@@ -330,8 +330,8 @@ public class RenderableHolder {
 		meleeAttack1_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack1.png").toString());
 		meleeAttack2_Image = new Image(ClassLoader.getSystemResource(img + "meleeattack2.png").toString());
 		rangeAttack_Image = new Image(ClassLoader.getSystemResource(img + "rangeattack.png").toString());
-		ducked1_Image = new Image(ClassLoader.getSystemResource(img + "ducked1.png").toString());
-		ducked2_Image = new Image(ClassLoader.getSystemResource(img + "ducked2.png").toString());
+		ducked1_Image = new Image(ClassLoader.getSystemResource(img + "ducked1_alt.png").toString());
+		ducked2_Image = new Image(ClassLoader.getSystemResource(img + "ducked2_alt.png").toString());
 
 		String audio = "audio/";
 
@@ -351,7 +351,6 @@ public class RenderableHolder {
 
 		StartScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "startscreen_music.mp3").toString());
 		GameScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());
-
 	}
 
 	public static RenderableHolder getInstance() {
