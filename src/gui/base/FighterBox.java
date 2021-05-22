@@ -4,8 +4,9 @@ import entity.base.Fighter;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import logic.Updatable;
 
-public abstract class FighterBox extends Canvas {
+public abstract class FighterBox extends Canvas implements Updatable {
 	protected int symbol;
 	protected GraphicsContext gc;
 	protected Image image;
