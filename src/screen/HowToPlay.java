@@ -103,8 +103,7 @@ public class HowToPlay extends VBox {
 
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setContent(description);
-		scrollPane.setPrefHeight(400);
-		scrollPane.setMaxSize(450, 500);
+		scrollPane.setMaxSize(450, 450);
 
 		// Back Button
 		ActionButton backButton = new ActionButton("Back");
