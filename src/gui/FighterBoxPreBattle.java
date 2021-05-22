@@ -24,6 +24,7 @@ public class FighterBoxPreBattle extends FighterBox implements Updatable {
 		gc.fillRect(0, 0, 150, 600 / 8);
 		gc.drawImage(image, 10, 5, 60, 60);
 		gc.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
+		gc.setStroke(Color.BLACK);
 		gc.strokeText(fighter.getName(), 80, 45);
 		gc.strokeRect(0, 0, 150, 600 / 8);
 	}
@@ -39,18 +40,6 @@ public class FighterBoxPreBattle extends FighterBox implements Updatable {
 		// TODO Auto-generated method stub
 		gc.setStroke(Color.RED);
 		gc.setLineWidth(5);
-		gc.strokeRect(0, 0, 150, 600 / 8);
-	}
-
-	public void resetStroke() {
-		gc.clearRect(0, 0, 150, 600 / 8);
-		gc.setFill(Color.CORNSILK);
-		gc.fillRect(0, 0, 150, 600 / 8);
-		gc.drawImage(image, 10, 5, 60, 60);
-		gc.setStroke(Color.BLACK);
-		gc.setLineWidth(1);
-		gc.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
-		gc.strokeText(fighter.getName(), 80, 45);
 		gc.strokeRect(0, 0, 150, 600 / 8);
 	}
 

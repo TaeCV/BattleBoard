@@ -98,7 +98,7 @@ public class GameScreen {
 		}
 	}
 
-	public void drawAnimation() {
+	private void drawAnimation() {
 		if (timeToDrawAnimation > 0 && effectSymbol != 0) {
 			gameGC.drawImage(RenderableHolder.getEffectImage(effectSymbol), selectedPixel[0], selectedPixel[1] - 56,
 					100, 100);
@@ -108,7 +108,7 @@ public class GameScreen {
 		}
 	}
 
-	public void drawNamePane() {
+	private void drawNamePane() {
 		Text gameName = new Text("BATTLE BOARD");
 		gameName.setFont(Font.font("Times New Roman", FontWeight.BOLD, 36));
 		gameName.setStroke(Color.SILVER);
@@ -122,7 +122,7 @@ public class GameScreen {
 	}
 
 	// Set up Header pane to show time, round and win count
-	public void drawStatusPane() {
+	private void drawStatusPane() {
 		statusPane = new HBox();
 		statusPane.setMaxSize(1000, 100);
 		// Including player 1 tag, time and round , player 2 tag
@@ -166,7 +166,7 @@ public class GameScreen {
 	}
 
 	// Add all nodes to root and set new scene
-	public void setScene() {
+	private void setScene() {
 		root = new BorderPane();
 		root.setTop(statusPane); // Status Pane
 		root.setLeft(P1Pane);
@@ -181,7 +181,7 @@ public class GameScreen {
 	}
 
 	// Draw time and round each fame
-	public void drawTimeAndRound() {
+	private void drawTimeAndRound() {
 		statusGC.clearRect(0, 0, 800, 100);
 		statusGC.setFill(Color.LIGHTGREY);
 		statusGC.fillRect(0, 0, 800, 100);
@@ -210,7 +210,7 @@ public class GameScreen {
 
 	}
 
-	public void initializeGame() {
+	private void initializeGame() {
 		GameScreen.timeToDrawAnimation = 0;
 		SimulationManager.initializeAllPane();
 		gameCanvas = SimulationManager.getBoard();
@@ -252,7 +252,7 @@ public class GameScreen {
 		setScene();
 	}
 
-	public void initializeBattle() {
+	private void initializeBattle() {
 		GameController.setTurnDone(false);
 		GameController.setRoundDone(false);
 		P1Pane = SimulationManager.getP1PaneBattle();

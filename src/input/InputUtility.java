@@ -26,8 +26,4 @@ public class InputUtility {
 			keyPressed.remove(i);
 		}
 	}
-
-	public static ArrayList<KeyCode> getKeyPressed() {
-		return keyPressed;
-	}
 }
