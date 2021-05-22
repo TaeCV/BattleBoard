@@ -69,7 +69,7 @@ public class HowToPlay extends VBox {
 		ImageView healer_img = new ImageView(RenderableHolder.healermelee1_Image);
 		healer_img.setFitWidth(175);
 		healer_img.setPreserveRatio(true);
-		Text healer_description = new Text("Healer Fighter :\n" + "This fighter has an ability to heal his teammate.");
+		Text healer_description = new Text("Healer Fighter :\n" + "This fighter has an ability to heal his teammate.\n Heal is another action in addition to move and attack");
 		healer_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		healer_description.setWrappingWidth(220);
 		description.addRow(row_idx++, healer_img, healer_description);
@@ -85,7 +85,7 @@ public class HowToPlay extends VBox {
 		ImageView tough_img = new ImageView(RenderableHolder.toughmelee1_Image);
 		tough_img.setFitWidth(175);
 		tough_img.setPreserveRatio(true);
-		Text tough_description = new Text("Tough Fighter :\n" + "This fighter can reduce the damaged recieve.");
+		Text tough_description = new Text("Tough Fighter :\n" + "This fighter has greater HP and reduce more damage income");
 		tough_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		tough_description.setWrappingWidth(220);
 		description.addRow(row_idx++, tough_img, tough_description);
