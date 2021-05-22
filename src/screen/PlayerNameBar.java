@@ -78,7 +78,7 @@ public class PlayerNameBar extends VBox {
 		getChildren().addAll(p1, nameConfirm1, p2, nameConfirm2, buttonBox, groupText);
 	}
 
-	public void setUpTextFields() {
+	private void setUpTextFields() {
 		Player1NameField = new TextField();
 		Player2NameField = new TextField();
 		Player1NameField.setPrefSize(200, 50);
@@ -87,7 +87,7 @@ public class PlayerNameBar extends VBox {
 		Player2NameField.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 	}
 
-	public void setUpNameConfirm() {
+	private void setUpNameConfirm() {
 		setUpTextFields();
 		nameConfirm1 = new HBox(30);
 		nameConfirm2 = new HBox(30);
@@ -95,7 +95,7 @@ public class PlayerNameBar extends VBox {
 		nameConfirm2.getChildren().addAll(Player2NameField, confirmButton2);
 	}
 
-	public void confirmName(String name) throws InvalidNameException { // found return false, not found return true
+	private void confirmName(String name) throws InvalidNameException { // found return false, not found return true
 		if (name.isBlank()) {
 			throw new InvalidNameException("Player's name can not be blank.");
 		}
@@ -113,7 +113,7 @@ public class PlayerNameBar extends VBox {
 		}
 	}
 
-	public void setUpButtons() {
+	private void setUpButtons() {
 
 		confirmButton1 = new ActionButton("CONFIRM");
 		confirmButton1.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
@@ -262,7 +262,7 @@ public class PlayerNameBar extends VBox {
 		buttonBox.getChildren().addAll(startButton, backButton);
 	}
 
-	public ImageView imageViewCheck() {
+	private ImageView imageViewCheck() {
 		ImageView checkImageView = new ImageView(RenderableHolder.check_Image);
 		checkImageView.setPreserveRatio(true);
 		checkImageView.setFitHeight(50);

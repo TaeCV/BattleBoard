@@ -4,7 +4,7 @@ import entity.base.Fighter;
 
 public class Coordinate implements Updatable, Comparable<Coordinate> {
 	// a box on the board
-	
+
 	private int i; // row index
 	private int j; // column index
 

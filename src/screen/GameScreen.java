@@ -100,7 +100,7 @@ public class GameScreen {
 		}
 	}
 
-	public void drawAnimation() {
+	private void drawAnimation() {
 		if (timeToDrawAnimation > 0 && effectSymbol != 0) {
 			gameGC.drawImage(RenderableHolder.getEffectImage(effectSymbol), selectedPixel[0], selectedPixel[1] - 56,
 					100, 100);
@@ -110,29 +110,27 @@ public class GameScreen {
 		}
 	}
 
-	public void drawNamePane() {
+	private void drawNamePane() {
 		Text gameName = new Text("BATTLE BOARD");
 		gameName.setFont(Font.font("Times New Roman", FontWeight.BOLD, 36));
 		gameName.setStroke(Color.SILVER);
 		namePane = new StackPane();
 		namePane.setAlignment(Pos.CENTER);
 		namePane.setPrefSize(1000, 100);
-		namePane.setMaxSize(1000, 100);
 		namePane.getChildren().add(gameName);
 		namePane.setBackground(new Background(new BackgroundImage(RenderableHolder.gameNameBar_bg_Image, null, null,
 				null, new BackgroundSize(1000, 100, false, false, false, false))));
 	}
 
 	// Set up Header pane to show time, round and win count
-	public void drawStatusPane() {
+	private void drawStatusPane() {
 		statusPane = new HBox();
 		statusPane.setMaxSize(1000, 100);
 		// Including player 1 tag, time and round , player 2 tag
 
 		StackPane P1Tag = new StackPane();
 		P1Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-		P1Tag.setMinSize(100, 100);
-		P1Tag.setMaxSize(100, 100);
+		P1Tag.setPrefSize(100, 100);
 		P1Tag.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 		Text P1NameText = new Text("Player 1:\n" + P1Name);
 		P1NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
@@ -144,8 +142,7 @@ public class GameScreen {
 
 		StackPane P2Tag = new StackPane();
 		P2Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-		P2Tag.setMinSize(100, 100);
-		P2Tag.setMaxSize(100, 100);
+		P2Tag.setPrefSize(100, 100);
 		P2Tag.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 		Text P2NameText = new Text("Player 2:\n" + P2Name);
 		P2NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
@@ -168,7 +165,7 @@ public class GameScreen {
 	}
 
 	// Add all nodes to root and set new scene
-	public void setScene() {
+	private void setScene() {
 		root = new BorderPane();
 		root.setTop(statusPane); // Status Pane
 		root.setLeft(P1Pane);
@@ -183,7 +180,7 @@ public class GameScreen {
 	}
 
 	// Draw time and round each fame
-	public void drawTimeAndRound() {
+	private void drawTimeAndRound() {
 		statusGC.clearRect(0, 0, 800, 100);
 		statusGC.setFill(Color.LIGHTGREY);
 		statusGC.fillRect(0, 0, 800, 100);
@@ -212,7 +209,7 @@ public class GameScreen {
 
 	}
 
-	public void initializeGame() {
+	private void initializeGame() {
 		GameScreen.timeToDrawAnimation = 0;
 		SimulationManager.initializeAllPane();
 		gameCanvas = SimulationManager.getBoard();
@@ -254,7 +251,7 @@ public class GameScreen {
 		setScene();
 	}
 
-	public void initializeBattle() {
+	private void initializeBattle() {
 		GameController.setTurnDone(false);
 		GameController.setRoundDone(false);
 		P1Pane = SimulationManager.getP1PaneBattle();

@@ -489,10 +489,12 @@ public class BoardPane extends Canvas implements Updatable {
 		coordinates = sortedCoordinates;
 	}
 
-	private static ArrayList<Coordinate> sortByDistance(ArrayList<Coordinate> coordinates, Coordinate currentCoordinate) {
-		// return sorted coordinates by closest to the most far distance from currentCoordinate
+	private static ArrayList<Coordinate> sortByDistance(ArrayList<Coordinate> coordinates,
+			Coordinate currentCoordinate) {
+		// return sorted coordinates by closest to the most far distance from
+		// currentCoordinate
 		// used for selecting targets logic
-		
+
 		if (coordinates != null) {
 			Comparator<Coordinate> compareByDistanceFromCurrent = new Comparator<Coordinate>() {
 				public int compare(Coordinate c1, Coordinate c2) {
@@ -505,7 +507,7 @@ public class BoardPane extends Canvas implements Updatable {
 		}
 		return null;
 	}
-	
+
 	public void resetActorCoordinate() {
 		actorCoordinate = null;
 	}

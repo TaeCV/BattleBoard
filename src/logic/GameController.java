@@ -109,11 +109,11 @@ public class GameController {
 	private static void addRoundCount() {
 		GameController.roundCount++;
 	}
-	
+
 	private static void addTurnCount() {
 		GameController.turnCount++;
 	}
-	
+
 	public static boolean isP1() {
 		return isP1;
 	}
@@ -141,11 +141,11 @@ public class GameController {
 	public static int getRoundCount() {
 		return roundCount;
 	}
-	
+
 	public static void setRoundCount(int roundCount) {
 		GameController.roundCount = roundCount;
 	}
-	
+
 	public static boolean isGame() {
 		return isGame;
 	}
@@ -209,7 +209,7 @@ public class GameController {
 	public static void setTurnCount(int turnCount) {
 		GameController.turnCount = turnCount;
 	}
-	
+
 	public static boolean isEndPreBattle() {
 		return isEndPreBattle;
 	}

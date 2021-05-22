@@ -106,7 +106,6 @@ public class RenderableHolder {
 		loadResource();
 	}
 
-
 	public static Image getHeadImage(int symbol) {
 		if (symbol > 10) {
 			symbol -= 10;

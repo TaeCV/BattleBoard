@@ -173,7 +173,7 @@ public class GameBoard implements Updatable {
 		getFightersByTeam(removing.getTeam()).remove(removing);
 		System.out.println(1 + ": " + Player1Fighters.size());
 		System.out.println(2 + ": " + Player2Fighters.size());
-		
+
 		update(coordinate);
 	}
 

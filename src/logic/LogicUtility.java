@@ -11,8 +11,8 @@ import entity.WildFighter;
 import entity.base.Fighter;
 
 public class LogicUtility {
-	// this class have calculations, 
-	
+	// this class have calculations,
+
 	public static int calculateDistance(Coordinate c1, Coordinate c2) {
 		int i1 = c1.getI();
 		int j1 = c1.getJ();
@@ -24,11 +24,11 @@ public class LogicUtility {
 		int distance = di + dj;
 		return distance;
 	}
-	
+
 	public static double calculatePercentSumOfHitPointRemain(ArrayList<Fighter> fighters) {
 		double hitPointSum = 0;
 		double maxHitPointSum = 0;
-		
+
 		for (Fighter fighter : fighters) {
 			hitPointSum += fighter.getHitPoint();
 			maxHitPointSum += fighter.getMaxHitPoint();
@@ -36,7 +36,7 @@ public class LogicUtility {
 
 		return hitPointSum / maxHitPointSum * 100;
 	}
-	
+
 	public static boolean isPossibleToMoveTo(Coordinate targetCoordinate) {
 		if (!targetCoordinate.isEmpty()) {
 			return false;
@@ -62,7 +62,7 @@ public class LogicUtility {
 		}
 		return true;
 	}
-	
+
 	// random fighters return Fighter[8]
 	public static Fighter[] getRandomFighters(int team) {
 		Fighter[] randomFighters = new Fighter[8];

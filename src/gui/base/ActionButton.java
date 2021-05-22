@@ -28,7 +28,7 @@ public class ActionButton extends Button {
 		setUpAction();
 	}
 
-	public void setUpAction() {
+	private void setUpAction() {
 		setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {

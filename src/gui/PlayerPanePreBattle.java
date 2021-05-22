@@ -34,14 +34,14 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 		if (player == 1 && getChildren().size() > 3) {
 			if (InputUtility.getKeyPressed(KeyCode.W) && GameScreen.positionToSelectP1 != 0) {
 				unselectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
-				unselectedPreFighter.resetStroke();
+				unselectedPreFighter.draw();
 				GameScreen.positionToSelectP1--;
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
 				selectedPreFighter.update();
 			} else if (InputUtility.getKeyPressed(KeyCode.S)
 					&& GameScreen.positionToSelectP1 != getChildren().size() - 1) {
 				unselectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
-				unselectedPreFighter.resetStroke();
+				unselectedPreFighter.draw();
 				GameScreen.positionToSelectP1++;
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP1);
 				selectedPreFighter.update();
@@ -57,14 +57,14 @@ public class PlayerPanePreBattle extends PlayerPane implements Updatable {
 		} else if (player == 2 && getChildren().size() > 3) {
 			if (InputUtility.getKeyPressed(KeyCode.I) && GameScreen.positionToSelectP2 != 0) {
 				unselectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP2);
-				unselectedPreFighter.resetStroke();
+				unselectedPreFighter.draw();
 				GameScreen.positionToSelectP2--;
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP2);
 				selectedPreFighter.update();
 			} else if (InputUtility.getKeyPressed(KeyCode.K)
 					&& GameScreen.positionToSelectP2 != getChildren().size() - 1) {
 				unselectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP2);
-				unselectedPreFighter.resetStroke();
+				unselectedPreFighter.draw();
 				GameScreen.positionToSelectP2++;
 				selectedPreFighter = (FighterBoxPreBattle) getChildren().get(GameScreen.positionToSelectP2);
 				selectedPreFighter.update();

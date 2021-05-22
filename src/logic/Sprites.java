@@ -2,7 +2,7 @@ package logic;
 
 public class Sprites {
 	// holds constant symbols of things to draw on the board
-	
+
 	public static final int P1_DUCKMELEE = 1;
 	public static final int P1_HEALERMELEE = 2;
 	public static final int P1_SPEEDYMELEE = 3;
