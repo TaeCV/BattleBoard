@@ -185,9 +185,7 @@ public class GameController {
 	}
 
 	public static void update() {
-		while (GameScreen.board.getChildren().size() > 1) {
-			GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
-		}
+		SimulationManager.getBoard().checkUnDoneMove();
 		GameController.addTurnCount();
 		GameController.setSelected(false);
 		GameController.setChose(false);
@@ -204,11 +202,11 @@ public class GameController {
 			setP1(GameController.getRoundCount() % 2 == 1);
 			GameController.setTurnCount(1);
 			GameController.getGameBoard().setDefault();
-			GameController.setRoundDone(true); // finished round
+			GameController.setRoundDone(true); // finished managing data
 			GameController.setRoundOver(false);
 		}
-		if ((GameController.getRoundCount() > GameConstants.MAX_ROUND) || GameController.getP1Score() > 1
-				|| GameController.getP2Score() > 1) {
+		if ((GameController.getRoundCount() == GameConstants.MAX_ROUND + 1) || GameController.getP1Score() == 2
+				|| GameController.getP2Score() == 2) {
 			GameController.setGame(true);
 			GameController.checkWinner();
 		}
