@@ -10,7 +10,7 @@ public class GameConstants {
 	public static final int N_ROWS = 5;
 	public static final int N_COLS = 7;
 	public static final int PRE_BATTLE_PHASE_TIME = 60;
-	public static final int BATTLE_PHASE_TIME_PER_TURN = 10;
+	public static final int BATTLE_PHASE_TIME_PER_TURN = 60;
 	public static final int MAX_TURN_PER_PLAYER = 9;
 	public static final int MAX_ROUND = 3;
 	public static final String MELEE_TYPE_STRING = "melee";

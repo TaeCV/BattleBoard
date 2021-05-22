@@ -63,7 +63,7 @@ public class GameScreen {
 	public static String selectedFighterType;
 
 	public static int effectSymbol;
-
+ 
 	public static StackPane board;
 
 	public GameScreen(Stage primaryStage, String P1Name, String P2Name) {
@@ -115,7 +115,6 @@ public class GameScreen {
 		namePane = new StackPane();
 		namePane.setAlignment(Pos.CENTER);
 		namePane.setPrefSize(1000, 100);
-		namePane.setMaxSize(1000, 100);
 		namePane.getChildren().add(gameName);
 		namePane.setBackground(new Background(new BackgroundImage(RenderableHolder.gameNameBar_bg_Image, null, null,
 				null, new BackgroundSize(1000, 100, false, false, false, false))));
@@ -129,8 +128,7 @@ public class GameScreen {
 
 		StackPane P1Tag = new StackPane();
 		P1Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-		P1Tag.setMinSize(100, 100);
-		P1Tag.setMaxSize(100, 100);
+		P1Tag.setPrefSize(100, 100);
 		P1Tag.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 		Text P1NameText = new Text("Player 1:\n" + P1Name);
 		P1NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
@@ -142,8 +140,7 @@ public class GameScreen {
 
 		StackPane P2Tag = new StackPane();
 		P2Tag.setBorder(new Border(new BorderStroke(Color.SILVER, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-		P2Tag.setMinSize(100, 100);
-		P2Tag.setMaxSize(100, 100);
+		P2Tag.setPrefSize(100, 100);
 		P2Tag.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 		Text P2NameText = new Text("Player 2:\n" + P2Name);
 		P2NameText.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
