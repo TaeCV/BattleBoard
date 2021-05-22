@@ -39,7 +39,7 @@ public class ActionPane extends VBox {
 			cancelText = new Text("ESC) Cancel select!");
 			addition = 0;
 		} else {
-			cancelText = new Text("	) Cancel select!");			
+			cancelText = new Text("Backspace) Cancel select!");
 			addition = 6;
 		}
 	}
