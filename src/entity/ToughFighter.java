@@ -8,7 +8,7 @@ import logic.Sprites;
 
 public class ToughFighter extends Fighter implements HitPointRegenerable, StatsIncreasable {
 	// defense and hitPoint boost
-	
+
 	private double bonusDefense;
 	private double bonusHitPoint;
 

@@ -6,7 +6,7 @@ import javafx.scene.input.KeyCode;
 
 public class InputUtility {
 	private static ArrayList<KeyCode> keyPressed = new ArrayList<KeyCode>();
-	
+
 	public static boolean getKeyPressed(KeyCode keycode) {
 		return keyPressed.contains(keycode);
 	}

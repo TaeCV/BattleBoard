@@ -65,7 +65,7 @@ public class GameScreen {
 	public static String selectedFighterType;
 
 	public static int effectSymbol;
- 
+
 	public static StackPane board;
 
 	public GameScreen(Stage primaryStage, String P1Name, String P2Name) {

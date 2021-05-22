@@ -6,7 +6,7 @@ import sharedObject.RenderableHolder;
 public class EffectUtility {
 	// help get action symbols for display by actions and actors
 	// play sound effects for actions
-	
+
 	public static int getEffectSymbol(char key, Coordinate actorCoordinate, double damageDone) {
 		Fighter actor = actorCoordinate.getFighter();
 		if (key == GameConstant.ATTACK_KEY) {
@@ -32,7 +32,7 @@ public class EffectUtility {
 		}
 		return 0;
 	}
-	
+
 	public static void playSoundEffect(char key, Coordinate actorCoordinate, double damageDone) {
 		Fighter actor = actorCoordinate.getFighter();
 		if (key == GameConstant.ATTACK_KEY) {

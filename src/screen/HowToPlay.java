@@ -64,7 +64,7 @@ public class HowToPlay extends VBox {
 		ImageView duck_img = new ImageView(RenderableHolder.duckmelee1_Image);
 		duck_img.setFitWidth(175);
 		duck_img.setPreserveRatio(true);
-		Text duck_description = new Text("Duck Fighter :\n" + "This fighter has a change to dodge the enemy's attack.");
+		Text duck_description = new Text("Duck Fighter :\n" + "This fighter has a chance to dodge the enemy's attack.");
 		duck_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		duck_description.setWrappingWidth(220);
 		description.addRow(row_idx++, duck_img, duck_description);
@@ -72,7 +72,8 @@ public class HowToPlay extends VBox {
 		ImageView healer_img = new ImageView(RenderableHolder.healermelee1_Image);
 		healer_img.setFitWidth(175);
 		healer_img.setPreserveRatio(true);
-		Text healer_description = new Text("Healer Fighter :\n" + "This fighter has an ability to heal his teammate.\n Heal is another action in addition to move and attack");
+		Text healer_description = new Text("Healer Fighter :\n"
+				+ "This fighter has an ability to heal his teammate.\n Heal is a special action in addition to move and attack");
 		healer_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		healer_description.setWrappingWidth(220);
 		description.addRow(row_idx++, healer_img, healer_description);
@@ -88,7 +89,8 @@ public class HowToPlay extends VBox {
 		ImageView tough_img = new ImageView(RenderableHolder.toughmelee1_Image);
 		tough_img.setFitWidth(175);
 		tough_img.setPreserveRatio(true);
-		Text tough_description = new Text("Tough Fighter :\n" + "This fighter has greater HP and reduce more damage income");
+		Text tough_description = new Text(
+				"Tough Fighter :\n" + "This fighter has greater HP and reduce more damage income");
 		tough_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		tough_description.setWrappingWidth(220);
 		description.addRow(row_idx++, tough_img, tough_description);
@@ -109,9 +111,9 @@ public class HowToPlay extends VBox {
 		ActionButton backButton = new ActionButton("Back");
 		backButton.setPrefSize(200, 50);
 		backButton.setOnMouseClicked(event -> {
-				// TODO Auto-generated method stub
-				RenderableHolder.ButtonClick_Sound.play();
-				StartScreen.removeChildFromRoot();
+			// TODO Auto-generated method stub
+			RenderableHolder.ButtonClick_Sound.play();
+			StartScreen.removeChildFromRoot();
 		});
 
 		getChildren().addAll(title, scrollPane, backButton);

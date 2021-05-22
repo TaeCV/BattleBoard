@@ -6,9 +6,9 @@ import logic.Sprites;
 
 public class SpeedyFighter extends Fighter {
 	// can move 2 spaces per move
-	
+
 	private final int EXTRA_MOVE = 1;
-	
+
 	public SpeedyFighter(String type, int team) {
 		super(type, team);
 		setName(GameConstant.SPEEDY_NAME);
