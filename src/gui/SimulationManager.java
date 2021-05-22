@@ -1,8 +1,5 @@
 package gui;
 
-import java.util.ArrayList;
-
-import entity.base.Fighter;
 import logic.GameConstant;
 import logic.GameController;
 import screen.GameScreen;

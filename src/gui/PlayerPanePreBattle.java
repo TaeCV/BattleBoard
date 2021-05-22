@@ -4,7 +4,6 @@ import entity.base.Fighter;
 import gui.base.PlayerPane;
 import input.InputUtility;
 import javafx.scene.input.KeyCode;
-import logic.GameController;
 import logic.LogicUtility;
 import logic.Updatable;
 import screen.GameScreen;

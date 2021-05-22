@@ -1,24 +1,9 @@
 package sharedObject;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
-import entity.base.Updatable;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
 public class RenderableHolder {
-	private ArrayList<IRenderable> entities;
-	private Comparator<IRenderable> comparator;
-	private static final RenderableHolder instance = new RenderableHolder();
-
 	// Image Holder
 	// ==========================StartScreen====================================
 	// Background Images
@@ -121,35 +106,6 @@ public class RenderableHolder {
 		loadResource();
 	}
 
-	public RenderableHolder() {
-		entities = new ArrayList<IRenderable>();
-		comparator = (IRenderable o1, IRenderable o2) -> {
-			if (o1.getZ() > o2.getZ()) {
-				return 1;
-			}
-			return -1;
-		};
-	}
-
-	public void add(IRenderable entity) {
-		System.out.println("add");
-		entities.add(entity);
-		Collections.sort(entities, comparator);
-	}
-
-	public void update() {
-		Collections.sort(entities, comparator);
-		for (int i = entities.size() - 1; i >= 0; i--) {
-			if (entities.get(i) instanceof Updatable) {
-				((Updatable) entities.get(i)).update();
-			}
-		}
-		for (int i1 = entities.size() - 1; i1 >= 0; i1--) {
-			if (!entities.get(i1).isVisible()) {
-				entities.remove(i1);
-			}
-		}
-	}
 
 	public static Image getHeadImage(int symbol) {
 		if (symbol > 10) {
@@ -360,13 +316,5 @@ public class RenderableHolder {
 
 		StartScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "startscreen_music.mp3").toString());
 		GameScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());
-	}
-
-	public static RenderableHolder getInstance() {
-		return instance;
-	}
-
-	public ArrayList<IRenderable> getEntities() {
-		return entities;
 	}
 }

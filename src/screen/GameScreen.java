@@ -1,24 +1,14 @@
 package screen;
 
-import java.util.ArrayList;
-
-import gui.BoardPane;
-import gui.FighterBoxPreBattle;
-import gui.PlayerPaneBattle;
-import gui.PlayerPanePreBattle;
 import gui.SimulationManager;
 import gui.base.PlayerPane;
 import input.InputUtility;
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -37,12 +27,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import logic.Coordinate;
 import logic.GameBoard;
+import logic.GameConstant;
 import logic.GameController;
-import logic.Sprites;
-import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
 public class GameScreen {
@@ -66,6 +53,8 @@ public class GameScreen {
 
 	public static GraphicsContext gameGC;
 	public static GraphicsContext statusGC;
+	public static GraphicsContext effectGC;
+	
 	public static int gameTime;
 	public static int positionToSelectP1 = 0;
 	public static int positionToSelectP2 = 0;
@@ -100,12 +89,12 @@ public class GameScreen {
 
 	private void paintGameScreenComponent() {
 		// TODO Auto-generated method stub
-		for (int i = 0; i < GameController.N_ROWS; i++) {
-			for (int j = 0; j < GameController.N_COLS; j++) {
+		for (int i = 0; i < GameConstant.N_ROWS; i++) {
+			for (int j = 0; j < GameConstant.N_COLS; j++) {
 				if (gameBoard.map[i][j] <= 20) {
 					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-							GameController.originX + (j * GameController.PIXEL_X),
-							GameController.originY + (i * GameController.PIXEL_Y) - 56, 100, 100);
+							GameConstant.ORIGIN_X+ (j * GameConstant.BOX_WIDTH),
+							GameConstant.ORIGIN_Y+ (i * GameConstant.BOX_HEIGHT) - 56, 100, 100);
 				}
 			}
 		}
@@ -228,7 +217,7 @@ public class GameScreen {
 		SimulationManager.initializeAllPane();
 		gameCanvas = SimulationManager.getBoard();
 		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
-		board.getChildren().add(gameCanvas);
+		board.getChildren().addAll(gameCanvas);
 		drawNamePane(); // Set namePane
 		drawStatusPane(); // Set default statusPane without time and round
 		P1Pane = SimulationManager.getP1PanePreBattle();
@@ -239,7 +228,7 @@ public class GameScreen {
 		AnimationTimer timerPreBattle = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
-				gameTime = (int) (GameController.PRE_BATTLE_PHASE_TIME - t + 1);
+				gameTime = (int) (GameConstant.PRE_BATTLE_PHASE_TIME - t + 1);
 				drawTimeAndRound();
 				if (gameTime <= 0 || (P1Pane.getChildren().size() == 3 && P2Pane.getChildren().size() == 3)) {
 					GameController.setEndPreBattle(true);
@@ -274,13 +263,16 @@ public class GameScreen {
 		AnimationTimer timerPerTurn = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
-				gameTime = (int) (GameController.BATTLE_PHASE_TIME - t + 1);
+				gameTime = (int) (GameConstant.BATTLE_PHASE_TIME_PER_TURN - t + 1);
 				drawTimeAndRound();
 				if (gameTime <= 0
 						|| (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() == 0)
 						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)
 						|| GameController.checkRoundOver()) {
 					this.stop();
+					while (GameScreen.board.getChildren().size() > 1) {
+						GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+					}
 					GameController.update();
 				}
 			}

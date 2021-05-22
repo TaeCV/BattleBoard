@@ -398,7 +398,7 @@ public class BoardPane extends Canvas implements Updatable {
 		}
 	}
 
-	public Coordinate getMovingToCoordinate(String direction) {
+	private Coordinate getMovingToCoordinate(String direction) {
 		int currentI = actorCoordinate.getI();
 		int currentJ = actorCoordinate.getJ();
 		for (Coordinate coordinate : coordinates) {
@@ -425,26 +425,26 @@ public class BoardPane extends Canvas implements Updatable {
 		return null;
 	}
 
-	public Coordinate getTargetCoordinate(String key, Coordinate currentCoordinate) {
+	private Coordinate getTargetCoordinate(String direction, Coordinate currentCoordinate) {
 		sortCoordinatesByStraight(currentCoordinate);
 		int currentI = currentCoordinate.getI();
 		int currentJ = currentCoordinate.getJ();
 		for (Coordinate coordinate : coordinates) {
 			int i = coordinate.getI();
 			int j = coordinate.getJ();
-			if (key.equals("left")) {
+			if (direction.equals("left")) {
 				if (j < currentJ) {
 					return coordinate;
 				}
-			} else if (key.equals("top")) {
+			} else if (direction.equals("top")) {
 				if (i < currentI) {
 					return coordinate;
 				}
-			} else if (key.equals("right")) {
+			} else if (direction.equals("right")) {
 				if (j > currentJ) {
 					return coordinate;
 				}
-			} else if (key.equals("bottom")) {
+			} else if (direction.equals("bottom")) {
 				if (i > currentI) {
 					return coordinate;
 				}
@@ -453,17 +453,17 @@ public class BoardPane extends Canvas implements Updatable {
 		return null;
 	}
 
-	public void doMove(Coordinate movingToCoordinate) {
-		if (movingToCoordinate != null) {
+	private void doMove(Coordinate targetCoordinate) {
+		if (targetCoordinate != null) {
 			draw();
-			gameBoard.takeMove(actorCoordinate, movingToCoordinate);
-			actorCoordinate = movingToCoordinate;
+			gameBoard.takeMove(actorCoordinate, targetCoordinate);
+			actorCoordinate = targetCoordinate;
 			pixel = actorCoordinate.coordinate2Pixel();
 			gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 		}
 	}
 
-	public void select(Coordinate currentCoordinate) {
+	private void select(Coordinate currentCoordinate) {
 		if (currentCoordinate != null) {
 			System.out.println("selecting " + currentCoordinate.toString());
 			draw();
@@ -472,7 +472,7 @@ public class BoardPane extends Canvas implements Updatable {
 		}
 	}
 
-	public void sortCoordinatesByStraight(Coordinate currentCoordinate) {
+	private void sortCoordinatesByStraight(Coordinate currentCoordinate) {
 		// straight come first
 		int currentI = currentCoordinate.getI();
 		int currentJ = currentCoordinate.getJ();
@@ -516,7 +516,7 @@ public class BoardPane extends Canvas implements Updatable {
 	
 	public void checkUnDoneMove() {
 		if (key == GameConstant.MOVE_KEY) {
-			if (beforeActionCoordinate != null) {
+			if (beforeActionCoordinate != null && actorCoordinate != null) {
 				if (beforeActionCoordinate != actorCoordinate) {
 					gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);
 				}

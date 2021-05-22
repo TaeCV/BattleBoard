@@ -3,12 +3,11 @@ package screen;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exception.InvalidNameException;
+import gui.base.ActionButton;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -22,7 +21,6 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -32,8 +30,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.GameController;
 import sharedObject.RenderableHolder;
-import exception.InvalidNameException;
-import gui.base.ActionButton;
 
 public class PlayerNameBar extends VBox {
 	private Stage primaryStage;
