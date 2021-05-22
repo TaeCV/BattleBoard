@@ -64,7 +64,7 @@ public class HowToPlay extends VBox {
 		ImageView duck_img = new ImageView(RenderableHolder.duckmelee1_Image);
 		duck_img.setFitWidth(175);
 		duck_img.setPreserveRatio(true);
-		Text duck_description = new Text("Duck Fighter :\n" + "This fighter has a change to dodge the enerm's attack.");
+		Text duck_description = new Text("Duck Fighter :\n" + "This fighter has a change to dodge the enemy's attack.");
 		duck_description.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		duck_description.setWrappingWidth(220);
 		description.addRow(row_idx++, duck_img, duck_description);
