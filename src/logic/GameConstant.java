@@ -1,6 +1,6 @@
 package logic;
 
-public class GameConstants {
+public class GameConstant {
 	// holds game constants
 
 	public static final int ORIGIN_X = 0;

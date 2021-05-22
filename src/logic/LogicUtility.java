@@ -1,8 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Random;
 
 import entity.DuckFighter;
@@ -13,20 +11,7 @@ import entity.WildFighter;
 import entity.base.Fighter;
 
 public class LogicUtility {
-	
-	public static ArrayList<Coordinate> sortByDistance(ArrayList<Coordinate> coordinates, Coordinate currentCoordinate) {
-		if (coordinates != null) {
-			Comparator<Coordinate> compareByDistanceFromCurrent = new Comparator<Coordinate>() {
-				public int compare(Coordinate c1, Coordinate c2) {
-					return Integer.compare(calculateDistance(currentCoordinate, c1),
-							calculateDistance(currentCoordinate, c2));
-				}
-			};
-			Collections.sort(coordinates, compareByDistanceFromCurrent);
-			return coordinates;
-		}
-		return null;
-	}
+	// this class have calculations, 
 	
 	public static int calculateDistance(Coordinate c1, Coordinate c2) {
 		int i1 = c1.getI();
@@ -49,11 +34,11 @@ public class LogicUtility {
 			maxHitPointSum += fighter.getMaxHitPoint();
 		}
 
-		return hitPointSum / maxHitPointSum;
+		return hitPointSum / maxHitPointSum * 100;
 	}
 	
-	public static boolean isPossibleToMove(Coordinate currentCoordinate, Coordinate targetc) {
-		if (!targetc.isEmpty()) {
+	public static boolean isPossibleToMoveTo(Coordinate targetCoordinate) {
+		if (!targetCoordinate.isEmpty()) {
 			return false;
 		}
 		return true;
@@ -86,34 +71,34 @@ public class LogicUtility {
 			int x = r.nextInt(10);
 			switch (x) {
 			case 0:
-				randomFighters[i] = new DuckFighter(GameConstants.MELEE_TYPE_STRING, team);
+				randomFighters[i] = new DuckFighter(GameConstant.MELEE_TYPE_STRING, team);
 				break;
 			case 1:
-				randomFighters[i] = new HealerFighter(GameConstants.MELEE_TYPE_STRING, team);
+				randomFighters[i] = new HealerFighter(GameConstant.MELEE_TYPE_STRING, team);
 				break;
 			case 2:
-				randomFighters[i] = new SpeedyFighter(GameConstants.MELEE_TYPE_STRING, team);
+				randomFighters[i] = new SpeedyFighter(GameConstant.MELEE_TYPE_STRING, team);
 				break;
 			case 3:
-				randomFighters[i] = new ToughFighter(GameConstants.MELEE_TYPE_STRING, team);
+				randomFighters[i] = new ToughFighter(GameConstant.MELEE_TYPE_STRING, team);
 				break;
 			case 4:
-				randomFighters[i] = new WildFighter(GameConstants.MELEE_TYPE_STRING, team);
+				randomFighters[i] = new WildFighter(GameConstant.MELEE_TYPE_STRING, team);
 				break;
 			case 5:
-				randomFighters[i] = new DuckFighter(GameConstants.RANGE_TYPE_STRING, team);
+				randomFighters[i] = new DuckFighter(GameConstant.RANGE_TYPE_STRING, team);
 				break;
 			case 6:
-				randomFighters[i] = new HealerFighter(GameConstants.RANGE_TYPE_STRING, team);
+				randomFighters[i] = new HealerFighter(GameConstant.RANGE_TYPE_STRING, team);
 				break;
 			case 7:
-				randomFighters[i] = new SpeedyFighter(GameConstants.RANGE_TYPE_STRING, team);
+				randomFighters[i] = new SpeedyFighter(GameConstant.RANGE_TYPE_STRING, team);
 				break;
 			case 8:
-				randomFighters[i] = new ToughFighter(GameConstants.RANGE_TYPE_STRING, team);
+				randomFighters[i] = new ToughFighter(GameConstant.RANGE_TYPE_STRING, team);
 				break;
 			case 9:
-				randomFighters[i] = new WildFighter(GameConstants.RANGE_TYPE_STRING, team);
+				randomFighters[i] = new WildFighter(GameConstant.RANGE_TYPE_STRING, team);
 				break;
 			}
 		}

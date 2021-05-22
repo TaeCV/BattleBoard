@@ -1,7 +1,6 @@
 package logic;
 
 import gui.SimulationManager;
-import screen.GameScreen;
 
 public class GameController {
 	// control game's processes
@@ -39,7 +38,82 @@ public class GameController {
 		setChose(false);
 	}
 
+	public static void update() {
+		SimulationManager.getBoard().checkUnDoneMove();
+		GameController.addTurnCount();
+		GameController.setSelected(false);
+		GameController.setChose(false);
+		GameController.setTurnDone(true);
+		setP1(!isP1());
+		gameBoard.resetReady();
+		gameBoard.update();
+		if (GameController.getTurnCount() == GameConstant.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
+			checkWinnerAtTheEnd();
+			GameController.setRoundOver(true);
+		}
+		if (isRoundOver()) {
+			GameController.addRoundCount();
+			setP1(GameController.getRoundCount() % 2 == 1);
+			GameController.setTurnCount(1);
+			GameController.getGameBoard().setDefault();
+			GameController.setRoundDone(true); // finished managing data
+			GameController.setRoundOver(false);
+		}
+		if ((GameController.getRoundCount() == GameConstant.MAX_ROUND + 1) || GameController.getP1Score() == 2
+				|| GameController.getP2Score() == 2) {
+			GameController.setGame(true);
+			GameController.checkWinner();
+		}
+	}
+
+	public static boolean checkRoundOver() {
+		if (GameController.getGameBoard().Player1Fighters.size() == 0) {
+			P2Score++;
+			setRoundOver(true);
+			return true;
+		} else if (GameController.getGameBoard().Player2Fighters.size() == 0) {
+			P1Score++;
+			setRoundOver(true);
+			return true;
+		}
+		return false;
+	}
+
+	private static void checkWinnerAtTheEnd() {
+		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
+			P1Score++;
+		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
+			P2Score++;
+		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters) > LogicUtility
+				.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters)) {
+			P1Score++;
+		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters) > LogicUtility
+				.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters)) {
+			P2Score++;
+		}
+	}
+
+	private static void checkWinner() {
+		if (GameController.getP1Score() > GameController.getP2Score()) {
+			GameController.setWin(true);
+			GameController.setWinner(GameController.getP1Name());
+		} else if (GameController.getP1Score() < GameController.getP2Score()) {
+			GameController.setWin(true);
+			GameController.setWinner(GameController.getP2Name());
+		} else {
+			GameController.setWin(false);
+		}
+	}
+
 	// =================utilities=================
+	private static void addRoundCount() {
+		GameController.roundCount++;
+	}
+	
+	private static void addTurnCount() {
+		GameController.turnCount++;
+	}
+	
 	public static boolean isP1() {
 		return isP1;
 	}
@@ -67,7 +141,11 @@ public class GameController {
 	public static int getRoundCount() {
 		return roundCount;
 	}
-
+	
+	public static void setRoundCount(int roundCount) {
+		GameController.roundCount = roundCount;
+	}
+	
 	public static boolean isGame() {
 		return isGame;
 	}
@@ -78,10 +156,6 @@ public class GameController {
 
 	public static void setP2Score(int p2Score) {
 		P2Score = p2Score;
-	}
-
-	public static void setRoundCount(int roundCount) {
-		GameController.roundCount = roundCount;
 	}
 
 	public static void setGame(boolean isGame) {
@@ -135,7 +209,7 @@ public class GameController {
 	public static void setTurnCount(int turnCount) {
 		GameController.turnCount = turnCount;
 	}
-
+	
 	public static boolean isEndPreBattle() {
 		return isEndPreBattle;
 	}
@@ -174,80 +248,5 @@ public class GameController {
 
 	public static void setWin(boolean isWin) {
 		GameController.isWin = isWin;
-	}
-
-	public static void addRoundCount() {
-		GameController.roundCount++;
-	}
-
-	public static void addTurnCount() {
-		GameController.turnCount++;
-	}
-
-	public static void update() {
-		SimulationManager.getBoard().checkUnDoneMove();
-		GameController.addTurnCount();
-		GameController.setSelected(false);
-		GameController.setChose(false);
-		GameController.setTurnDone(true);
-		setP1(!isP1());
-		gameBoard.resetReady();
-		gameBoard.update();
-		if (GameController.getTurnCount() == GameConstants.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
-			checkWinnerAtTheEnd();
-			GameController.setRoundOver(true);
-		}
-		if (isRoundOver()) {
-			GameController.addRoundCount();
-			setP1(GameController.getRoundCount() % 2 == 1);
-			GameController.setTurnCount(1);
-			GameController.getGameBoard().setDefault();
-			GameController.setRoundDone(true); // finished managing data
-			GameController.setRoundOver(false);
-		}
-		if ((GameController.getRoundCount() == GameConstants.MAX_ROUND + 1) || GameController.getP1Score() == 2
-				|| GameController.getP2Score() == 2) {
-			GameController.setGame(true);
-			GameController.checkWinner();
-		}
-	}
-
-	public static boolean checkRoundOver() {
-		if (GameController.getGameBoard().Player1Fighters.size() == 0) {
-			P2Score++;
-			setRoundOver(true);
-			return true;
-		} else if (GameController.getGameBoard().Player2Fighters.size() == 0) {
-			P1Score++;
-			setRoundOver(true);
-			return true;
-		}
-		return false;
-	}
-
-	public static void checkWinnerAtTheEnd() {
-		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
-			P1Score++;
-		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
-			P2Score++;
-		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters) > LogicUtility
-				.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters)) {
-			P1Score++;
-		} else if (LogicUtility.calculatePercentSumOfHitPointRemain(gameBoard.Player2Fighters) > LogicUtility
-				.calculatePercentSumOfHitPointRemain(gameBoard.Player1Fighters)) {
-			P2Score++;
-		}
-	}
-
-	public static void checkWinner() {
-		if (GameController.getP1Score() > GameController.getP2Score()) {
-			GameController.setWin(true);
-			GameController.setWinner(GameController.getP1Name());
-		} else if (GameController.getP1Score() < GameController.getP2Score()) {
-			GameController.setWin(true);
-			GameController.setWinner(GameController.getP2Name());
-		} else {
-			GameController.setWin(false);
-		}
 	}
 }

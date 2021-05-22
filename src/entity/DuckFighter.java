@@ -1,7 +1,7 @@
 package entity;
 
 import entity.base.Fighter;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.Sprites;
 
 public class DuckFighter extends Fighter {
@@ -14,7 +14,7 @@ public class DuckFighter extends Fighter {
 
 	public DuckFighter(String type, int team) {
 		super(type, team);
-		setName(GameConstants.DUCK_NAME);
+		setName(GameConstant.DUCK_NAME);
 	}
 
 	protected void setSpecialAbility() {
@@ -22,14 +22,14 @@ public class DuckFighter extends Fighter {
 	}
 
 	public int getSymbol() {
-		if (team == GameConstants.TEAM_1) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		if (team == GameConstant.TEAM_1) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P1_DUCKMELEE;
 			} else {
 				return Sprites.P1_DUCKRANGE;
 			}
-		} else if (team == GameConstants.TEAM_2) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstant.TEAM_2) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P2_DUCKMELEE;
 			} else {
 				return Sprites.P2_DUCKRANGE;

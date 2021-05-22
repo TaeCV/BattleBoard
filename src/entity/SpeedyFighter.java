@@ -1,7 +1,7 @@
 package entity;
 
 import entity.base.Fighter;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.Sprites;
 
 public class SpeedyFighter extends Fighter {
@@ -11,7 +11,7 @@ public class SpeedyFighter extends Fighter {
 	
 	public SpeedyFighter(String type, int team) {
 		super(type, team);
-		setName(GameConstants.SPEEDY_NAME);
+		setName(GameConstant.SPEEDY_NAME);
 	}
 
 	protected void setSpecialAbility() {
@@ -19,14 +19,14 @@ public class SpeedyFighter extends Fighter {
 	}
 
 	public int getSymbol() {
-		if (team == GameConstants.TEAM_1) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		if (team == GameConstant.TEAM_1) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P1_SPEEDYMELEE;
 			} else {
 				return Sprites.P1_SPEEDYRANGE;
 			}
-		} else if (team == GameConstants.TEAM_2) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstant.TEAM_2) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P2_SPEEDYMELEE;
 			} else {
 				return Sprites.P2_SPEEDYRANGE;

@@ -3,6 +3,8 @@ package screen;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exception.InvalidNameException;
+import gui.base.ActionButton;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,8 +30,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.GameController;
 import sharedObject.RenderableHolder;
-import exception.InvalidNameException;
-import gui.base.ActionButton;
 
 public class PlayerNameBar extends VBox {
 	private Stage primaryStage;

@@ -2,7 +2,7 @@ package entity.base;
 
 import entity.DuckFighter;
 import logic.Coordinate;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.Updatable;
 
 public abstract class Fighter implements Updatable {
@@ -28,13 +28,15 @@ public abstract class Fighter implements Updatable {
 
 	private final int BASE_MELEE_ATTACK = 40;
 	private final int BASE_MELEE_DEFENSE = 25;
-	private final int BASE_MELEE_MAXHITPOINT = 55;
+	private final int BASE_MELEE_MAXHITPOINT = 60;
 	private final int MELEE_ATTACK_RANGE = 1;
+	
 	private final int BASE_RANGE_ATTACK = 25;
 	private final int BASE_RANGE_DEFENSE = 10;
-	private final int BASE_RANGE_MAXHITPOINT = 40;
+	private final int BASE_RANGE_MAXHITPOINT = 50;
 	private final int RANGE_ATTACK_RANGE = 2;
-	private static final int BASE_TOTAL_MOVES = 1;
+	
+	private final int BASE_TOTAL_MOVES = 1;
 
 	public Fighter(String type, int team) {
 		setType(type);
@@ -66,13 +68,13 @@ public abstract class Fighter implements Updatable {
 	}
 
 	private void setBaseStats() {
-		if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 			setAttack(BASE_MELEE_ATTACK);
 			setDefense(BASE_MELEE_DEFENSE);
 			setMaxHitPoint(BASE_MELEE_MAXHITPOINT);
 			setHitPoint(maxHitPoint);
 			setAttackRange(MELEE_ATTACK_RANGE);
-		} else if (type.equals(GameConstants.RANGE_TYPE_STRING)) {
+		} else if (type.equals(GameConstant.RANGE_TYPE_STRING)) {
 			setAttack(BASE_RANGE_ATTACK);
 			setDefense(BASE_RANGE_DEFENSE);
 			setMaxHitPoint(BASE_RANGE_MAXHITPOINT);

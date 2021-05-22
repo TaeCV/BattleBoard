@@ -87,7 +87,8 @@ public class RenderableHolder {
 	// ===========================GameScreen===================================
 	public static AudioClip GameScreen_Music;
 
-	public static AudioClip Select_Sound; // click2
+	public static AudioClip Select_Sound; // when choose Fighters
+	public static AudioClip Select_Sound_2; // when select Fighter and select actions
 
 	public static AudioClip MeleeAttack_Sound;
 	public static AudioClip RangeAttack_Sound;
@@ -299,6 +300,7 @@ public class RenderableHolder {
 		ButtonClick_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click1.mp3").toString());
 		Error_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "clickerror.mp3").toString());
 		Select_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "click2.mp3").toString());
+		Select_Sound_2 = new AudioClip(ClassLoader.getSystemResource(audio + "click4.mp3").toString());
 
 		MeleeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "melee_attack.mp3").toString());
 		RangeAttack_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "range_attack.mp3").toString());

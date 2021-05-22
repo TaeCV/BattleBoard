@@ -28,7 +28,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.GameBoard;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.GameController;
 import sharedObject.RenderableHolder;
 
@@ -53,6 +53,8 @@ public class GameScreen {
 
 	public static GraphicsContext gameGC;
 	public static GraphicsContext statusGC;
+	public static GraphicsContext effectGC;
+
 	public static int gameTime;
 	public static int positionToSelectP1 = 0;
 	public static int positionToSelectP2 = 0;
@@ -87,12 +89,12 @@ public class GameScreen {
 
 	private void paintGameScreenComponent() {
 		// TODO Auto-generated method stub
-		for (int i = 0; i < GameConstants.N_ROWS; i++) {
-			for (int j = 0; j < GameConstants.N_COLS; j++) {
+		for (int i = 0; i < GameConstant.N_ROWS; i++) {
+			for (int j = 0; j < GameConstant.N_COLS; j++) {
 				if (gameBoard.map[i][j] <= 20) {
 					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-							GameConstants.ORIGIN_X + (j * GameConstants.BOX_WIDTH),
-							GameConstants.ORIGIN_Y + (i * GameConstants.BOX_HEIGHT) - 56, 100, 100);
+							GameConstant.ORIGIN_X + (j * GameConstant.BOX_WIDTH),
+							GameConstant.ORIGIN_Y + (i * GameConstant.BOX_HEIGHT) - 56, 100, 100);
 				}
 			}
 		}
@@ -212,7 +214,7 @@ public class GameScreen {
 		SimulationManager.initializeAllPane();
 		gameCanvas = SimulationManager.getBoard();
 		gameGC = gameCanvas.getGraphicsContext2D(); // Get the starter Board
-		board.getChildren().add(gameCanvas);
+		board.getChildren().addAll(gameCanvas);
 		drawNamePane(); // Set namePane
 		drawStatusPane(); // Set default statusPane without time and round
 		P1Pane = SimulationManager.getP1PanePreBattle();
@@ -223,7 +225,7 @@ public class GameScreen {
 		AnimationTimer timerPreBattle = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
-				gameTime = (int) (GameConstants.PRE_BATTLE_PHASE_TIME - t + 1);
+				gameTime = (int) (GameConstant.PRE_BATTLE_PHASE_TIME - t + 1);
 				drawTimeAndRound();
 				if (gameTime <= 0 || (P1Pane.getChildren().size() == 3 && P2Pane.getChildren().size() == 3)) {
 					GameController.setEndPreBattle(true);
@@ -258,13 +260,16 @@ public class GameScreen {
 		AnimationTimer timerPerTurn = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = ((currentNanoTime - startNanoTime) / 1000000000.0);
-				gameTime = (int) (GameConstants.BATTLE_PHASE_TIME_PER_TURN - t + 1);
+				gameTime = (int) (GameConstant.BATTLE_PHASE_TIME_PER_TURN - t + 1);
 				drawTimeAndRound();
 				if (gameTime <= 0
 						|| (GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(1).size() == 0)
 						|| (!GameController.isP1() && gameBoard.getAllReadyPlayerFightersCoordinate(2).size() == 0)
 						|| GameController.checkRoundOver()) {
 					this.stop();
+					while (GameScreen.board.getChildren().size() > 1) {
+						GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
+					}
 					GameController.update();
 				}
 			}
