@@ -1,7 +1,6 @@
 package logic;
 
 import gui.SimulationManager;
-import screen.GameScreen;
 
 public class GameController {
 	// control game's processes
@@ -48,7 +47,7 @@ public class GameController {
 		setP1(!isP1());
 		gameBoard.resetReady();
 		gameBoard.update();
-		if (GameController.getTurnCount() == GameConstants.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
+		if (GameController.getTurnCount() == GameConstant.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
 			checkWinnerAtTheEnd();
 			GameController.setRoundOver(true);
 		}
@@ -60,7 +59,7 @@ public class GameController {
 			GameController.setRoundDone(true); // finished managing data
 			GameController.setRoundOver(false);
 		}
-		if ((GameController.getRoundCount() == GameConstants.MAX_ROUND + 1) || GameController.getP1Score() == 2
+		if ((GameController.getRoundCount() == GameConstant.MAX_ROUND + 1) || GameController.getP1Score() == 2
 				|| GameController.getP2Score() == 2) {
 			GameController.setGame(true);
 			GameController.checkWinner();
@@ -80,7 +79,7 @@ public class GameController {
 		return false;
 	}
 
-	public static void checkWinnerAtTheEnd() {
+	private static void checkWinnerAtTheEnd() {
 		if (gameBoard.Player1Fighters.size() > gameBoard.Player2Fighters.size()) {
 			P1Score++;
 		} else if (gameBoard.Player2Fighters.size() > gameBoard.Player1Fighters.size()) {
@@ -94,7 +93,7 @@ public class GameController {
 		}
 	}
 
-	public static void checkWinner() {
+	private static void checkWinner() {
 		if (GameController.getP1Score() > GameController.getP2Score()) {
 			GameController.setWin(true);
 			GameController.setWinner(GameController.getP1Name());
@@ -107,6 +106,14 @@ public class GameController {
 	}
 
 	// =================utilities=================
+	private static void addRoundCount() {
+		GameController.roundCount++;
+	}
+	
+	private static void addTurnCount() {
+		GameController.turnCount++;
+	}
+	
 	public static boolean isP1() {
 		return isP1;
 	}
@@ -134,7 +141,11 @@ public class GameController {
 	public static int getRoundCount() {
 		return roundCount;
 	}
-
+	
+	public static void setRoundCount(int roundCount) {
+		GameController.roundCount = roundCount;
+	}
+	
 	public static boolean isGame() {
 		return isGame;
 	}
@@ -145,10 +156,6 @@ public class GameController {
 
 	public static void setP2Score(int p2Score) {
 		P2Score = p2Score;
-	}
-
-	public static void setRoundCount(int roundCount) {
-		GameController.roundCount = roundCount;
 	}
 
 	public static void setGame(boolean isGame) {
@@ -202,7 +209,7 @@ public class GameController {
 	public static void setTurnCount(int turnCount) {
 		GameController.turnCount = turnCount;
 	}
-
+	
 	public static boolean isEndPreBattle() {
 		return isEndPreBattle;
 	}
@@ -241,13 +248,5 @@ public class GameController {
 
 	public static void setWin(boolean isWin) {
 		GameController.isWin = isWin;
-	}
-
-	public static void addRoundCount() {
-		GameController.roundCount++;
-	}
-
-	public static void addTurnCount() {
-		GameController.turnCount++;
 	}
 }

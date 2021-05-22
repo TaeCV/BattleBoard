@@ -2,17 +2,16 @@ package entity.base;
 
 import entity.DuckFighter;
 import logic.Coordinate;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.Updatable;
-import sharedObject.IRenderable;
 
 public abstract class Fighter implements Updatable {
 	// Fighter is battlers on the board
-	
+
 	protected String type; // melee or range
 	protected String name;
 
-	protected double attack; 
+	protected double attack;
 	protected double defense; // reduce damage income by defense percent
 	protected int attackRange;
 	protected double hitPoint;
@@ -26,7 +25,7 @@ public abstract class Fighter implements Updatable {
 	protected boolean isReady; // already took action that turn or not
 
 	protected Coordinate coordinate;
-	
+
 	private final int BASE_MELEE_ATTACK = 40;
 	private final int BASE_MELEE_DEFENSE = 25;
 	private final int BASE_MELEE_MAXHITPOINT = 55;
@@ -67,13 +66,13 @@ public abstract class Fighter implements Updatable {
 	}
 
 	private void setBaseStats() {
-		if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 			setAttack(BASE_MELEE_ATTACK);
 			setDefense(BASE_MELEE_DEFENSE);
 			setMaxHitPoint(BASE_MELEE_MAXHITPOINT);
 			setHitPoint(maxHitPoint);
 			setAttackRange(MELEE_ATTACK_RANGE);
-		} else if (type.equals(GameConstants.RANGE_TYPE_STRING)) {
+		} else if (type.equals(GameConstant.RANGE_TYPE_STRING)) {
 			setAttack(BASE_RANGE_ATTACK);
 			setDefense(BASE_RANGE_DEFENSE);
 			setMaxHitPoint(BASE_RANGE_MAXHITPOINT);
@@ -87,7 +86,7 @@ public abstract class Fighter implements Updatable {
 	}
 
 	protected abstract void setSpecialAbility();
-	
+
 	public abstract int getSymbol();
 
 	protected void setAttack(double attack) {
@@ -123,15 +122,15 @@ public abstract class Fighter implements Updatable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public boolean isAlive() {
 		return isAlive;
 	}
-	
+
 	private void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
 	}
-	
+
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
@@ -187,7 +186,7 @@ public abstract class Fighter implements Updatable {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	protected void setName(String name) {
 		if (name.isBlank()) {
 			name = "anonymous";

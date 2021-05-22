@@ -3,7 +3,7 @@ package gui;
 import java.util.ArrayList;
 
 import entity.base.Fighter;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.GameController;
 import screen.GameScreen;
 
@@ -15,10 +15,10 @@ public class SimulationManager {
 	private static BoardPane board;
 
 	public static void initializeAllPane() {
-		P1PaneBattle = new PlayerPaneBattle(GameConstants.TEAM_1);
-		P2PaneBattle = new PlayerPaneBattle(GameConstants.TEAM_2);
-		P1PanePreBattle = new PlayerPanePreBattle(GameConstants.TEAM_1);
-		P2PanePreBattle = new PlayerPanePreBattle(GameConstants.TEAM_2);
+		P1PaneBattle = new PlayerPaneBattle(GameConstant.TEAM_1);
+		P2PaneBattle = new PlayerPaneBattle(GameConstant.TEAM_2);
+		P1PanePreBattle = new PlayerPanePreBattle(GameConstant.TEAM_1);
+		P2PanePreBattle = new PlayerPanePreBattle(GameConstant.TEAM_2);
 		board = new BoardPane();
 	}
 

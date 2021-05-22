@@ -2,8 +2,7 @@ package entity;
 
 import entity.base.Fighter;
 import entity.base.StatsIncreasable;
-import javafx.scene.canvas.GraphicsContext;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.Sprites;
 
 public class WildFighter extends Fighter implements StatsIncreasable {
@@ -16,7 +15,7 @@ public class WildFighter extends Fighter implements StatsIncreasable {
 	
 	public WildFighter(String type, int team) {
 		super(type, team);
-		setName(GameConstants.WILD_NAME);
+		setName(GameConstant.WILD_NAME);
 		setBonusStats();
 	}
 
@@ -25,14 +24,14 @@ public class WildFighter extends Fighter implements StatsIncreasable {
 	}
 
 	public int getSymbol() {
-		if (team == GameConstants.TEAM_1) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		if (team == GameConstant.TEAM_1) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P1_WILDMELEE;
 			} else {
 				return Sprites.P1_WILDRANGE;
 			}
-		} else if (team == GameConstants.TEAM_2) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstant.TEAM_2) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P2_WILDMELEE;
 			} else {
 				return Sprites.P2_WILDRANGE;

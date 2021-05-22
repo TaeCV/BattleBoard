@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import logic.Coordinate;
 import logic.EffectUtility;
 import logic.GameBoard;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.GameController;
 import logic.LogicUtility;
 import logic.Updatable;
@@ -60,7 +60,7 @@ public class BoardPane extends Canvas implements Updatable {
 				pixel = actorCoordinate.coordinate2Pixel();
 				gc.setStroke(Color.BLUE);
 				gc.setLineWidth(3);
-				gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+				gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 				// use WASD to select fighter to do action
 				if (InputUtility.getKeyPressed(KeyCode.W)) {
 					if (getTargetCoordinate("top", actorCoordinate) != null) {
@@ -103,7 +103,7 @@ public class BoardPane extends Canvas implements Updatable {
 						&& gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size() > 1) {
 					System.out.println("Move!");
 					System.out.println(gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size());
-					key = GameConstants.MOVE_KEY;
+					key = GameConstant.MOVE_KEY;
 					coordinates = gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate);
 					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
@@ -111,7 +111,7 @@ public class BoardPane extends Canvas implements Updatable {
 						&& gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size() != 0) {
 					System.out.println("Attack!");
 					System.out.println(gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size());
-					key = GameConstants.ATTACK_KEY;
+					key = GameConstant.ATTACK_KEY;
 					coordinates = gameBoard.getAllPossibleTargetsToAttack(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
 					GameController.setChose(true);
@@ -121,7 +121,7 @@ public class BoardPane extends Canvas implements Updatable {
 						&& gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size() != 0) {
 					System.out.println("Heal!");
 					System.out.println(gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size());
-					key = GameConstants.HEAL_KEY;
+					key = GameConstant.HEAL_KEY;
 					coordinates = gameBoard.getAllPossibleAlliesToHeal(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
 					GameController.setChose(true);
@@ -142,12 +142,12 @@ public class BoardPane extends Canvas implements Updatable {
 				for (Coordinate coordinate : coordinates) {
 					gc.setStroke(Color.LIGHTYELLOW);
 					gc.strokeRect(coordinate.coordinate2Pixel()[0], coordinate.coordinate2Pixel()[1],
-							GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+							GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 				}
-				if (key == GameConstants.MOVE_KEY) {
+				if (key == GameConstant.MOVE_KEY) {
 					pixel = actorCoordinate.coordinate2Pixel(); // {x, y}
 					gc.setStroke(Color.BLUE);
-					gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+					gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 					if (InputUtility.getKeyPressed(KeyCode.W)) {
 						doMove(getMovingToCoordinate("top"));
 					} else if (InputUtility.getKeyPressed(KeyCode.A)) {
@@ -171,10 +171,10 @@ public class BoardPane extends Canvas implements Updatable {
 						GameController.setSelected(false);
 						GameController.setChose(false);
 					}
-				} else if (key == GameConstants.ATTACK_KEY || key == GameConstants.HEAL_KEY) {
+				} else if (key == GameConstant.ATTACK_KEY || key == GameConstant.HEAL_KEY) {
 					pixel = targetCoordinate.coordinate2Pixel(); // {x, y}
 					gc.setStroke(Color.BLUE);
-					gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+					gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 					if (InputUtility.getKeyPressed(KeyCode.W)) {
 						if (getTargetCoordinate("top", targetCoordinate) != null) {
 							targetCoordinate = getTargetCoordinate("top", targetCoordinate);
@@ -203,12 +203,12 @@ public class BoardPane extends Canvas implements Updatable {
 						GameScreen.selectedPixel = Arrays.copyOf(pixel, pixel.length);
 						System.out.println("Done!");
 						System.out.println(targetCoordinate.toString());
-						if (key == GameConstants.ATTACK_KEY) {
+						if (key == GameConstant.ATTACK_KEY) {
 							double damageDone = gameBoard.takeAttack(actorCoordinate, targetCoordinate);
 							System.out.println("damage done: " + damageDone);
 							GameScreen.effectSymbol = EffectUtility.getEffectSymbol(key, actorCoordinate, damageDone);
 							EffectUtility.playSoundEffect(key, actorCoordinate, damageDone);
-						} else if (key == GameConstants.HEAL_KEY) {
+						} else if (key == GameConstant.HEAL_KEY) {
 							gameBoard.takeHeal(actorCoordinate, targetCoordinate);
 							GameScreen.effectSymbol = EffectUtility.getEffectSymbol(key, actorCoordinate, 0);
 							EffectUtility.playSoundEffect(key, actorCoordinate, 0);
@@ -234,7 +234,7 @@ public class BoardPane extends Canvas implements Updatable {
 				pixel = actorCoordinate.coordinate2Pixel();
 				gc.setStroke(Color.RED);
 				gc.setLineWidth(3);
-				gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+				gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 				// use WASD to select fighter to do action
 				if (InputUtility.getKeyPressed(KeyCode.I)) {
 					if (getTargetCoordinate("top", actorCoordinate) != null) {
@@ -276,7 +276,7 @@ public class BoardPane extends Canvas implements Updatable {
 						&& gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size() > 1) {
 					System.out.println("Move!");
 					System.out.println(gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size());
-					key = GameConstants.MOVE_KEY;
+					key = GameConstant.MOVE_KEY;
 					coordinates = gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate);
 					GameController.setChose(true);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
@@ -284,7 +284,7 @@ public class BoardPane extends Canvas implements Updatable {
 						&& gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size() != 0) {
 					System.out.println("Attack!");
 					System.out.println(gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size());
-					key = GameConstants.ATTACK_KEY;
+					key = GameConstant.ATTACK_KEY;
 					coordinates = gameBoard.getAllPossibleTargetsToAttack(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
 					GameController.setChose(true);
@@ -294,7 +294,7 @@ public class BoardPane extends Canvas implements Updatable {
 						&& gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size() != 0) {
 					System.out.println("Heal!");
 					System.out.println(gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size());
-					key = GameConstants.HEAL_KEY;
+					key = GameConstant.HEAL_KEY;
 					coordinates = gameBoard.getAllPossibleAlliesToHeal(actorCoordinate);
 					targetCoordinate = coordinates.get(0);
 					GameController.setChose(true);
@@ -315,12 +315,12 @@ public class BoardPane extends Canvas implements Updatable {
 				for (Coordinate coordinate : coordinates) {
 					gc.setStroke(Color.LIGHTYELLOW);
 					gc.strokeRect(coordinate.coordinate2Pixel()[0], coordinate.coordinate2Pixel()[1],
-							GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+							GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 				}
-				if (key == GameConstants.MOVE_KEY) {
+				if (key == GameConstant.MOVE_KEY) {
 					pixel = actorCoordinate.coordinate2Pixel(); // {x, y}
 					gc.setStroke(Color.RED);
-					gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+					gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 					if (InputUtility.getKeyPressed(KeyCode.I)) {
 						doMove(getMovingToCoordinate("top"));
 					} else if (InputUtility.getKeyPressed(KeyCode.J)) {
@@ -344,10 +344,10 @@ public class BoardPane extends Canvas implements Updatable {
 						GameController.setSelected(false);
 						GameController.setChose(false);
 					}
-				} else if (key == GameConstants.ATTACK_KEY || key == GameConstants.HEAL_KEY) {
+				} else if (key == GameConstant.ATTACK_KEY || key == GameConstant.HEAL_KEY) {
 					pixel = targetCoordinate.coordinate2Pixel(); // {x, y}
 					gc.setStroke(Color.RED);
-					gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+					gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 					if (InputUtility.getKeyPressed(KeyCode.I)) {
 						if (getTargetCoordinate("top", targetCoordinate) != null) {
 							targetCoordinate = getTargetCoordinate("top", targetCoordinate);
@@ -376,11 +376,11 @@ public class BoardPane extends Canvas implements Updatable {
 						GameScreen.selectedPixel = Arrays.copyOf(pixel, pixel.length);
 						System.out.println("Done!");
 						System.out.println(targetCoordinate.toString());
-						if (key == GameConstants.ATTACK_KEY) {
+						if (key == GameConstant.ATTACK_KEY) {
 							double damageDone = gameBoard.takeAttack(actorCoordinate, targetCoordinate);
 							GameScreen.effectSymbol = EffectUtility.getEffectSymbol(key, actorCoordinate, damageDone);
 							EffectUtility.playSoundEffect(key, actorCoordinate, damageDone);
-						} else if (key == GameConstants.HEAL_KEY) {
+						} else if (key == GameConstant.HEAL_KEY) {
 							gameBoard.takeHeal(actorCoordinate, targetCoordinate);
 							GameScreen.effectSymbol = EffectUtility.getEffectSymbol(key, actorCoordinate, 0);
 							EffectUtility.playSoundEffect(key, actorCoordinate, 0);
@@ -459,7 +459,7 @@ public class BoardPane extends Canvas implements Updatable {
 			gameBoard.takeMove(actorCoordinate, movingToCoordinate);
 			actorCoordinate = movingToCoordinate;
 			pixel = actorCoordinate.coordinate2Pixel();
-			gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+			gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 		}
 	}
 
@@ -468,7 +468,7 @@ public class BoardPane extends Canvas implements Updatable {
 			System.out.println("selecting " + currentCoordinate.toString());
 			draw();
 			pixel = currentCoordinate.coordinate2Pixel();
-			gc.strokeRect(pixel[0], pixel[1], GameConstants.BOX_WIDTH, GameConstants.BOX_HEIGHT);
+			gc.strokeRect(pixel[0], pixel[1], GameConstant.BOX_WIDTH, GameConstant.BOX_HEIGHT);
 		}
 	}
 
@@ -488,17 +488,34 @@ public class BoardPane extends Canvas implements Updatable {
 				notStraight.add(coordinate);
 			}
 		}
-		sortedCoordinates.addAll(LogicUtility.sortByDistance(straight, currentCoordinate));
-		sortedCoordinates.addAll(LogicUtility.sortByDistance(notStraight, currentCoordinate));
+		sortedCoordinates.addAll(BoardPane.sortByDistance(straight, currentCoordinate));
+		sortedCoordinates.addAll(BoardPane.sortByDistance(notStraight, currentCoordinate));
 		coordinates = sortedCoordinates;
 	}
 
+	private static ArrayList<Coordinate> sortByDistance(ArrayList<Coordinate> coordinates, Coordinate currentCoordinate) {
+		// return sorted coordinates by closest to the most far distance from currentCoordinate
+		// used for selecting targets logic
+		
+		if (coordinates != null) {
+			Comparator<Coordinate> compareByDistanceFromCurrent = new Comparator<Coordinate>() {
+				public int compare(Coordinate c1, Coordinate c2) {
+					return Integer.compare(LogicUtility.calculateDistance(currentCoordinate, c1),
+							LogicUtility.calculateDistance(currentCoordinate, c2));
+				}
+			};
+			Collections.sort(coordinates, compareByDistanceFromCurrent);
+			return coordinates;
+		}
+		return null;
+	}
+	
 	public void resetActorCoordinate() {
 		actorCoordinate = null;
 	}
 	
 	public void checkUnDoneMove() {
-		if (key == GameConstants.MOVE_KEY) {
+		if (key == GameConstant.MOVE_KEY) {
 			if (beforeActionCoordinate != null) {
 				if (beforeActionCoordinate != actorCoordinate) {
 					gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);

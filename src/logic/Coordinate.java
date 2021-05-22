@@ -75,8 +75,8 @@ public class Coordinate implements Updatable, Comparable<Coordinate> {
 	}
 
 	public int[] coordinate2Pixel() {
-		int[] pixel = { GameConstants.ORIGIN_X + (j * GameConstants.BOX_WIDTH),
-				GameConstants.ORIGIN_Y + (i * GameConstants.BOX_HEIGHT) };
+		int[] pixel = { GameConstant.ORIGIN_X + (j * GameConstant.BOX_WIDTH),
+				GameConstant.ORIGIN_Y + (i * GameConstant.BOX_HEIGHT) };
 		return pixel;
 	}
 

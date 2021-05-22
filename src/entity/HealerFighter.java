@@ -2,7 +2,7 @@ package entity;
 
 import entity.base.Fighter;
 import entity.base.HitPointRegenerable;
-import logic.GameConstants;
+import logic.GameConstant;
 import logic.Sprites;
 
 public class HealerFighter extends Fighter implements HitPointRegenerable{
@@ -19,7 +19,7 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 
 	public HealerFighter(String type, int team) {
 		super(type, team);
-		setName(GameConstants.HEALER_NAME);
+		setName(GameConstant.HEALER_NAME);
 	}
 
 	public double heal(Fighter ally) {
@@ -35,14 +35,14 @@ public class HealerFighter extends Fighter implements HitPointRegenerable{
 	}
 
 	public int getSymbol() {
-		if (team == GameConstants.TEAM_1) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		if (team == GameConstant.TEAM_1) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P1_HEALERMELEE;
 			} else {
 				return Sprites.P1_HEALERRANGE;
 			}
-		} else if (team == GameConstants.TEAM_2) {
-			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstant.TEAM_2) {
+			if (type.equals(GameConstant.MELEE_TYPE_STRING)) {
 				return Sprites.P2_HEALERMELEE;
 			} else {
 				return Sprites.P2_HEALERRANGE;
