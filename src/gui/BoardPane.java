@@ -513,7 +513,7 @@ public class BoardPane extends Canvas implements Updatable {
 	}
 
 	public void checkUnDoneMove() {
-		if (key == GameConstant.MOVE_KEY) {
+		if (key == GameConstant.MOVE_KEY && GameController.isChose()) {
 			if (beforeActionCoordinate != null && actorCoordinate != null) {
 				if (beforeActionCoordinate != actorCoordinate) {
 					gameBoard.takeMove(actorCoordinate, beforeActionCoordinate);
