@@ -1,16 +1,17 @@
 package entity;
 
 import entity.base.Fighter;
-import logic.GameController;
+import logic.GameConstants;
 import logic.Sprites;
 
 public class SpeedyFighter extends Fighter {
 	// can move 2 spaces per move
+	
 	private final int EXTRA_MOVE = 1;
 	
 	public SpeedyFighter(String type, int team) {
 		super(type, team);
-		setName(GameController.SPEEDY_NAME);
+		setName(GameConstants.SPEEDY_NAME);
 	}
 
 	protected void setSpecialAbility() {
@@ -18,14 +19,14 @@ public class SpeedyFighter extends Fighter {
 	}
 
 	public int getSymbol() {
-		if (team == GameController.TEAM_1) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		if (team == GameConstants.TEAM_1) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P1_SPEEDYMELEE;
 			} else {
 				return Sprites.P1_SPEEDYRANGE;
 			}
-		} else if (team == GameController.TEAM_2) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstants.TEAM_2) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P2_SPEEDYMELEE;
 			} else {
 				return Sprites.P2_SPEEDYRANGE;

@@ -3,11 +3,12 @@ package entity;
 import entity.base.Fighter;
 import entity.base.HitPointRegenerable;
 import entity.base.StatsIncreasable;
-import logic.GameController;
+import logic.GameConstants;
 import logic.Sprites;
 
 public class ToughFighter extends Fighter implements HitPointRegenerable, StatsIncreasable {
 	// defense and hitPoint boost
+	
 	private double bonusDefense;
 	private double bonusHitPoint;
 
@@ -20,7 +21,7 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 
 	public ToughFighter(String type, int team) {
 		super(type, team);
-		setName(GameController.TOUGH_NAME);
+		setName(GameConstants.TOUGH_NAME);
 		setBonusStats();
 	}
 
@@ -29,14 +30,14 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 	}
 
 	public int getSymbol() {
-		if (team == GameController.TEAM_1) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		if (team == GameConstants.TEAM_1) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P1_TOUGHMELEE;
 			} else {
 				return Sprites.P1_TOUGHRANGE;
 			}
-		} else if (team == GameController.TEAM_2) {
-			if (type.equals(GameController.MELEE_TYPE_STRING)) {
+		} else if (team == GameConstants.TEAM_2) {
+			if (type.equals(GameConstants.MELEE_TYPE_STRING)) {
 				return Sprites.P2_TOUGHMELEE;
 			} else {
 				return Sprites.P2_TOUGHRANGE;

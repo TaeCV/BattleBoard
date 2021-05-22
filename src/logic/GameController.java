@@ -1,45 +1,10 @@
 package logic;
 
+import gui.SimulationManager;
 import screen.GameScreen;
 
 public class GameController {
-	public static final int originX = 0;
-	public static final int originY = 100;
-	public static final int PIXEL_X = 100;
-	public static final int PIXEL_Y = 88;
-	public static final int N_ROWS = 5;
-	public static final int N_COLS = 7;
-	public static final int PRE_BATTLE_PHASE_TIME = 60;
-	public static final int BATTLE_PHASE_TIME = 60;
-	public static final int MAX_TURN_PER_PLAYER = 9;
-	public static final int MAX_ROUND = 3;
-
-	public static final int BASE_MELEE_ATTACK = 40;
-	public static final int BASE_MELEE_DEFENSE = 25;
-	public static final int BASE_MELEE_MAXHITPOINT = 55;
-	public static final int BASE_MELEE_ATTACK_RANGE = 1;
-	public static final int BASE_RANGE_ATTACK = 25;
-	public static final int BASE_RANGE_DEFENSE = 10;
-	public static final int BASE_RANGE_MAXHITPOINT = 40;
-	public static final int BASE_RANGE_ATTACK_RANGE = 2;
-
-	public static final int BASE_TOTAL_MOVES = 1;
-
-	public static final String MELEE_TYPE_STRING = "melee";
-	public static final String RANGE_TYPE_STRING = "range";
-
-	public static final int TEAM_1 = 1;
-	public static final int TEAM_2 = 2;
-
-	public static final String DUCK_NAME = "Duck";
-	public static final String HEALER_NAME = "Healer";
-	public static final String SPEEDY_NAME = "Speedy";
-	public static final String TOUGH_NAME = "Tough";
-	public static final String WILD_NAME = "Wild";
-
-	public static final char MOVE_KEY = 'M';
-	public static final char ATTACK_KEY = 'A';
-	public static final char HEAL_KEY = 'H';
+	// control game's processes
 
 	private static GameBoard gameBoard;
 
@@ -54,11 +19,11 @@ public class GameController {
 	private static boolean isP1;
 	private static boolean isEndPreBattle;
 	private static boolean isTurnDone;
-	private static boolean isSelect;
-	private static boolean isChoose;
-	private static String winner;
+	private static boolean isSelected;
+	private static boolean isChose;
 	private static String P1Name;
 	private static String P2Name;
+	private static String winner;
 
 	public static void setDefault(String P1Name, String P2Name) {
 		setGameBoard(new GameBoard());
@@ -70,10 +35,11 @@ public class GameController {
 		setP2Name(P2Name);
 		setP1(true);
 		setGame(false);
-		setSelect(false);
-		setChoose(false);
+		setSelected(false);
+		setChose(false);
 	}
 
+	// =================utilities=================
 	public static boolean isP1() {
 		return isP1;
 	}
@@ -186,20 +152,20 @@ public class GameController {
 		GameController.isTurnDone = isTurnDone;
 	}
 
-	public static boolean isSelect() {
-		return isSelect;
+	public static boolean isSelected() {
+		return isSelected;
 	}
 
-	public static void setSelect(boolean isSelect) {
-		GameController.isSelect = isSelect;
+	public static void setSelected(boolean isSelect) {
+		GameController.isSelected = isSelect;
 	}
 
-	public static boolean isChoose() {
-		return isChoose;
+	public static boolean isChose() {
+		return isChose;
 	}
 
-	public static void setChoose(boolean isChoose) {
-		GameController.isChoose = isChoose;
+	public static void setChose(boolean isChoose) {
+		GameController.isChose = isChoose;
 	}
 
 	public static boolean isWin() {
@@ -223,13 +189,13 @@ public class GameController {
 			GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 		}
 		GameController.addTurnCount();
-		GameController.setSelect(false);
-		GameController.setChoose(false);
+		GameController.setSelected(false);
+		GameController.setChose(false);
 		GameController.setTurnDone(true);
 		setP1(!isP1());
 		gameBoard.resetReady();
 		gameBoard.update();
-		if (GameController.getTurnCount() == GameController.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
+		if (GameController.getTurnCount() == GameConstants.MAX_TURN_PER_PLAYER * 2 + 1 && !isRoundOver) {
 			checkWinnerAtTheEnd();
 			GameController.setRoundOver(true);
 		}
@@ -241,7 +207,7 @@ public class GameController {
 			GameController.setRoundDone(true); // finished round
 			GameController.setRoundOver(false);
 		}
-		if ((GameController.getRoundCount() > GameController.MAX_ROUND) || GameController.getP1Score() > 1
+		if ((GameController.getRoundCount() > GameConstants.MAX_ROUND) || GameController.getP1Score() > 1
 				|| GameController.getP2Score() > 1) {
 			GameController.setGame(true);
 			GameController.checkWinner();
