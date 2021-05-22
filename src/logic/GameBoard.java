@@ -3,7 +3,8 @@ package logic;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import entity.*;
+import entity.HealerFighter;
+import entity.SpeedyFighter;
 import entity.base.Fighter;
 import entity.base.HitPointRegenerable;
 

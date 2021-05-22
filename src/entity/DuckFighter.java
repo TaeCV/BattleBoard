@@ -8,7 +8,7 @@ public class DuckFighter extends Fighter {
 	// when this is attacked there is chance to dodge the attack
 	
 	private double dodgeChance; // percent to dodge
-	
+
 	private final int MIN_DODGECHANCE = 25;
 	private final int MAX_EXTRA_DODGECHANCE = 10;
 

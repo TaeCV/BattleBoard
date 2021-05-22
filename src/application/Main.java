@@ -11,7 +11,7 @@ public class Main extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
 		new StartScreen(primaryStage);
 		primaryStage.setResizable(false);

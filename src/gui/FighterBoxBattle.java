@@ -39,13 +39,7 @@ public class FighterBoxBattle extends FighterBox implements Updatable {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		gc.clearRect(0, 0, 150, 120);
-		gc.setFill(Color.LIGHTGREY);
-		gc.fillRect(0, 0, 150, 120);
-		gc.drawImage(image, 5, 5, 70, 70);
-		gc.strokeText(fighter.getName(), 80, 45);
-		gc.setFill(Color.GREEN);
-		gc.fillRect(25, 90, (fighter.getHitPoint() / fighter.getMaxHitPoint()) * 100, 20);
+		draw();
 		gc.setFill(Color.BLACK);
 		gc.fillRect(25 + (fighter.getHitPoint() / fighter.getMaxHitPoint()) * 100, 90,
 				100 - (fighter.getHitPoint() / fighter.getMaxHitPoint()) * 100, 20);

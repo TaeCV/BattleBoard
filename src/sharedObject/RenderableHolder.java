@@ -1,5 +1,25 @@
 package sharedObject;
 
+<<<<<<< HEAD
+||||||| 4397969
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import entity.base.Updatable;
+=======
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import logic.Updatable;
+>>>>>>> 25fa706fe7020700fffab00ea53f421e510abc93
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
@@ -12,7 +32,6 @@ public class RenderableHolder {
 	public static Image title_bg_Image;
 
 	// HowToPlay Images
-	public static Image howToPlay_p1_Image;
 
 	// PlayerNameBar Images
 	public static Image check_Image;
@@ -250,7 +269,6 @@ public class RenderableHolder {
 		tie_end_bg_Image = new Image(ClassLoader.getSystemResource(img + "tie_end_bg.jpg").toString());
 
 		howToPlay_bg_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_bg.jpg").toString());
-		//howToPlay_p1_Image = new Image(ClassLoader.getSystemResource(img + "howtoplay_p1.jpg").toString());
 
 		check_Image = new Image(ClassLoader.getSystemResource(img + "check.png").toString());
 		sword_Image = new Image(ClassLoader.getSystemResource(img + "sword.png").toString());
@@ -312,7 +330,6 @@ public class RenderableHolder {
 		RoundWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "roundwin.mp3").toString());
 		GameWin_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gamewin1.mp3").toString());
 		GameTie_Sound = new AudioClip(ClassLoader.getSystemResource(audio + "gametie1.mp3").toString());
-		
 
 		StartScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "startscreen_music.mp3").toString());
 		GameScreen_Music = new AudioClip(ClassLoader.getSystemResource(audio + "gamescreen_music.mp3").toString());

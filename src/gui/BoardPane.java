@@ -40,13 +40,9 @@ public class BoardPane extends Canvas implements Updatable {
 		draw();
 	}
 
-	public void draw() {
-		clear();
-		gc.drawImage(RenderableHolder.board_bg_Image, 0, 0, getWidth(), getHeight());
-	}
-
-	public void clear() {
+	private void draw() {
 		gc.clearRect(0, 0, 600, 700);
+		gc.drawImage(RenderableHolder.board_bg_Image, 0, 0, getWidth(), getHeight());
 	}
 
 	public void update() {
@@ -513,7 +509,7 @@ public class BoardPane extends Canvas implements Updatable {
 	public void resetActorCoordinate() {
 		actorCoordinate = null;
 	}
-	
+
 	public void checkUnDoneMove() {
 		if (key == GameConstant.MOVE_KEY) {
 			if (beforeActionCoordinate != null && actorCoordinate != null) {

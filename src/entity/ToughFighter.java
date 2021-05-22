@@ -15,10 +15,10 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 	private final int MAX_BONUS_DEFENSE = 20;
 	private final int MIN_BONUS_HIT_POINT = 20;
 	private final int MAX_EXTRA_BONUS_HIT_POINT = 30;
-	
+
 	private final int REGENERATING = 2; // percent
 	private final double REGENERATED_HIT_POINT = maxHitPoint * REGENERATING / 100;
-	
+
 	public ToughFighter(String type, int team) {
 		super(type, team);
 		setName(GameConstant.TOUGH_NAME);
@@ -61,10 +61,9 @@ public class ToughFighter extends Fighter implements HitPointRegenerable, StatsI
 	private void setBonusDefense() {
 		bonusDefense = Math.random() * MAX_BONUS_DEFENSE;
 	}
-	
+
 	private void setBonusHitPoint() {
 		bonusHitPoint = MIN_BONUS_HIT_POINT + Math.random() * MAX_EXTRA_BONUS_HIT_POINT;
 	}
-
 
 }

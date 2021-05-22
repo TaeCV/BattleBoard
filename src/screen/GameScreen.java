@@ -54,7 +54,7 @@ public class GameScreen {
 	public static GraphicsContext gameGC;
 	public static GraphicsContext statusGC;
 	public static GraphicsContext effectGC;
-	
+
 	public static int gameTime;
 	public static int positionToSelectP1 = 0;
 	public static int positionToSelectP2 = 0;
@@ -93,8 +93,8 @@ public class GameScreen {
 			for (int j = 0; j < GameConstant.N_COLS; j++) {
 				if (gameBoard.map[i][j] <= 20) {
 					gameGC.drawImage(RenderableHolder.getFullBodyImage(gameBoard.map[i][j]),
-							GameConstant.ORIGIN_X+ (j * GameConstant.BOX_WIDTH),
-							GameConstant.ORIGIN_Y+ (i * GameConstant.BOX_HEIGHT) - 56, 100, 100);
+							GameConstant.ORIGIN_X + (j * GameConstant.BOX_WIDTH),
+							GameConstant.ORIGIN_Y + (i * GameConstant.BOX_HEIGHT) - 56, 100, 100);
 				}
 			}
 		}

@@ -22,14 +22,32 @@ import logic.GameController;
 import sharedObject.RenderableHolder;
 
 public class EndScreen {
+	private Stage primaryStage;
 	private Pane root;
 	private VBox textGroup;
+	private HBox buttonGroup;
 	private AnimationTimer endScreenSong;
+	private Text congratulationText;
+	private Text playerName;
+	private Text tieText;
+	private Button backButton;
+	private Button quitButton;
 
 	public EndScreen(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		root = new Pane();
 		root.setMaxSize(1000, 800);
 
+		setUpSongAndTextGroup();
+		setUpButtonGroup();
+
+		root.getChildren().addAll(textGroup, buttonGroup);
+
+		Scene scene = new Scene(root, 1000, 800);
+		primaryStage.setScene(scene);
+	}
+
+	private void setUpSongAndTextGroup() {
 		if (GameController.isWin()) {
 			endScreenSong = new AnimationTimer() {
 
@@ -49,14 +67,26 @@ public class EndScreen {
 			textGroup.setAlignment(Pos.CENTER);
 			textGroup.setLayoutX(100);
 			textGroup.setLayoutY(170);
-			Text congratulationText = new Text("CONGRATULATION");
+			congratulationText = new Text("CONGRATULATION");
 			congratulationText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 40));
 			congratulationText.setFill(Color.WHITE);
-			Text playerName = new Text(GameController.getWinner());
+			playerName = new Text(GameController.getWinner());
 			playerName.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 65));
 			playerName.setFill(Color.WHITE);
 			textGroup.getChildren().addAll(congratulationText, playerName);
+
+			primaryStage.setTitle("Congratulation!!");
 		} else {
+			endScreenSong = new AnimationTimer() {
+
+				@Override
+				public void handle(long arg0) {
+					// TODO Auto-generated method stub
+					if (!RenderableHolder.GameTie_Sound.isPlaying())
+						RenderableHolder.GameTie_Sound.play();
+				}
+			};
+			endScreenSong.start();
 			root.setBackground(new Background(new BackgroundImage(RenderableHolder.tie_end_bg_Image, null, null, null,
 					new BackgroundSize(1000, 800, false, false, false, false))));
 			textGroup = new VBox(30);
@@ -64,17 +94,21 @@ public class EndScreen {
 			textGroup.setAlignment(Pos.CENTER);
 			textGroup.setLayoutX(-90);
 			textGroup.setLayoutY(80);
-			Text tieText = new Text("TIE GAME");
+			tieText = new Text("TIE GAME");
 			tieText.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 80));
 			tieText.setFill(Color.WHITE);
 			textGroup.getChildren().addAll(tieText);
-		}
 
-		HBox buttonGroup = new HBox(20);
+			primaryStage.setTitle("TIE GAME!!");
+		}
+	}
+
+	private void setUpButtonGroup() {
+		buttonGroup = new HBox(20);
 		buttonGroup.setPadding(new Insets(100));
 		buttonGroup.setLayoutX(370);
 		buttonGroup.setLayoutY(550);
-		Button backButton = new ActionButton("Main Menu");
+		backButton = new ActionButton("Main Menu");
 		backButton.setPrefSize(200, 50);
 		backButton.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		backButton.setOnMouseClicked(event -> {
@@ -85,7 +119,7 @@ public class EndScreen {
 			new StartScreen(primaryStage);
 		});
 
-		Button quitButton = new ActionButton("QUIT");
+		quitButton = new ActionButton("QUIT");
 		quitButton.setPrefSize(200, 50);
 		quitButton.setFont(Font.font("Palatino Linotype", FontWeight.SEMI_BOLD, 20));
 		quitButton.setOnMouseClicked(event -> {
@@ -97,10 +131,5 @@ public class EndScreen {
 		});
 
 		buttonGroup.getChildren().addAll(backButton, quitButton);
-		root.getChildren().addAll(textGroup, buttonGroup);
-
-		Scene scene = new Scene(root, 1000, 800);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Congratulation!!");
 	}
 }

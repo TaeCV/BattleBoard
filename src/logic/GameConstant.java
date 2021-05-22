@@ -2,7 +2,7 @@ package logic;
 
 public class GameConstant {
 	// holds game constants
-	
+
 	public static final int ORIGIN_X = 0;
 	public static final int ORIGIN_Y = 100;
 	public static final int BOX_WIDTH = 100;
@@ -25,5 +25,5 @@ public class GameConstant {
 	public static final char MOVE_KEY = 'M';
 	public static final char ATTACK_KEY = 'A';
 	public static final char HEAL_KEY = 'H';
-	
+
 }
