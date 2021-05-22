@@ -79,6 +79,7 @@ public class BoardPane extends Canvas implements Updatable {
 					}
 					select(actorCoordinate);
 				} else if (InputUtility.getKeyPressed(KeyCode.F)) {
+					RenderableHolder.Select_Sound_2.play();
 					draw();
 					System.out.println("Action!");
 					System.out.println(actorCoordinate.toString());
@@ -97,6 +98,7 @@ public class BoardPane extends Canvas implements Updatable {
 				// 4) can't do anything action
 				if (InputUtility.getKeyPressed(KeyCode.DIGIT1)
 						&& gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size() > 1) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Move!");
 					System.out.println(gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size());
 					key = GameConstant.MOVE_KEY;
@@ -105,6 +107,7 @@ public class BoardPane extends Canvas implements Updatable {
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT2)
 						&& gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size() != 0) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Attack!");
 					System.out.println(gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size());
 					key = GameConstant.ATTACK_KEY;
@@ -115,6 +118,7 @@ public class BoardPane extends Canvas implements Updatable {
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT3)
 						&& (actorCoordinate.getFighter() instanceof HealerFighter)
 						&& gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size() != 0) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Heal!");
 					System.out.println(gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size());
 					key = GameConstant.HEAL_KEY;
@@ -127,6 +131,7 @@ public class BoardPane extends Canvas implements Updatable {
 					GameController.setSelected(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.SPACE)) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Skip!");
 					GameController.setSelected(false);
 					actorCoordinate.getFighter().setReady(false);
@@ -253,6 +258,7 @@ public class BoardPane extends Canvas implements Updatable {
 					}
 					select(actorCoordinate);
 				} else if (InputUtility.getKeyPressed(KeyCode.SEMICOLON)) {
+					RenderableHolder.Select_Sound_2.play();
 					draw();
 					System.out.println("Action!");
 					System.out.println(actorCoordinate.toString());
@@ -270,6 +276,7 @@ public class BoardPane extends Canvas implements Updatable {
 				// 1) move, 2) attack, 3) heal (only healer can do this action)
 				if (InputUtility.getKeyPressed(KeyCode.DIGIT7)
 						&& gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size() > 1) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Move!");
 					System.out.println(gameBoard.getAllPossibleToMoveCoordinate(actorCoordinate).size());
 					key = GameConstant.MOVE_KEY;
@@ -278,6 +285,7 @@ public class BoardPane extends Canvas implements Updatable {
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT8)
 						&& gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size() != 0) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Attack!");
 					System.out.println(gameBoard.getAllPossibleTargetsToAttack(actorCoordinate).size());
 					key = GameConstant.ATTACK_KEY;
@@ -288,6 +296,7 @@ public class BoardPane extends Canvas implements Updatable {
 				} else if (InputUtility.getKeyPressed(KeyCode.DIGIT9)
 						&& (actorCoordinate.getFighter() instanceof HealerFighter)
 						&& gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size() != 0) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Heal!");
 					System.out.println(gameBoard.getAllPossibleAlliesToHeal(actorCoordinate).size());
 					key = GameConstant.HEAL_KEY;
@@ -300,6 +309,7 @@ public class BoardPane extends Canvas implements Updatable {
 					GameController.setSelected(false);
 					GameScreen.board.getChildren().remove(GameScreen.board.getChildren().size() - 1);
 				} else if (InputUtility.getKeyPressed(KeyCode.SPACE)) {
+					RenderableHolder.Select_Sound.play();
 					System.out.println("Skip!");
 					GameController.setSelected(false);
 					actorCoordinate.getFighter().setReady(false);

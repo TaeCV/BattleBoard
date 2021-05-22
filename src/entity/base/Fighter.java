@@ -28,13 +28,15 @@ public abstract class Fighter implements Updatable {
 
 	private final int BASE_MELEE_ATTACK = 40;
 	private final int BASE_MELEE_DEFENSE = 25;
-	private final int BASE_MELEE_MAXHITPOINT = 55;
+	private final int BASE_MELEE_MAXHITPOINT = 60;
 	private final int MELEE_ATTACK_RANGE = 1;
+	
 	private final int BASE_RANGE_ATTACK = 25;
 	private final int BASE_RANGE_DEFENSE = 10;
-	private final int BASE_RANGE_MAXHITPOINT = 40;
+	private final int BASE_RANGE_MAXHITPOINT = 50;
 	private final int RANGE_ATTACK_RANGE = 2;
-	private static final int BASE_TOTAL_MOVES = 1;
+	
+	private final int BASE_TOTAL_MOVES = 1;
 
 	public Fighter(String type, int team) {
 		setType(type);
